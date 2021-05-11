@@ -1,0 +1,1 @@
+CREATE VIRTUAL TABLE bible_book_names USING fts5(abbreviation, name, keywords, id UNINDEXED, content = 'bible_books', tokenize = 'porter unicode61 remove_diacritics 2');

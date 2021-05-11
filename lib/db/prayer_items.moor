@@ -1,0 +1,23 @@
+import 'prayer_items.dart';
+
+prayerTimeAvergePerDayLastWeek:
+    WITH RECURSIVE generate_series(value) AS (
+        SELECT CAST(strftime('%s', CURRENT_DATE) AS INTEGER) - 86400 * 6
+        UNION ALL
+            SELECT value + 86400
+                FROM generate_series
+                WHERE value + 86400 <= CAST(strftime('%s', CURRENT_DATE) AS INTEGER)
+    ), sums AS (
+        SELECT g.value as date, sum(coalesce(p.duration, 0)) as duration
+            FROM generate_series g
+                LEFT JOIN prayer_items p ON g.value = CAST(strftime('%s', date(p.date, 'unixepoch', 'localtime')) AS INTEGER)
+            GROUP BY g.value
+    ) SELECT CAST(avg(duration) AS INTEGER) as avg_duration FROM sums;
+
+totalPrayerDurationsForDateRange AS PrayerDuration:
+    SELECT CAST (day AS DATETIME) as date, duration as duration FROM (
+        SELECT strftime('%s', p.date, 'unixepoch', 'localtime','start of day') as day, sum(coalesce(p.duration, 0)) as duration
+            FROM prayer_items p
+            WHERE p.date BETWEEN $from AND $to
+            GROUP BY day
+    );

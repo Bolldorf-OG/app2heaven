@@ -1,0 +1,12 @@
+targets:
+    $default:
+      builders:
+        moor_generator:
+          options:
+            generate_connect_constructor: true
+            sqlite_modules:
+              - fts5
+      sources:
+        include:
+          - assets/i18n/**
+          - lib/**

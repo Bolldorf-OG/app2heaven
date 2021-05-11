@@ -1,0 +1,93 @@
+name: app2heaven_flutter
+description: A new Flutter application.
+
+version: 2.1.0+9900084 # This is only for Android, iOS uses the version from Xcode
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+publish_to: none
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  archive: ^3.1.2
+  audio_service:
+    git:
+      url: https://github.com/ryanheise/audio_service.git
+      ref: one-isolate
+      path: audio_service
+  fl_chart: ^0.35.0
+  cloud_firestore: ^1.0.3
+  datetime_picker_formfield: ^2.0.0
+  device_info: ^2.0.0
+  devicelocale: ^0.4.1
+  feature_discovery: ^0.14.0
+  file_picker_writable: ^2.0.0
+  firebase_analytics: ^8.0.0
+  firebase_core: ^1.0.2
+  firebase_crashlytics: ^2.0.0
+  firebase_dynamic_links: ^2.0.0
+  firebase_messaging: ^9.1.0
+  flutter_local_notifications: ^5.0.0
+  flutter_markdown: ^0.6.1
+  flutter_native_timezone: ^1.0.10
+  flutter_phoenix: ^1.0.0
+  flutter_secure_storage: ^4.1.0
+  flutter_typeahead: ^3.1.1
+  http: ^0.13.1
+  intl: ^0.17.0
+  intl_utils: ^2.1.0
+  just_audio: ^0.7.2
+  moor: ^4.2.1
+  package_info: ^2.0.0
+  page_view_indicators: ^2.0.0
+  path: ^1.8.0
+  path_provider: ^2.0.1
+  pointycastle: ^3.0.1
+  provider: ^5.0.0
+  rxdart: ^0.26.0
+  share: ^2.0.1
+  sqlite3_flutter_libs: ^0.4.1
+  streaming_shared_preferences: ^2.0.0
+  timer_builder: ^2.0.0
+  timezone: ^0.7.0-nullsafety.0
+  uni_links2: ^0.6.0
+  url_launcher: ^6.0.3
+  webview_flutter: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.0.1
+  moor_generator: ^4.2.1
+  pedantic: ^1.11.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/sidemenu/
+    - assets/deeds/
+    - assets/decisions/
+    - assets/gods_words/
+    - assets/gods_words/reminders/
+    - assets/gods_words/open_bible/
+    - assets/prayer_requests/
+    - assets/prayer_times/
+    - assets/experiences/
+    - assets/confession/
+    - assets/bible/
+
+  fonts:
+    - family: RatingsIcons
+      fonts:
+        - asset: fonts/ratings_icons.ttf
+
+flutter_intl:
+  enabled: true

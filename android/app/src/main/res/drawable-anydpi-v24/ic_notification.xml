@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2021. Bolldorf OG
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="26.086956"
+    android:viewportHeight="26.086956"
+    android:tint="#FFFFFF">
+  <group android:translateX="1.0434783"
+      android:translateY="1.0434783">
+    <path
+        android:pathData="m11.2244,5.4756l0,-4.9511l1.5511,-0l0,4.9511zM11.2244,23.4756l0,-4.9511l1.5511,-0l0,4.9511zM18.5244,11.2244l4.9511,-0l0,1.5511l-4.9511,-0zM0.5244,11.2244L5.4756,11.2244l0,1.5511L0.5244,12.7756Z"
+        android:strokeAlpha="1"
+        android:strokeLineJoin="round"
+        android:strokeWidth="0.04885204"
+        android:fillColor="#000005"
+        android:strokeColor="#00000000"
+        android:fillAlpha="1"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M16.9756,12A4.9756,4.9756 0,0 1,12 16.9756,4.9756 4.9756,0 0,1 7.0244,12 4.9756,4.9756 0,0 1,12 7.0244a4.9756,4.9756 0,0 1,4.9756 4.9756zM6.1142,9.158 L2.2487,6.9263l0.4817,-0.8344 3.8655,2.2317zM21.2696,17.908 L17.4041,15.6763 17.8859,14.8419 21.7513,17.0737zM8.3237,6.5958 L6.092,2.7304 6.9263,2.2487 9.1581,6.1141zM17.0737,21.7513 L14.842,17.8858 15.6763,17.4041 17.908,21.2696zM14.842,6.1141 L17.0737,2.2487 17.9081,2.7304 15.6763,6.5959zM6.092,21.2696 L8.3237,17.4041 9.1581,17.8859 6.9263,21.7513zM17.4041,8.3237 L21.2696,6.0919 21.7513,6.9263 17.8859,9.1581zM2.2487,17.0737 L6.1141,14.8419 6.5959,15.6763 2.7304,17.9081z"
+        android:strokeAlpha="1"
+        android:strokeLineJoin="round"
+        android:strokeWidth="0.04875501"
+        android:fillColor="#000005"
+        android:strokeColor="#00000000"
+        android:fillAlpha="1"
+        android:strokeLineCap="round"/>
+  </group>
+</vector>

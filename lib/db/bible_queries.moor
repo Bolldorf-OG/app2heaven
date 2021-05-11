@@ -1,0 +1,13 @@
+import 'bible_fts.moor';
+import 'bible.dart';
+
+clearBookFts5: DELETE FROM bible_book_names;
+fillBookFts5: INSERT INTO bible_book_names (id, abbreviation, keywords, name) SELECT id, abbreviation, keywords, name FROM bible_books;
+
+searchBookFts5(:query AS TEXT): SELECT CAST(id AS INTEGER) AS id,
+                                       highlight(bible_book_names, 1, '_', '_') AS name,
+                                       abbreviation,
+                                       highlight(bible_book_names, 2, '**', '**') AS keywords
+                                 FROM bible_book_names
+                                 WHERE bible_book_names MATCH :query
+                                 ORDER BY rank;
