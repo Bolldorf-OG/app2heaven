@@ -12,12 +12,17 @@ import '../util/constants.dart';
 import 'preferences.dart';
 
 class DialogsPreferences {
+  final Preference<bool> reset2021;
   final Preference<bool> askForAnalytics;
   final Preference<bool> askForProgrammers;
   final Preference<DateTime> askForDonationsDate;
 
   DialogsPreferences(StreamingSharedPreferences preferences)
-      : askForAnalytics = preferences.getBool(
+      : reset2021 = preferences.getBool(
+          DialogsConstants.keyReset2021,
+          defaultValue: false,
+        ),
+        askForAnalytics = preferences.getBool(
           DialogsConstants.keyAskForAnalytics,
           defaultValue: true,
         ),
@@ -32,12 +37,14 @@ class DialogsPreferences {
         );
 
   Map<String, dynamic> get jsonData => {
+        "reset2021": reset2021.getValue(),
         "askForAnalytics": askForAnalytics.getValue(),
         "askForProgrammers": askForProgrammers.getValue(),
         "askForDonationsDate": askForDonationsDate.getValue().toIso8601String(),
       };
 
   Future<void> readFromJson(Map<String, dynamic> prefsJson) async {
+    await reset2021.setOrClearValue(prefsJson["reset2021"]);
     await askForAnalytics.setOrClearValue(prefsJson["askForAnalytics"]);
     await askForProgrammers.setOrClearValue(prefsJson["askForProgrammers"]);
     await askForDonationsDate.setOrClearValue(DateTime.parse(prefsJson["askForDonationsDate"]));

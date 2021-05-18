@@ -340,10 +340,10 @@ class S {
     );
   }
 
-  /// `Plan your next confession`
+  /// `Plan and save confessions`
   String get confession_planner_description {
     return Intl.message(
-      'Plan your next confession',
+      'Plan and save confessions',
       name: 'confession_planner_description',
       desc: '',
       args: [],
@@ -540,6 +540,16 @@ class S {
     );
   }
 
+  /// `Days preview {date}`
+  String dayspreview_date(Object date) {
+    return Intl.message(
+      'Days preview $date',
+      name: 'dayspreview_date',
+      desc: '',
+      args: [date],
+    );
+  }
+
   /// `Decisions`
   String get dayspreview_decisions_head {
     return Intl.message(
@@ -627,6 +637,16 @@ class S {
       name: 'daysreview',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Days review {date}`
+  String daysreview_date(Object date) {
+    return Intl.message(
+      'Days review $date',
+      name: 'daysreview_date',
+      desc: '',
+      args: [date],
     );
   }
 
@@ -2964,10 +2984,10 @@ class S {
     );
   }
 
-  /// `App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us spread the word by reviewing the App and sharing with your friends, or by going to the donations page!`
+  /// `App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us by giving us feedback about your user experience, giving us your suggestions for the further development of the app, telling your friends about App2Heaven or visiting the donation page.`
   String get donations_dialog {
     return Intl.message(
-      'App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us spread the word by reviewing the App and sharing with your friends, or by going to the donations page!',
+      'App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us by giving us feedback about your user experience, giving us your suggestions for the further development of the app, telling your friends about App2Heaven or visiting the donation page.',
       name: 'donations_dialog',
       desc: '',
       args: [],
@@ -3004,10 +3024,10 @@ class S {
     );
   }
 
-  /// `App2Heaven is looking for app programmers to jointly develop the app on an open source platform. Interested? Then write us at {email}.`
+  /// `App2Heaven is looking for app programmers to jointly develop the app on an open source platform. Interested? Then write us at {email} or take a look at the code at https://github.com/Bolldorf-OG/app2heaven.`
   String programmers_dialog(Object email) {
     return Intl.message(
-      'App2Heaven is looking for app programmers to jointly develop the app on an open source platform. Interested? Then write us at $email.',
+      'App2Heaven is looking for app programmers to jointly develop the app on an open source platform. Interested? Then write us at $email or take a look at the code at https://github.com/Bolldorf-OG/app2heaven.',
       name: 'programmers_dialog',
       desc: '',
       args: [email],
@@ -3591,6 +3611,26 @@ class S {
     return Intl.message(
       'Clear confession topics (requires password)',
       name: 'clear_confession_topics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add previous confession`
+  String get add_confession {
+    return Intl.message(
+      'Add previous confession',
+      name: 'add_confession',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View code`
+  String get view_code {
+    return Intl.message(
+      'View code',
+      name: 'view_code',
       desc: '',
       args: [],
     );

@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../preferences/preferences.dart';
+import '../../util/helpers.dart';
 import '../../widgets/navigation_drawer.dart';
 import 'decisions.dart';
 import 'deeds.dart';
@@ -25,6 +26,7 @@ class DayPreviewPage extends StatelessWidget {
     final strings = S.of(context);
     final pageNotifier = ValueNotifier(0);
     final settings = Provider.of<AppPreferences>(context).settings.daysPreview;
+    final locale = Localizations.localeOf(context);
 
     final pages = [
       if (settings.godsWords.getValue() == true) DayPreviewWords(),
@@ -35,7 +37,7 @@ class DayPreviewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(strings.dayspreview),
+        title: Text(strings.dayspreview_date(locale.shortDateFormat.format(DateTime.now()))),
       ),
       bottomNavigationBar: NavigationBottomAppBar(),
       body: Stack(

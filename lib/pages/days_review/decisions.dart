@@ -16,11 +16,12 @@ import '../../db/database.dart';
 import '../../db/decisions.dart';
 import '../../generated/l10n.dart';
 import '../../util/constants.dart';
-import '../../util/helpers.dart';
 import '../../widgets/decision_rating_bar.dart';
 
 class DayReviewDecisions extends StatelessWidget {
-  final _today = DateTime.now().startOfDay;
+  final DateTime date;
+
+  const DayReviewDecisions({Key? key, required this.date}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class DayReviewDecisions extends StatelessWidget {
           Expanded(
             child: StreamBuilder<List<DecisionWithRating>>(
                 initialData: const [],
-                stream: dao.getCurrentDecisionsWithRatingsForDateStream(_today),
+                stream: dao.getCurrentDecisionsWithRatingsForDateStream(date),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return Text("Error: ${snapshot.error}");
@@ -132,7 +133,7 @@ class DayReviewDecisions extends StatelessWidget {
                                             name: AnalyticsConstants.eventRateDecision,
                                           );
                                           await dao.setDecisionRating(DecisionRatingsCompanion.insert(
-                                            date: _today,
+                                            date: date,
                                             rating: newRating,
                                             decisionId: decision.id,
                                           ));

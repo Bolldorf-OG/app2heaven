@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../preferences/preferences.dart';
+import '../../util/helpers.dart';
 import '../../widgets/navigation_drawer.dart';
 import 'calm_down.dart';
 import 'confession.dart';
@@ -29,11 +30,15 @@ class DayReviewPage extends StatelessWidget {
     final strings = S.of(context);
     final pageNotifier = ValueNotifier(0);
     final settings = Provider.of<AppPreferences>(context).settings.daysReview;
+    final locale = Localizations.localeOf(context);
+
+    final now = DateTime.now();
+    final date = now.hour < 4 ? now.add(Duration(hours: -12)).startOfDay : now.startOfDay;
 
     final pages = [
-      if (settings.prayerTime.getValue() == true) DayReviewPrayerTime(),
-      if (settings.decisions.getValue() == true) DayReviewDecisions(),
-      if (settings.deeds.getValue() == true) DayReviewDeeds(),
+      if (settings.prayerTime.getValue() == true) DayReviewPrayerTime(date: date),
+      if (settings.decisions.getValue() == true) DayReviewDecisions(date: date),
+      if (settings.deeds.getValue() == true) DayReviewDeeds(date: date),
       DayReviewCalmDown(),
       DayReviewConfession(),
       DayReviewForgiveness(),
@@ -42,7 +47,7 @@ class DayReviewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(strings.daysreview),
+        title: Text(strings.daysreview_date(locale.shortDateFormat.format(date))),
       ),
       bottomNavigationBar: NavigationBottomAppBar(),
       body: Stack(

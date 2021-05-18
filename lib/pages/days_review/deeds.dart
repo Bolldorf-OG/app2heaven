@@ -16,6 +16,10 @@ import '../../generated/l10n.dart';
 import '../../util/helpers.dart';
 
 class DayReviewDeeds extends StatelessWidget {
+  final DateTime date;
+
+  const DayReviewDeeds({Key? key, required this.date}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final dao = Provider.of<AppDatabase>(context).deedsDao;
@@ -48,7 +52,7 @@ class DayReviewDeeds extends StatelessWidget {
           Expanded(
             child: StreamBuilder<List<Deed>>(
                 initialData: const [],
-                stream: dao.getDeedsStreamForDate(DateTime.now().toUtc().startOfDay),
+                stream: dao.getDeedsStreamForDate(date),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return Text("Error: ${snapshot.error}");

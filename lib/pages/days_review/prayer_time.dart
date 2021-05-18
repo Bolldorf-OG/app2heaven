@@ -20,6 +20,10 @@ import '../../util/helpers.dart';
 import '../../widgets/prayer_time_chart.dart';
 
 class DayReviewPrayerTime extends StatefulWidget {
+  final DateTime date;
+
+  const DayReviewPrayerTime({Key? key, required this.date}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _DayReviewPrayerTimeState();
 }
@@ -32,8 +36,6 @@ class _DayReviewPrayerTimeState extends State<DayReviewPrayerTime> {
 
   final _dialogController = TextEditingController();
   final _dialogFocusNode = FocusNode();
-
-  final _today = DateTime.now().startOfDay;
 
   void _editPrayerTimeToday(PrayerItemsDao dao) async {
     final strings = S.of(context);
@@ -74,20 +76,20 @@ class _DayReviewPrayerTimeState extends State<DayReviewPrayerTime> {
     }
 
     await dao.insertPrayerItem(PrayerItemsCompanion.insert(
-      date: DateTime.now(),
+      date: widget.date,
       duration: Value(newDuration - oldDuration),
     ));
   }
 
   void _loadPrayerDurations() async {
     final dao = Provider.of<AppDatabase>(context).prayerItemsDao;
-    _prayerDurationTodaySubscription = dao.getTotalPrayerDurationForDateStream(_today).listen((duration) {
+    _prayerDurationTodaySubscription = dao.getTotalPrayerDurationForDateStream(widget.date).listen((duration) {
       setState(() {
         _prayerDurationToday = duration;
       });
     });
 
-    final durationTomorrow = await getIntendedPrayerTime(_today.add(Duration(days: 1)).getWeekday());
+    final durationTomorrow = await getIntendedPrayerTime(widget.date.add(Duration(days: 1)).getWeekday());
     setState(() {
       _prayerDurationTomorrow = durationTomorrow;
     });

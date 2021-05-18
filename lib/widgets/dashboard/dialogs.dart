@@ -39,6 +39,12 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
     final prefs = Provider.of<AppPreferences>(context, listen: false);
     final dialogPrefs = prefs.dialogs;
 
+    if (!dialogPrefs.reset2021.getValue()) {
+      await dialogPrefs.askForProgrammers.clear();
+      await dialogPrefs.askForDonationsDate.clear();
+      await dialogPrefs.reset2021.setValue(true);
+    }
+
     if (dialogPrefs.askForAnalytics.getValue()) {
       final result = await showDialog(
         context: context,
@@ -76,6 +82,14 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
               child: Text(strings.send_mail),
             ),
             TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                await FirebaseAnalytics().logEvent(name: "programmer_github");
+                await launch("https://github.com/Bolldorf-OG/app2heaven");
+              },
+              child: Text(strings.view_code),
+            ),
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text(strings.later),
             ),
@@ -86,26 +100,26 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
     }
 
     if (dialogPrefs.askForDonationsDate.getValue().difference(DateTime.now()) <= Duration.zero) {
-      final result = await showDialog(
+      await showDialog(
         context: context,
         builder: (context) => AlertDialog(
           content: Text(strings.donations_dialog),
           actions: <Widget>[
             TextButton(
               onPressed: () async {
-                Navigator.pop(context, DonationsConstants.timeoutExtended);
+                Navigator.pop(context);
                 await Navigator.pushNamed(context, "/donations");
               },
               child: Text(strings.donate_now),
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context, DonationsConstants.timeoutNormal),
+              onPressed: () => Navigator.pop(context),
               child: Text(strings.later),
             ),
           ],
         ),
       );
-      await dialogPrefs.askForDonationsDate.setValue(DateTime.now().add(result));
+      await dialogPrefs.askForDonationsDate.setValue(DateTime.now().add(DonationsConstants.timeoutNormal));
     }
   }
 

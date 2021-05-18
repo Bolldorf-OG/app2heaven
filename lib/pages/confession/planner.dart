@@ -191,7 +191,7 @@ class ConfessionPlannerPage extends StatelessWidget {
                     Row(
                       children: [
                         if (value != DateTime(-1))
-                          TextButton.icon(
+                          ElevatedButton.icon(
                             onPressed: () async {
                               final notificationsPlugin = FlutterLocalNotificationsPlugin();
                               final result = await notificationsPlugin
@@ -211,7 +211,7 @@ class ConfessionPlannerPage extends StatelessWidget {
                             label: Text(strings.clear_reminder),
                           ),
                         Spacer(),
-                        TextButton.icon(
+                        ElevatedButton.icon(
                           onPressed: () async => await _createReminder(context),
                           icon: Icon(Icons.notifications_active_outlined),
                           label: Text(value.isBefore(_today) ? strings.set_reminder : strings.change_reminder),
@@ -223,10 +223,18 @@ class ConfessionPlannerPage extends StatelessWidget {
               },
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.only(top: 16.0),
               child: Text(
                 strings.past_confessions,
                 style: theme.textTheme.headline6,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton.icon(
+                onPressed: () async => await _addConfession(context, dao),
+                icon: const Icon(Icons.playlist_add),
+                label: Text(strings.add_confession),
               ),
             ),
             StreamBuilder<List<Confession>>(
@@ -275,11 +283,6 @@ class ConfessionPlannerPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => await _addConfession(context, dao),
-        child: Icon(Icons.playlist_add),
       ),
     );
   }

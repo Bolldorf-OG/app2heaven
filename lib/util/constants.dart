@@ -67,6 +67,7 @@ class BackupConstants {
 }
 
 class DialogsConstants {
+  static const keyReset2021 = "dialogs_reset_2021";
   static const keyAskForAnalytics = "dialogs_ask_for_analytics";
   static const keyAskForProgrammers = "dialogs_ask_for_programmers";
   static const keyAskForDonationsDate = "dialogs_asked_for_donations_on";
@@ -75,8 +76,8 @@ class DialogsConstants {
 
 class DonationsConstants {
   static const link = "https://www.app2heaven.com/#comp-jgkv57g5";
-  static const timeoutNormal = Duration(days: 30);
-  static const timeoutExtended = Duration(days: 90);
+  static const timeoutNormal = Duration(days: 14);
+  static const timeoutExtended = Duration(days: 30);
 }
 
 enum GodsWordsReminderType {
