@@ -453,10 +453,10 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                             return newValue;
                           }
 
-                          final match = RegExp(r"(\d+)(?:-(\d+))?").matchAsPrefix(newValue.text)!;
+                          final match = RegExp(r"(\d+)(?:-(\d+))?").matchAsPrefix(newValue.text);
                           final maxLength = "$_maxVerse".length;
-                          if ((match.group(1)?.length ?? 0) <= maxLength &&
-                              (match.group(2)?.length ?? 0) <= maxLength) {
+                          if ((match?.group(1)?.length ?? 0) <= maxLength &&
+                              (match?.group(2)?.length ?? 0) <= maxLength) {
                             return newValue;
                           }
 
