@@ -3635,6 +3635,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Reset dialog`
+  String get reset_dialog {
+    return Intl.message(
+      'Reset dialog',
+      name: 'reset_dialog',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

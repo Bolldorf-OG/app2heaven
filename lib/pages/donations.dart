@@ -27,7 +27,19 @@ class DonationsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(strings.donations),
       ),
-      bottomNavigationBar: NavigationBottomAppBar(),
+      bottomNavigationBar: NavigationBottomAppBar(
+        actions: <Widget>[
+          PopupMenuButton<void Function()>(
+            itemBuilder: (context) => [
+              PopupMenuItem<void Function()>(
+                value: () => prefs.dialogs.askForDonationsDate.clear(),
+                child: Text(strings.reset_dialog),
+              ),
+            ],
+            onSelected: (value) => value.call(),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: MarkdownBody(

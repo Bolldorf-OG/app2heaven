@@ -563,6 +563,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder_created_confession": m12,
         "reset": MessageLookupByLibrary.simpleMessage("Réinitialiser"),
         "reset_demo": MessageLookupByLibrary.simpleMessage("Reset demo"),
+        "reset_dialog":
+            MessageLookupByLibrary.simpleMessage("Réinitialiser le dialogue"),
         "reset_password": MessageLookupByLibrary.simpleMessage(
             "Réinitialiser le mot de passe"),
         "reset_password_caution": MessageLookupByLibrary.simpleMessage(

@@ -78,7 +78,8 @@
   "daysreview_prayertime_sub": "Heute habe ich gebetet",
   "daysreview_prayertime_sub2": "Geplante Gebetszeit morgen",
   "decision": "Entscheidung",
-  "decision_view": "Entwicklung anschauen",  "decisions": "Entscheidungen",
+  "decision_view": "Entwicklung anschauen",
+  "decisions": "Entscheidungen",
   "decisions_archive_sub": "aller bisherigen Entscheidungen",
   "decisions_info_sub": "Mein Leben bewusst gestalten",
   "deed": "Tat",
@@ -356,5 +357,6 @@
   "no_confessions_yet": "Noch keine Beichten gespeichert",
   "clear_confession_topics": "Beichtzettel löschen (benötigt Passwort)",
   "add_confession": "Abgelegte Beichte eintragen",
-  "view_code": "Code ansehen"
+  "view_code": "Code ansehen",
+  "reset_dialog": "Dialog zurücksetzen"
 }

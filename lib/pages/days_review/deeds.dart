@@ -29,6 +29,8 @@ class DayReviewDeeds extends StatelessWidget {
     final locale = Localizations.localeOf(context);
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
+    dao.getCurrentDeedsStream().forEach((value) => print(value));
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -52,7 +54,7 @@ class DayReviewDeeds extends StatelessWidget {
           Expanded(
             child: StreamBuilder<List<Deed>>(
                 initialData: const [],
-                stream: dao.getDeedsStreamForDate(date),
+                stream: dao.getDeedsStreamForDate(DateTime.utc(date.year, date.month, date.day)),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return Text("Error: ${snapshot.error}");

@@ -357,5 +357,6 @@
   "no_confessions_yet": "No confessions yet",
   "clear_confession_topics": "Clear confession topics (requires password)",
   "add_confession": "Add previous confession",
-  "view_code": "View code"
+  "view_code": "View code",
+  "reset_dialog": "Reset dialog"
 }

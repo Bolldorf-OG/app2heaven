@@ -297,7 +297,8 @@
   "donate_now": "En savoir plus",
   "later": "Plus tard",
   "analytics_dialog": "Aidez-nous à développer davantage l'application en soumettant vos statistiques d'utilisation de manière anonyme. Vous pouvez modifier votre décision à tout moment dans les paramètres.",
-  "programmers_dialog": "App2Heaven recherche des programmeurs d'applications pour développer conjointement l'application sur une plate-forme open source. Intéressé? Alors écrivez-nous à {email} ou jetez un œil au code à l'adresse https://github.com/Bolldorf-OG/app2heaven.",  "send_mail": "Envoyer un e-mail",
+  "programmers_dialog": "App2Heaven recherche des programmeurs d'applications pour développer conjointement l'application sur une plate-forme open source. Intéressé? Alors écrivez-nous à {email} ou jetez un œil au code à l'adresse https://github.com/Bolldorf-OG/app2heaven.",
+  "send_mail": "Envoyer un e-mail",
   "bible_book": "Livre",
   "bible_chapter": "Chapitre",
   "bible_verses": "Verset(s)",
@@ -356,5 +357,6 @@
   "no_confessions_yet": "Aucune confession enregistrée pour le moment",
   "clear_confession_topics": "Effacer les sujets de confession (nécessite un mot de passe)",
   "add_confession": "Ajouter une confession",
-  "view_code": "Afficher le code"
+  "view_code": "Afficher le code",
+  "reset_dialog": "Réinitialiser le dialogue"
 }

@@ -6,6 +6,8 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'dart:io';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -108,7 +110,12 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
             TextButton(
               onPressed: () async {
                 Navigator.pop(context);
-                await Navigator.pushNamed(context, "/donations");
+                if (Platform.isIOS) {
+                  await Navigator.pushNamed(context, "/donations");
+                } else {
+                  await FirebaseAnalytics().logEvent(name: AnalyticsConstants.eventDonate);
+                  await launch(DonationsConstants.link, forceSafariVC: false);
+                }
               },
               child: Text(strings.donate_now),
             ),
