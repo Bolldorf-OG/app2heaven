@@ -34,23 +34,28 @@ class PrayerRequests extends Table {
 
 enum PrayerRequestState { active, done, archived }
 
-class PrayerRequestStateConverter extends TypeConverter<PrayerRequestState, String> {
+class PrayerRequestStateConverter
+    extends TypeConverter<PrayerRequestState, String> {
   static const _mapping = ["active", "done", "archived"];
 
   @override
-  PrayerRequestState? mapToDart(String? fromDb) =>
-      fromDb == null ? null : PrayerRequestState.values[_mapping.indexOf(fromDb)];
+  PrayerRequestState? mapToDart(String? fromDb) => fromDb == null
+      ? null
+      : PrayerRequestState.values[_mapping.indexOf(fromDb)];
 
   @override
-  String? mapToSql(PrayerRequestState? value) => value == null ? null : _mapping[value.index];
+  String? mapToSql(PrayerRequestState? value) =>
+      value == null ? null : _mapping[value.index];
 }
 
 @UseDao(tables: [PrayerRequests])
-class PrayerRequestsDao extends DatabaseAccessor<AppDatabase> with _$PrayerRequestsDaoMixin {
+class PrayerRequestsDao extends DatabaseAccessor<AppDatabase>
+    with _$PrayerRequestsDaoMixin {
   PrayerRequestsDao(AppDatabase db) : super(db);
 
   Stream<PrayerRequest> getPrayerRequestStream(int id) {
-    return (select(prayerRequests)..where((d) => d.id.equals(id))).watchSingle();
+    return (select(prayerRequests)..where((d) => d.id.equals(id)))
+        .watchSingle();
   }
 
   Stream<List<PrayerRequest>> getActivePrayerRequestsStream() {
@@ -87,8 +92,10 @@ class PrayerRequestsDao extends DatabaseAccessor<AppDatabase> with _$PrayerReque
     return into(prayerRequests).insert(prayerRequest);
   }
 
-  Future<int> updatePrayerRequest(PrayerRequest prayerRequest, PrayerRequestsCompanion newPrayerRequest) {
-    return (update(prayerRequests)..whereSamePrimaryKey(prayerRequest)).write(newPrayerRequest);
+  Future<int> updatePrayerRequest(
+      PrayerRequest prayerRequest, PrayerRequestsCompanion newPrayerRequest) {
+    return (update(prayerRequests)..whereSamePrimaryKey(prayerRequest))
+        .write(newPrayerRequest);
   }
 
   Future<int> deletePrayerRequest(PrayerRequest prayerRequest) {
@@ -96,7 +103,9 @@ class PrayerRequestsDao extends DatabaseAccessor<AppDatabase> with _$PrayerReque
   }
 
   Future<int> deletePrayerRequests(List<PrayerRequest> items) {
-    return (delete(prayerRequests)..where((item) => item.id.isIn(items.map((e) => e.id)))).go();
+    return (delete(prayerRequests)
+          ..where((item) => item.id.isIn(items.map((e) => e.id))))
+        .go();
   }
 
   Future<int?> getIdForShareId(String shareId) {

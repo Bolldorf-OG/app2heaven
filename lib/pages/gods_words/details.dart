@@ -24,7 +24,8 @@ import '../../widgets/navigation_drawer.dart';
 class GodsWordDetailsPage extends StatelessWidget {
   final int godsWordId;
 
-  const GodsWordDetailsPage({Key? key, required this.godsWordId}) : super(key: key);
+  const GodsWordDetailsPage({Key? key, required this.godsWordId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,8 @@ class GodsWordDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),
@@ -66,20 +68,25 @@ class GodsWordDetailsPage extends StatelessWidget {
         }
 
         void edit() async {
-          final newGodsWord = await Navigator.pushNamed(context, "/gods-words/edit", arguments: godsWord);
+          final newGodsWord = await Navigator.pushNamed(
+              context, "/gods-words/edit",
+              arguments: godsWord);
           if (newGodsWord != null) {
-            await dao.updateGodsWord(godsWord, newGodsWord as GodsWordsCompanion);
+            await dao.updateGodsWord(
+                godsWord, newGodsWord as GodsWordsCompanion);
           }
         }
 
         void unarchive() async {
           Navigator.pop(context);
-          await dao.updateGodsWord(godsWord, godsWord.copyWith(archived: false).toCompanion(false));
+          await dao.updateGodsWord(
+              godsWord, godsWord.copyWith(archived: false).toCompanion(false));
         }
 
         void archive() async {
           Navigator.pop(context);
-          await dao.updateGodsWord(godsWord, godsWord.copyWith(archived: true).toCompanion(false));
+          await dao.updateGodsWord(
+              godsWord, godsWord.copyWith(archived: true).toCompanion(false));
         }
 
         void delete() async {
@@ -89,7 +96,8 @@ class GodsWordDetailsPage extends StatelessWidget {
 
         void share() async {
           Future<String> _createShareLink() async {
-            final data = await SharedContent(godsWord.title, godsWord.content).share(SharedContentType.godsWord);
+            final data = await SharedContent(godsWord.title, godsWord.content)
+                .share(SharedContentType.godsWord);
 
             await dao.updateGodsWord(
               godsWord,
@@ -106,7 +114,8 @@ class GodsWordDetailsPage extends StatelessWidget {
           }
 
           final shareLink = godsWord.shareLink ?? await _createShareLink();
-          await Share.share(strings.share_gods_word(godsWord.title, godsWord.content, shareLink));
+          await Share.share(strings.share_gods_word(
+              godsWord.title, godsWord.content, shareLink));
         }
 
         return Scaffold(
@@ -121,7 +130,9 @@ class GodsWordDetailsPage extends StatelessWidget {
               IconButton(
                 icon: Icon(godsWord.archived ? Icons.unarchive : Icons.archive),
                 onPressed: godsWord.archived ? unarchive : archive,
-                tooltip: godsWord.archived ? strings.show_in_current : strings.archive,
+                tooltip: godsWord.archived
+                    ? strings.show_in_current
+                    : strings.archive,
               ),
               IconButton(
                 icon: Icon(Icons.share),

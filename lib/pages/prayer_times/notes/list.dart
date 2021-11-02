@@ -26,7 +26,8 @@ class PrayerNotesPage extends StatelessWidget {
       dataStream: dao.getAllPrayerNotesStream(),
       iconPath: "assets/prayer_times/notes.png",
       onAdd: () async {
-        final prayerNote = await Navigator.pushNamed(context, "/prayer-times/notes/edit");
+        final prayerNote =
+            await Navigator.pushNamed(context, "/prayer-times/notes/edit");
         if (prayerNote != null) {
           await dao.insertPrayerNote(prayerNote as PrayerNotesCompanion);
         }
@@ -40,7 +41,8 @@ class PrayerNotesPage extends StatelessWidget {
       ),
       onDelete: (items) => dao.deletePrayerNotes(items),
       onShare: (items) async {
-        final content = items.map((e) => "${e.title}\n${e.content}\n").join("\n");
+        final content =
+            items.map((e) => "${e.title}\n${e.content}\n").join("\n");
         await Share.share(content);
       },
       noItemsFound: strings.no_prayer_notes,

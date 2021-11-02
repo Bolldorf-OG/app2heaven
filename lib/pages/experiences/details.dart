@@ -20,7 +20,8 @@ import '../../widgets/navigation_drawer.dart';
 class ExperienceDetailsPage extends StatelessWidget {
   final int experienceId;
 
-  const ExperienceDetailsPage({Key? key, required this.experienceId}) : super(key: key);
+  const ExperienceDetailsPage({Key? key, required this.experienceId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class ExperienceDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),
@@ -62,9 +64,12 @@ class ExperienceDetailsPage extends StatelessWidget {
         }
 
         void edit() async {
-          final newExperience = await Navigator.pushNamed(context, "/experiences/edit", arguments: experience);
+          final newExperience = await Navigator.pushNamed(
+              context, "/experiences/edit",
+              arguments: experience);
           if (newExperience != null) {
-            await dao.updateExperience(experience, newExperience as ExperiencesCompanion);
+            await dao.updateExperience(
+                experience, newExperience as ExperiencesCompanion);
           }
         }
 
@@ -75,7 +80,9 @@ class ExperienceDetailsPage extends StatelessWidget {
 
         void share() async {
           Future<String> _createShareLink() async {
-            final data = await SharedContent(experience.title, experience.content).share(SharedContentType.experience);
+            final data =
+                await SharedContent(experience.title, experience.content)
+                    .share(SharedContentType.experience);
 
             await dao.updateExperience(
               experience,
@@ -92,7 +99,8 @@ class ExperienceDetailsPage extends StatelessWidget {
           }
 
           final shareLink = experience.shareLink ?? await _createShareLink();
-          await Share.share(strings.share_experience(experience.title, experience.content, shareLink));
+          await Share.share(strings.share_experience(
+              experience.title, experience.content, shareLink));
         }
 
         return Scaffold(

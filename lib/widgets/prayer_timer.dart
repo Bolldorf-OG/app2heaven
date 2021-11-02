@@ -31,7 +31,8 @@ class PrayerTimer extends StatelessWidget {
     final dao = Provider.of<AppDatabase>(context).prayerItemsDao;
 
     return StreamBuilder<Duration?>(
-      stream: dao.getTotalPrayerDurationForDateStream(DateTime.now().startOfDay),
+      stream:
+          dao.getTotalPrayerDurationForDateStream(DateTime.now().startOfDay),
       initialData: Duration.zero,
       builder: (context, snapshot) {
         final durationToday = snapshot.data;
@@ -49,7 +50,8 @@ class PrayerTimer extends StatelessWidget {
                     builder: (context) => builder(
                       context,
                       true,
-                      DateTime.now().difference(snapshot.data!.date) + durationToday!,
+                      DateTime.now().difference(snapshot.data!.date) +
+                          durationToday!,
                       () => dao.endPrayerTime(DateTime.now()),
                     ),
                   )

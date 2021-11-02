@@ -33,7 +33,10 @@ class PrayerStimulusDetailsPage extends StatelessWidget {
       bottomNavigationBar: NavigationBottomAppBar(),
       body: StreamBuilder<DocumentSnapshot>(
         initialData: null,
-        stream: FirebaseFirestore.instance.collection("stimuli").doc(stimulusId).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("stimuli")
+            .doc(stimulusId)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             if (snapshot.hasError) {
@@ -41,7 +44,8 @@ class PrayerStimulusDetailsPage extends StatelessWidget {
             }
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.connectionState == ConnectionState.none) {
             return Container(
               alignment: Alignment.center,
               child: CircularProgressIndicator(),

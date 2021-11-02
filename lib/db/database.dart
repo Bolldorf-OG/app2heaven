@@ -107,17 +107,20 @@ class DurationConverter extends TypeConverter<Duration, int> {
   const DurationConverter();
 
   @override
-  Duration? mapToDart(int? fromDb) => fromDb == null ? null : Duration(microseconds: fromDb);
+  Duration? mapToDart(int? fromDb) =>
+      fromDb == null ? null : Duration(microseconds: fromDb);
 
   @override
   int? mapToSql(Duration? value) => value?.inMicroseconds;
 }
 
-class DocumentReferenceConverter extends TypeConverter<DocumentReference, String> {
+class DocumentReferenceConverter
+    extends TypeConverter<DocumentReference, String> {
   const DocumentReferenceConverter();
 
   @override
-  DocumentReference? mapToDart(String? fromDb) => fromDb == null ? null : FirebaseFirestore.instance.doc(fromDb);
+  DocumentReference? mapToDart(String? fromDb) =>
+      fromDb == null ? null : FirebaseFirestore.instance.doc(fromDb);
 
   @override
   String? mapToSql(DocumentReference? value) => value?.path;
@@ -130,7 +133,11 @@ extension DateTimeExtensions on Expression<DateTime?> {
           const Constant<String>("%s"),
           FunctionCallExpression<int>(
             "date",
-            [this, const Constant<String>("unixepoch"), const Constant<String>("localtime")],
+            [
+              this,
+              const Constant<String>("unixepoch"),
+              const Constant<String>("localtime")
+            ],
           ),
         ],
       ).cast();

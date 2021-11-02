@@ -30,7 +30,8 @@ class DecisionRatings extends Table {
 
   IntColumn get rating => integer()();
 
-  IntColumn get decisionId => integer().customConstraint('REFERENCES decisions(id)')();
+  IntColumn get decisionId =>
+      integer().customConstraint('REFERENCES decisions(id)')();
 
   @override
   Set<Column> get primaryKey => {date, decisionId};
@@ -45,7 +46,8 @@ class DecisionWithRating {
 }
 
 @UseDao(tables: [Decisions, DecisionRatings])
-class DecisionsDao extends DatabaseAccessor<AppDatabase> with _$DecisionsDaoMixin {
+class DecisionsDao extends DatabaseAccessor<AppDatabase>
+    with _$DecisionsDaoMixin {
   DecisionsDao(AppDatabase db) : super(db);
 
   Stream<Decision> getDecisionStream(int id) {
@@ -74,8 +76,10 @@ class DecisionsDao extends DatabaseAccessor<AppDatabase> with _$DecisionsDaoMixi
     return into(decisions).insert(decision);
   }
 
-  Future<int> updateDecision(Decision decision, DecisionsCompanion newDecision) {
-    return (update(decisions)..whereSamePrimaryKey(decision)).write(newDecision);
+  Future<int> updateDecision(
+      Decision decision, DecisionsCompanion newDecision) {
+    return (update(decisions)..whereSamePrimaryKey(decision))
+        .write(newDecision);
   }
 
   Future<int> deleteDecision(Decision decision) {
@@ -83,30 +87,42 @@ class DecisionsDao extends DatabaseAccessor<AppDatabase> with _$DecisionsDaoMixi
   }
 
   Future<int> deleteDecisions(List<Decision> items) {
-    return (delete(decisions)..where((item) => item.id.isIn(items.map((e) => e.id)))).go();
+    return (delete(decisions)
+          ..where((item) => item.id.isIn(items.map((e) => e.id))))
+        .go();
   }
 
-  Stream<List<DecisionWithRating>> getCurrentDecisionsWithRatingsForDateStream(DateTime date) {
+  Stream<List<DecisionWithRating>> getCurrentDecisionsWithRatingsForDateStream(
+      DateTime date) {
     final joined = select(decisions).join([
       leftOuterJoin(
-          decisionRatings, decisionRatings.decisionId.equalsExp(decisions.id) & decisionRatings.date.equals(date)),
+          decisionRatings,
+          decisionRatings.decisionId.equalsExp(decisions.id) &
+              decisionRatings.date.equals(date)),
     ]);
     return (joined
           ..where(decisions.archived.equals(false))
           ..orderBy([
             OrderingTerm.desc(decisions.created),
           ]))
-        .map((result) => DecisionWithRating(result.readTable(decisions), result.readTableOrNull(decisionRatings)))
+        .map((result) => DecisionWithRating(result.readTable(decisions),
+            result.readTableOrNull(decisionRatings)))
         .watch();
   }
 
-  Future<void> setDecisionRating(DecisionRatingsCompanion decisionRating) async {
-    return into(decisionRatings).insert(decisionRating, mode: InsertMode.insertOrReplace).then((value) => {});
+  Future<void> setDecisionRating(
+      DecisionRatingsCompanion decisionRating) async {
+    return into(decisionRatings)
+        .insert(decisionRating, mode: InsertMode.insertOrReplace)
+        .then((value) => {});
   }
 
-  Stream<List<DecisionRating>> getDecisionRatingsForDateRangeStream(int decisionId, DateTime from, DateTime to) {
+  Stream<List<DecisionRating>> getDecisionRatingsForDateRangeStream(
+      int decisionId, DateTime from, DateTime to) {
     return (select(decisionRatings)
-          ..where((rating) => rating.decisionId.equals(decisionId) & rating.date.isBetweenValues(from, to)))
+          ..where((rating) =>
+              rating.decisionId.equals(decisionId) &
+              rating.date.isBetweenValues(from, to)))
         .watch();
   }
 }

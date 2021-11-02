@@ -24,7 +24,8 @@ class ArchivedPrayerRequestsPage extends StatelessWidget {
       title: strings.archive,
       dataStream: dao.getArchivedPrayerRequestStream(),
       iconPath: "assets/prayer_requests/list.png",
-      itemBuilder: (context, prayerRequest) => PrayerRequestListItem(prayerRequest),
+      itemBuilder: (context, prayerRequest) =>
+          PrayerRequestListItem(prayerRequest),
       itemTitle: (context, godsWord) => Text(godsWord.title),
       itemSubtitle: (context, godsWord) => Text(
         godsWord.content,

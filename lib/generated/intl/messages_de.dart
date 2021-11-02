@@ -29,59 +29,56 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(date) => "Geplant für: ${date}";
 
-  static String m5(link) =>
-      "Die App2Heaven wird für Benutzer immer völlig kostenlos sein. App2Heaven e.V. arbeitet daran, mehr Menschen zu erreichen und Gottes Licht in die Welt zu bringen. Hilf uns dabei! Mehr Infos bei [App2Heaven e.V.](${link})";
+  static String m5(date) => "Deine letzte Beichte war am ${date}.";
 
-  static String m6(date) => "Deine letzte Beichte war am ${date}.";
-
-  static String m7(date, time) =>
+  static String m6(date, time) =>
       "Meine letzte Beichte war am ${date} um ${time} Uhr";
 
-  static String m8(date) => "Du hast deine nächste Beichte am ${date} geplant.";
+  static String m7(date) => "Du hast deine nächste Beichte am ${date} geplant.";
 
-  static String m9(startTime, duration) =>
+  static String m8(startTime, duration) =>
       "Gebetszeit um ${startTime} Uhr (${duration}). Der Herr erwartet Dich!";
 
-  static String m10(email) =>
+  static String m9(email) =>
       "Die App2Heaven sucht App-Programmierer für eine gemeinsame Weiterentwicklung der App auf einer Open-Source-Plattform. Interessiert? Dann melde dich unter ${email} oder sieh dir den Code auf https://github.com/Bolldorf-OG/app2heaven an.";
 
-  static String m11(count) =>
+  static String m10(count) =>
       "${Intl.plural(count, one: 'Vers lesen', other: 'Verse lesen')}";
 
-  static String m12(date, time) =>
+  static String m11(date, time) =>
       "Erinnerung für deine nächste Beichte am ${date} erstellt. Du wirst am ${date} um ${time} erinnert.";
 
-  static String m13(title, text, uri) =>
+  static String m12(title, text, uri) =>
       "Sieh Dir diese Erfahrung aus meiner App2Heaven an:\n${title}\n\n${text}\n${uri}";
 
-  static String m14(title, text, uri) =>
+  static String m13(title, text, uri) =>
       "Sieh Dir dieses Bibelwort aus meiner App2Heaven an:\n${title}\n\n${text}\n${uri}";
 
-  static String m15(title, text, uri) =>
+  static String m14(title, text, uri) =>
       "Sieh Dir diese Gebetsnotiz aus meiner App2Heaven an:\n${title}\n\n${text}\n${uri}";
 
-  static String m16(title, text, uri) =>
+  static String m15(title, text, uri) =>
       "Bitte bete mit mir für dieses Gebetsanliegen aus meiner App2Heaven:\n${title}\n\n${text}\n${uri}";
 
-  static String m17(title, text, uri) =>
+  static String m16(title, text, uri) =>
       "Gott hat geholfen! Danke für dein Mitbeten für dieses Anliegen:\n${title}\n\n${text}\n${uri}";
 
-  static String m18(date) => "Impuls ${date}";
+  static String m17(date) => "Impuls ${date}";
 
-  static String m19(title, text) =>
+  static String m18(title, text) =>
       "Deine täglich Erinnerung an \"${title}\":\n\n${text}";
 
-  static String m20(title) => "\'${title}\' wurde gespeichert.";
+  static String m19(title) => "\'${title}\' wurde gespeichert.";
 
-  static String m21(title, time) =>
+  static String m20(title, time) =>
       "Du wirst jeden Tag um ${time} an \'${title}\' erinnert.";
 
-  static String m22(x, y) => "${x} h ${y} min";
+  static String m21(x, y) => "${x} h ${y} min";
 
-  static String m23(x) =>
+  static String m22(x) =>
       "${Intl.plural(x, one: '${x} Stunde', other: '${x} Stunden')}";
 
-  static String m24(x) =>
+  static String m23(x) =>
       "${Intl.plural(x, one: '${x} Minute', other: '${x} Minuten')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -136,6 +133,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Erinnerung ändern"),
         "choose_folder":
             MessageLookupByLibrary.simpleMessage("Ordner auswählen"),
+        "choose_word_for_reminder": MessageLookupByLibrary.simpleMessage(
+            "Wähle den Eintrag, an den du erinnert werden willst"),
         "clear_confession_topics": MessageLookupByLibrary.simpleMessage(
             "Beichtzettel löschen (benötigt Passwort)"),
         "clear_reminder":
@@ -303,10 +302,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Du kannst jetzt mehrere Elemente gleichzeitig teilen oder exportieren, indem du auf dieses Symbol klickst, die Elemente in der Liste auswählst und dann auf den Button in der unteren rechten Ecke klickst."),
         "display": MessageLookupByLibrary.simpleMessage("Anzeige"),
         "donate_now": MessageLookupByLibrary.simpleMessage("Mehr Infos"),
-        "donations": MessageLookupByLibrary.simpleMessage("Spenden"),
-        "donations_dialog": MessageLookupByLibrary.simpleMessage(
-            "Die App2Heaven wird für Benutzer immer völlig kostenlos sein. App2Heaven e.V. arbeitet daran, mehr Menschen zu erreichen und Gottes Licht in die Welt zu bringen. Hilf uns dabei, indem du uns Feedback über deine Nutzererfahrung gibst, uns deine Anregungen für die Weiterentwicklung der App mitteilst, deinen Freunden von der App2Heaven erzählst oder auf die Spendenseite gehst."),
-        "donations_text_markdown": m5,
         "done": MessageLookupByLibrary.simpleMessage("Erledigt"),
         "duration": MessageLookupByLibrary.simpleMessage("Dauer:"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
@@ -356,6 +351,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Aus Aktuell ausblenden"),
         "highlight": MessageLookupByLibrary.simpleMessage("Hervorheben"),
         "hours": MessageLookupByLibrary.simpleMessage("Stunden"),
+        "imprint_address_text": MessageLookupByLibrary.simpleMessage(
+            "App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: "),
+        "imprint_address_title":
+            MessageLookupByLibrary.simpleMessage("Postanschrift"),
+        "imprint_donations_account_text": MessageLookupByLibrary.simpleMessage(
+            "App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05"),
+        "imprint_donations_account_title":
+            MessageLookupByLibrary.simpleMessage("Spendenkonto"),
+        "imprint_donations_text": MessageLookupByLibrary.simpleMessage(
+            "Der App2Heaven e.V. ist anerkannt als gemeinnütziger Verein. Spenden können von der Steuer abgesetzt werden."),
+        "imprint_feedback_text": MessageLookupByLibrary.simpleMessage(
+            "Gib uns Feedback über deine Nutzererfahrung und schreib deine Ideen für die Weiterentwicklung der App an "),
+        "imprint_text": MessageLookupByLibrary.simpleMessage(
+            "Die App2Heaven wird als Projekt getragen von der Gemeinschaft Emmanuel, will aber eine Plattform sein, auf der alle teilnehmenden Gemeinschaften sich gleichberechtigt einbringen können."),
+        "imprint_title": MessageLookupByLibrary.simpleMessage("Impressum"),
         "info": MessageLookupByLibrary.simpleMessage("Info"),
         "intended_min": MessageLookupByLibrary.simpleMessage("Geplant (min)"),
         "introduction": MessageLookupByLibrary.simpleMessage("Einführung"),
@@ -367,7 +377,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nicht alle Einträge haben eine gültige Gebetszeit"),
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
         "large": MessageLookupByLibrary.simpleMessage("groß"),
-        "last_confession": m6,
+        "last_confession": m5,
         "later": MessageLookupByLibrary.simpleMessage("Später"),
         "loading_experience":
             MessageLookupByLibrary.simpleMessage("Lade Erfahrung..."),
@@ -390,7 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Herr Jesus Christus, im Schweigen dieses anbrechenden Morgens komme ich zu dir und bitte dich mit Demut und Vertrauen um deinen Frieden, deine Weisheit, deine Kraft.\nGib, dass ich heute die Welt betrachte mit Augen, die voller Liebe sind. Lass mich begreifen, dass alle Herrlichkeit der Kirche aus deinem Kreuz als deren Quelle entspringt. Lass mich meinen Nächsten als den Menschen empfangen, den du durch mich lieben willst. Schenke mir die Bereitschaft, ihm mit Hingabe zu dienen und alles Gute, das du in ihn hineingelegt hast, zu entfalten.\nMeine Worte sollen Sanftmut ausstrahlen, und mein ganzes Verhalten soll Frieden stiften. Nur jene Gedanken, die Segen verbreiten, sollen in meinem Geiste haften bleiben. Verschließe meine Ohren vor jedem übelwollenden Wort und jeder böswilligen Kritik. Möge meine Zunge nur dazu dienen, das Gute hervorzuheben. Vor allem bewirke, o Herr, dass ich so voller Frohmut und Wohlwollen bin, dass alle, die mir begegnen, sowohl deine Gegenwart als auch deine Liebe spüren. Bekleide mich mit dem Glanz deiner Güte und deiner Schönheit, damit ich dich im Verlaufe dieses Tages offenbare. Amen."),
         "morning_prayer_head": MessageLookupByLibrary.simpleMessage(
             "Morgengebet der hl. Mirjam von Abellin (anzeigen)"),
-        "my_confession_was_on": m7,
+        "my_confession_was_on": m6,
         "my_confession_was_on_fallback":
             MessageLookupByLibrary.simpleMessage("Noch keine Beichte"),
         "my_faithexperiences":
@@ -471,6 +481,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bibelstelle vorschlagen"),
         "open_bible_sub":
             MessageLookupByLibrary.simpleMessage("Worte lesen und notieren"),
+        "oss_libs":
+            MessageLookupByLibrary.simpleMessage("Open Source Libraries"),
         "others": MessageLookupByLibrary.simpleMessage("Andere"),
         "password": MessageLookupByLibrary.simpleMessage("Passwort"),
         "password_request":
@@ -482,7 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "plan_next_confession":
             MessageLookupByLibrary.simpleMessage("Nächste Beichte planen"),
         "planned": MessageLookupByLibrary.simpleMessage("Geplant"),
-        "planned_confession": m8,
+        "planned_confession": m7,
         "planning": MessageLookupByLibrary.simpleMessage("Planung"),
         "planning_button_sub":
             MessageLookupByLibrary.simpleMessage("Zeit finden für Gott."),
@@ -521,7 +533,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gebetsanliegen"),
         "prayerrequests_info_paragraph": MessageLookupByLibrary.simpleMessage(
             "Hier kannst du all die Anliegen notieren, für die du beten willst, damit sie nicht in Vergessenheit geraten. Besonders dringende Anliegen können hervorgehoben werden. Vielleicht stellt sich im Lauf der Zeit heraus, dass sich deine Bitten verändern – dann kannst du sie umformulieren. Mit einem Klick hast du so in deiner Gebetszeit alle aktuellen Anliegen vor Augen. Du kannst deine Gebetsanliegen auch mit anderen App2heaven- Nutzern teilen. Gebetsanliegen, in denen du Erhörung erfahren hast, kannst du markieren. Es tut gut, ab und zu diese erhörten Bitten noch einmal nachzulesen und für das zu danken, was Gott für uns getan hat."),
-        "prayertime_reminder": m9,
+        "prayertime_reminder": m8,
         "prayertimes": MessageLookupByLibrary.simpleMessage("Gebetszeiten"),
         "prayertimes1": MessageLookupByLibrary.simpleMessage("Gebetszeiten"),
         "preparation": MessageLookupByLibrary.simpleMessage("Vorbereitung"),
@@ -534,7 +546,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy_text_ok": MessageLookupByLibrary.simpleMessage("Gelesen"),
         "privacy_text_title":
             MessageLookupByLibrary.simpleMessage("Hinweise zum Datenschutz"),
-        "programmers_dialog": m10,
+        "programmers_dialog": m9,
         "random_experience":
             MessageLookupByLibrary.simpleMessage("Glaubenserfahrung"),
         "random_stimulus": MessageLookupByLibrary.simpleMessage("Impuls"),
@@ -547,7 +559,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sei nicht traurig. Morgen ist ein neuer Tag und „neu ist das Erbarmen des Herrn an jedem Morgen“ (Klgl 3,23)."),
         "read": MessageLookupByLibrary.simpleMessage("Lesen"),
         "read_passage": MessageLookupByLibrary.simpleMessage("Stelle lesen"),
-        "read_verses": m11,
+        "read_verses": m10,
         "real_prayertimes": MessageLookupByLibrary.simpleMessage("Jetzt beten"),
         "real_prayertimes_sub": MessageLookupByLibrary.simpleMessage(
             "Deine mit Gott verbrachte Zeit"),
@@ -560,7 +572,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder": MessageLookupByLibrary.simpleMessage("Erinnerung"),
         "reminder_created":
             MessageLookupByLibrary.simpleMessage("Erinnerung erstellt"),
-        "reminder_created_confession": m12,
+        "reminder_created_confession": m11,
         "reset": MessageLookupByLibrary.simpleMessage("Zurücksetzen"),
         "reset_demo": MessageLookupByLibrary.simpleMessage("Reset Demo"),
         "reset_dialog":
@@ -594,11 +606,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "seven_day_review":
             MessageLookupByLibrary.simpleMessage("Sieben-Tages-Rückblick"),
         "share": MessageLookupByLibrary.simpleMessage("Teilen"),
-        "share_experience": m13,
-        "share_gods_word": m14,
-        "share_prayer_note": m15,
-        "share_prayer_request": m16,
-        "share_prayer_request_done": m17,
+        "share_experience": m12,
+        "share_gods_word": m13,
+        "share_prayer_note": m14,
+        "share_prayer_request": m15,
+        "share_prayer_request_done": m16,
         "show_history":
             MessageLookupByLibrary.simpleMessage("Entwicklung anzeigen"),
         "show_in_current":
@@ -612,7 +624,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gebetszeit beginnen"),
         "stimuli_by_category":
             MessageLookupByLibrary.simpleMessage("Impulse nach Kategorie"),
-        "stimulus_head": m18,
+        "stimulus_head": m17,
         "stimulus_intro": MessageLookupByLibrary.simpleMessage(
             "Im Namen des Vaters und des Sohnes und des Heiligen Geistes. Amen."),
         "stimulus_to_prayer":
@@ -647,8 +659,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "word_format_error": MessageLookupByLibrary.simpleMessage(
             "Bitte eine gültige Bibelstelle eingeben. z.B. \'1. Petrus 2,3\' oder \'1. Petrus 2,4-6\'"),
         "word_of_god": MessageLookupByLibrary.simpleMessage("Worte Gottes"),
-        "word_reminder": m19,
-        "word_saved": m20,
+        "word_reminder": m18,
+        "word_saved": m19,
         "words": MessageLookupByLibrary.simpleMessage("Worte"),
         "words_archive_sub":
             MessageLookupByLibrary.simpleMessage("aller notierten Worte"),
@@ -656,7 +668,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "In den Worten der Heiligen Schrift spricht Gott zu uns. Er zeigt uns, wie er selbst ist, und lässt uns wichtige Dinge über unser Leben erkennen. Oft spüren wir, wenn wir in der Bibel lesen oder im Gottesdienst die Lesungen hören: Dieses Wort ist für mich! Es lässt mich etwas Wichtiges verstehen. Es zeigt mir etwas, was ich tun soll. Dann kommt es darauf an, dass ich dieses Wort auch aufnehme. „Hört das Wort nicht nur an, sondern handelt danach; sonst betrügt ihr euch selbst“, heißt es im Jakobusbrief (1,22). Die Gefahr ist, dass wir das Gehörte schnell wieder vergessen und sich nichts ändert in unserem Leben. Wenn wir das Wort aber hören und danach handeln, dann wird unser Leben verwandelt, und Gott führt uns seine Wege. Diese Funktion hilft dir dabei, besser auf Gottes Wort zu hören. Notiere dir die Worte, die dich angesprochen haben. Nimm sie wieder her zum Gebet, schaue sie dir zwischendurch noch einmal an oder lass dich über die Erinnerungsfunktion im Alltag an sie erinnern. Dann werden die Worte einsickern in dein Herz, sie bleiben in dir und bringen Frucht. Du kannst entscheiden, welche aktuellen Worte du sofort sehen willst, neue Worte hinzufügen oder andere Worte ausblenden. Unter „alle Worte“ siehst du auch die schon länger ausgeblendeten. Manchmal ist es interessant, diese Worte wieder im Zusammenhang zu lesen und so einen „roten Faden“ zu entdecken und zu sehen, wie Gott dich durch sein Wort führt.\nDu kannst entscheiden, welche aktuellen Worte du sofort sehen willst, neue Worte hinzufügen oder andere Worte ausblenden. Unter „alle Worte“ siehst du auch die schon länger ausgeblendeten. Manchmal ist es interessant, diese Worte wieder im Zusammenhang zu lesen und so einen „roten Faden“ zu entdecken und zu sehen, wie Gott dich durch sein Wort führt."),
         "words_info_sub":
             MessageLookupByLibrary.simpleMessage("Leben mit dem Wort Gottes"),
-        "words_reminder_enabled": m21,
+        "words_reminder_enabled": m20,
         "words_reminder_head": MessageLookupByLibrary.simpleMessage(
             "Lass dich im Alltag an das Wort Gottes erinnern!"),
         "words_reminder_no_current_words": MessageLookupByLibrary.simpleMessage(
@@ -668,9 +680,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Falsches Passwort"),
         "wrong_password_text": MessageLookupByLibrary.simpleMessage(
             "Das Passwort war falsch, bitte versuche es erneut. (Du kannst dein Passwort in den Einstellungen zurücksetzen, falls du es vergessen hast.)"),
-        "x_h_y_min": m22,
-        "x_hours": m23,
-        "x_minutes": m24,
+        "x_h_y_min": m21,
+        "x_hours": m22,
+        "x_minutes": m23,
         "yes": MessageLookupByLibrary.simpleMessage("Ja")
       };
 }

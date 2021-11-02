@@ -29,7 +29,8 @@ class Experiences extends Table {
 }
 
 @UseDao(tables: [Experiences])
-class ExperiencesDao extends DatabaseAccessor<AppDatabase> with _$ExperiencesDaoMixin {
+class ExperiencesDao extends DatabaseAccessor<AppDatabase>
+    with _$ExperiencesDaoMixin {
   ExperiencesDao(AppDatabase db) : super(db);
 
   Stream<Experience> getExperienceStream(int id) {
@@ -48,8 +49,10 @@ class ExperiencesDao extends DatabaseAccessor<AppDatabase> with _$ExperiencesDao
     return into(experiences).insert(experience);
   }
 
-  Future<int> updateExperience(Experience experience, ExperiencesCompanion newExperience) {
-    return (update(experiences)..whereSamePrimaryKey(experience)).write(newExperience);
+  Future<int> updateExperience(
+      Experience experience, ExperiencesCompanion newExperience) {
+    return (update(experiences)..whereSamePrimaryKey(experience))
+        .write(newExperience);
   }
 
   Future<int> deleteExperience(Experience experience) {
@@ -57,7 +60,9 @@ class ExperiencesDao extends DatabaseAccessor<AppDatabase> with _$ExperiencesDao
   }
 
   Future<int> deleteExperiences(List<Experience> items) {
-    return (delete(experiences)..where((item) => item.id.isIn(items.map((e) => e.id)))).go();
+    return (delete(experiences)
+          ..where((item) => item.id.isIn(items.map((e) => e.id))))
+        .go();
   }
 
   Future<int?> getIdForShareId(String shareId) {

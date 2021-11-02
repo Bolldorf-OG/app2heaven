@@ -50,10 +50,12 @@ class _ConfessionTopicEditPageState extends State<ConfessionTopicEditPage> {
   final TextEditingController titleController;
   final TextEditingController contentController;
 
-  _ConfessionTopicEditPageState._create(this.titleController, this.contentController);
+  _ConfessionTopicEditPageState._create(
+      this.titleController, this.contentController);
 
   _ConfessionTopicEditPageState(String title, String content)
-      : this._create(TextEditingController(text: title), TextEditingController(text: content));
+      : this._create(TextEditingController(text: title),
+            TextEditingController(text: content));
 
   @override
   void dispose() {

@@ -44,18 +44,22 @@ class DashboardPrayerTimer extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             duration?.format() ?? "",
-                            style: textTheme.headline6!.copyWith(color: Colors.white),
+                            style: textTheme.headline6!
+                                .copyWith(color: Colors.white),
                           ),
                           Text(
                             "/",
-                            style: textTheme.headline6!.copyWith(color: Colors.grey),
+                            style: textTheme.headline6!
+                                .copyWith(color: Colors.grey),
                           ),
                           FutureBuilder<Duration>(
-                            future: getIntendedPrayerTime(DateTime.now().getWeekday()),
+                            future: getIntendedPrayerTime(
+                                DateTime.now().getWeekday()),
                             initialData: Duration.zero,
                             builder: (context, snapshot) => Text(
                               snapshot.data?.format() ?? "",
-                              style: textTheme.headline6!.copyWith(color: Colors.grey),
+                              style: textTheme.headline6!
+                                  .copyWith(color: Colors.grey),
                             ),
                           ),
                         ],

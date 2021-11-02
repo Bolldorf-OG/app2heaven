@@ -42,7 +42,8 @@ class ConfessionPage extends StatelessWidget {
               onStoreNewPassword: ConfessionIvAndSalt.initialize,
             );
             if (password != null) {
-              await Navigator.pushNamed(context, "/confession/topics", arguments: password);
+              await Navigator.pushNamed(context, "/confession/topics",
+                  arguments: password);
             }
           },
         ),

@@ -43,6 +43,8 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
     required TimeOfDay? initialTime,
     required FutureOr<void> Function(GodsWord godsWord, TimeOfDay time) enable,
   }) async {
+    final strings = S.of(context);
+
     if (_godsWords.isEmpty == true) {
       await showDialog(
         context: context,
@@ -62,6 +64,7 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
     final godsWord = await showDialog(
       context: context,
       builder: (context) => SimpleDialog(
+        title: Text(strings.choose_word_for_reminder),
         children: _godsWords
             .map(
               (word) => SimpleDialogOption(
@@ -122,7 +125,8 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
               enabled: enabled,
               onTap: () async {
                 final result = await notificationPlugin
-                    .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+                    .resolvePlatformSpecificImplementation<
+                        IOSFlutterLocalNotificationsPlugin>()
                     ?.requestPermissions(
                       sound: true,
                       alert: true,
@@ -152,10 +156,11 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
                       await prefs.reminderTime(type).setValue(time);
                       await prefs.reminderTitle(type).setValue(godsWord.title);
 
-                      final localTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+                      final localTimeZone =
+                          await FlutterNativeTimezone.getLocalTimezone();
                       final now = TZDateTime.now(getLocation(localTimeZone));
-                      var scheduledDate =
-                          TZDateTime(now.location, now.year, now.month, now.day, time.hour, time.minute);
+                      var scheduledDate = TZDateTime(now.location, now.year,
+                          now.month, now.day, time.hour, time.minute);
                       if (scheduledDate.isBefore(now)) {
                         scheduledDate = scheduledDate.add(Duration(days: 1));
                       }
@@ -165,8 +170,10 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
                         strings.gods_word_reminder,
                         strings.word_reminder(godsWord.title, godsWord.content),
                         scheduledDate,
-                        NotificationChannels.main(strings.word_reminder(godsWord.title, godsWord.content)),
-                        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
+                        NotificationChannels.main(strings.word_reminder(
+                            godsWord.title, godsWord.content)),
+                        uiLocalNotificationDateInterpretation:
+                            UILocalNotificationDateInterpretation.wallClockTime,
                         androidAllowWhileIdle: true,
                         matchDateTimeComponents: DateTimeComponents.time,
                       );
@@ -198,7 +205,9 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.orientation == Orientation.landscape ? _landscapeLayout(context) : _portraitLayout(context);
+    return widget.orientation == Orientation.landscape
+        ? _landscapeLayout(context)
+        : _portraitLayout(context);
   }
 
   Widget _portraitLayout(BuildContext context) {
@@ -225,7 +234,8 @@ class _ReminderButtonGridState extends State<ReminderButtonGrid> {
             TableCell(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: _reminderButton(GodsWordsReminderType.afternoon, context),
+                child:
+                    _reminderButton(GodsWordsReminderType.afternoon, context),
               ),
             ),
             TableCell(
@@ -278,7 +288,9 @@ class _ReminderButton extends StatelessWidget {
   final bool? enabled;
   final void Function()? onTap;
 
-  const _ReminderButton({Key? key, required this.type, this.enabled, this.onTap}) : super(key: key);
+  const _ReminderButton(
+      {Key? key, required this.type, this.enabled, this.onTap})
+      : super(key: key);
 
   String _enabledIconForType(GodsWordsReminderType type) {
     switch (type) {
@@ -311,7 +323,9 @@ class _ReminderButton extends StatelessWidget {
     return InkWell(
       customBorder: CircleBorder(),
       onTap: onTap,
-      child: enabled! ? Image.asset(_enabledIconForType(type)) : Image.asset(_disabledIconForType(type)),
+      child: enabled!
+          ? Image.asset(_enabledIconForType(type))
+          : Image.asset(_disabledIconForType(type)),
     );
   }
 }

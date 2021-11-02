@@ -10,7 +10,6 @@ import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
 
 final _playControl = MediaControl(
   androidIcon: 'drawable/ic_play_arrow_black_24dp',
@@ -47,7 +46,6 @@ class AudioStimulusHandler extends BaseAudioHandler with SeekHandler {
       builder: () => AudioStimulusHandler._(),
       config: AudioServiceConfig(
         androidNotificationChannelName: "Einfach gemeinsam beten",
-        androidEnableQueue: false,
         androidNotificationIcon: "drawable/ic_notification",
         androidStopForegroundOnPause: true,
       ),
@@ -60,7 +58,7 @@ class AudioStimulusHandler extends BaseAudioHandler with SeekHandler {
     // Broadcast the current playback state and what controls should currently
     // be visible in the media notification
     _player.playbackEventStream.listen((event) {
-      playbackState.add((playbackState.value ?? PlaybackState()).copyWith(
+      playbackState.add((playbackState.value).copyWith(
         controls: [
           _player.playing ? _pauseControl : _playControl,
           _stopControl,

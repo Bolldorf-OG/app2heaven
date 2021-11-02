@@ -55,7 +55,9 @@ class DeedsDao extends DatabaseAccessor<AppDatabase> with _$DeedsDaoMixin {
 
   Stream<List<Deed>> getCurrentDeedsStreamForDate(DateTime date) {
     return (select(deeds)
-          ..where((d) => d.archived.equals(false) & d.date.startOfDay.equals(date.startOfDay))
+          ..where((d) =>
+              d.archived.equals(false) &
+              d.date.startOfDay.equals(date.startOfDay))
           ..orderBy([
             (item) => OrderingTerm.desc(item.created),
           ]))
@@ -85,6 +87,8 @@ class DeedsDao extends DatabaseAccessor<AppDatabase> with _$DeedsDaoMixin {
   }
 
   Future<int> deleteDeeds(List<Deed> items) {
-    return (delete(deeds)..where((item) => item.id.isIn(items.map((e) => e.id)))).go();
+    return (delete(deeds)
+          ..where((item) => item.id.isIn(items.map((e) => e.id))))
+        .go();
   }
 }

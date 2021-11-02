@@ -6,8 +6,6 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import 'dart:io';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +23,6 @@ class DashboardDialogsWidget extends StatefulWidget {
 class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
   bool askForAnalytics = false;
   bool askForProgrammers = false;
-  bool askForDonations = false;
 
   @override
   void initState() {
@@ -43,7 +40,6 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
 
     if (!dialogPrefs.reset2021.getValue()) {
       await dialogPrefs.askForProgrammers.clear();
-      await dialogPrefs.askForDonationsDate.clear();
       await dialogPrefs.reset2021.setValue(true);
     }
 
@@ -73,7 +69,8 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          content: Text(strings.programmers_dialog(DialogsConstants.emailProgrammers)),
+          content: Text(
+              strings.programmers_dialog(DialogsConstants.emailProgrammers)),
           actions: <Widget>[
             TextButton(
               onPressed: () async {
@@ -99,34 +96,6 @@ class _DashboardDialogsWidgetState extends State<DashboardDialogsWidget> {
         ),
       );
       await dialogPrefs.askForProgrammers.setValue(false);
-    }
-
-    if (dialogPrefs.askForDonationsDate.getValue().difference(DateTime.now()) <= Duration.zero) {
-      await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: Text(strings.donations_dialog),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () async {
-                Navigator.pop(context);
-                if (Platform.isIOS) {
-                  await Navigator.pushNamed(context, "/donations");
-                } else {
-                  await FirebaseAnalytics().logEvent(name: AnalyticsConstants.eventDonate);
-                  await launch(DonationsConstants.link, forceSafariVC: false);
-                }
-              },
-              child: Text(strings.donate_now),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(strings.later),
-            ),
-          ],
-        ),
-      );
-      await dialogPrefs.askForDonationsDate.setValue(DateTime.now().add(DonationsConstants.timeoutNormal));
     }
   }
 

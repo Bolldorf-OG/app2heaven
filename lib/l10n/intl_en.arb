@@ -90,8 +90,6 @@
   "delete": "Delete",
   "deregister": "Unsubscribe",
   "display": "Display",
-  "donations": "Donations",
-  "donations_text_markdown": "App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us spread the word! More infos at [App2Heaven e.V.]({link})",
   "done": "Done",
   "duration": "Duration:",
   "edit": "Edit",
@@ -293,7 +291,6 @@
   "use_system_language": "Use system language",
   "last_confession": "Your last confession was on {date}.",
   "planned_confession": "You planned your next confession on {date}.",
-  "donations_dialog": "App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us by giving us feedback about your user experience, giving us your suggestions for the further development of the app, telling your friends about App2Heaven or visiting the donation page.",
   "donate_now": "Learn more",
   "later": "Later",
   "analytics_dialog": "Help us to develop the app further by submitting your usage statistics anonymously. You can change your decision at any time in the settings.",
@@ -358,5 +355,15 @@
   "clear_confession_topics": "Clear confession topics (requires password)",
   "add_confession": "Add previous confession",
   "view_code": "View code",
-  "reset_dialog": "Reset dialog"
+  "reset_dialog": "Reset dialog",
+  "imprint_title": "Imprint",
+  "imprint_text": "The App2Heaven is supported as a project by the Emmanuel Community, but wants to be a platform on which all participating communities can contribute equally.",
+  "imprint_donations_text": "App2Heaven e.V. is recognized as a non-profit association. Donations can be deducted from tax (in Germany and some other countries).",
+  "imprint_donations_account_title": "Donations account",
+  "imprint_donations_account_text": "App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05",
+  "imprint_feedback_text": "Give us feedback about your user experience and write your ideas for the further development of the app to ",
+  "imprint_address_title": "Postal address",
+  "imprint_address_text": "App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: ",
+  "oss_libs": "Open Source Libraries",
+  "choose_word_for_reminder": "Choose the item for the reminder"
 }

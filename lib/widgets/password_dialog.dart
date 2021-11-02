@@ -49,7 +49,8 @@ class PasswordDialog extends StatefulWidget {
     var passwordSalt = await secureStorage.read(key: saltKey);
 
     if (passwordSalt == null) {
-      passwordSalt = base64Url.encode(ConfessionEncryptionHelper.rng.nextBytes(16));
+      passwordSalt =
+          base64Url.encode(ConfessionEncryptionHelper.rng.nextBytes(16));
       await secureStorage.write(key: saltKey, value: passwordSalt);
     }
 
@@ -57,7 +58,8 @@ class PasswordDialog extends StatefulWidget {
         context: context,
         builder: (context) => PasswordDialog(
               passwordHash: passwordHash,
-              passwordSalt: passwordSalt == null ? null : base64Url.decode(passwordSalt),
+              passwordSalt:
+                  passwordSalt == null ? null : base64Url.decode(passwordSalt),
               storeNewPassword: (passwordHash) async {
                 await secureStorage.write(key: hashKey, value: passwordHash);
 
@@ -75,7 +77,8 @@ class _PasswordDialogState extends State<PasswordDialog> {
     if (_formKey.currentState!.validate()) {
       final value = _passwordController.text;
       if (widget.passwordHash == null) {
-        final hash = base64Url.encode(_hashPassword(value, widget.passwordSalt!));
+        final hash =
+            base64Url.encode(_hashPassword(value, widget.passwordSalt!));
         await widget.storeNewPassword(hash);
       }
       Navigator.pop(context, value);
@@ -83,7 +86,8 @@ class _PasswordDialogState extends State<PasswordDialog> {
   }
 
   Uint8List _hashPassword(String password, Uint8List salt) {
-    return (PBKDF2KeyDerivator(HMac(SHA1Digest(), 64))..init(Pbkdf2Parameters(salt, 1000, 32)))
+    return (PBKDF2KeyDerivator(HMac(SHA1Digest(), 64))
+          ..init(Pbkdf2Parameters(salt, 1000, 32)))
         .process(utf8.encode(password) as Uint8List);
   }
 
@@ -98,7 +102,9 @@ class _PasswordDialogState extends State<PasswordDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(widget.passwordHash != null ? strings.enter_password : strings.enter_new_password),
+            Text(widget.passwordHash != null
+                ? strings.enter_password
+                : strings.enter_new_password),
             TextFormField(
               controller: _passwordController,
               obscureText: true,
@@ -107,8 +113,10 @@ class _PasswordDialogState extends State<PasswordDialog> {
               keyboardType: TextInputType.visiblePassword,
               autofocus: true,
               validator: (value) {
-                final hash = base64Url.encode(_hashPassword(value!, widget.passwordSalt!));
-                if (widget.passwordHash != null && hash != widget.passwordHash) {
+                final hash = base64Url
+                    .encode(_hashPassword(value!, widget.passwordSalt!));
+                if (widget.passwordHash != null &&
+                    hash != widget.passwordHash) {
                   return strings.wrong_password;
                 }
 

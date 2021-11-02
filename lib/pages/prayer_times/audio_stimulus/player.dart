@@ -46,8 +46,11 @@ class _AudioStimulusPlayerState extends State<AudioStimulusPlayer> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final title = S.of(context).stimulus_head(DateFormat.yMd().format(DateTime.now().startOfDay));
-    AudioStimulusHandler.instance.prepareFromUri(Uri.parse(widget.url), {"title": title});
+    final title = S
+        .of(context)
+        .stimulus_head(DateFormat.yMd().format(DateTime.now().startOfDay));
+    AudioStimulusHandler.instance
+        .prepareFromUri(Uri.parse(widget.url), {"title": title});
   }
 
   @override
@@ -58,7 +61,8 @@ class _AudioStimulusPlayerState extends State<AudioStimulusPlayer> {
       stream: Rx.combineLatest2(
         AudioStimulusHandler.instance.mediaItem,
         AudioStimulusHandler.instance.playbackState,
-        (dynamic mediaItem, dynamic playbackState) => _AudioPlayerState(mediaItem, playbackState),
+        (dynamic mediaItem, dynamic playbackState) =>
+            _AudioPlayerState(mediaItem, playbackState),
       ),
       builder: (context, snapshot) {
         final playbackState = snapshot.data?.playbackState;
@@ -78,7 +82,8 @@ class _AudioStimulusPlayerState extends State<AudioStimulusPlayer> {
                   ),
                   onPressed: () => AudioStimulusHandler.instance.stop(),
                 ),
-                if (state == AudioProcessingState.loading || state == AudioProcessingState.buffering)
+                if (state == AudioProcessingState.loading ||
+                    state == AudioProcessingState.buffering)
                   SizedBox(
                     width: 64,
                     height: 64,
@@ -148,7 +153,8 @@ class _AudioStimulusPlayerState extends State<AudioStimulusPlayer> {
       stream: _seekStream,
       builder: (context, snapshot) {
         final duration = mediaItem?.duration?.inSeconds.toDouble();
-        final position = (snapshot.data ?? state?.position)?.inSeconds.toDouble() ?? 0.0;
+        final position =
+            (snapshot.data ?? state?.position)?.inSeconds.toDouble() ?? 0.0;
 
         return Slider(
           min: 0.0,
@@ -157,10 +163,12 @@ class _AudioStimulusPlayerState extends State<AudioStimulusPlayer> {
           onChanged: duration == null
               ? null
               : (value) {
-                  _dragPositionSubject.add(Duration(milliseconds: (value * 1000).toInt()));
+                  _dragPositionSubject
+                      .add(Duration(milliseconds: (value * 1000).toInt()));
                 },
           onChangeEnd: (value) {
-            AudioStimulusHandler.instance.seek(Duration(seconds: value.toInt()));
+            AudioStimulusHandler.instance
+                .seek(Duration(seconds: value.toInt()));
             seekPos = value;
             _dragPositionSubject.add(null);
           },

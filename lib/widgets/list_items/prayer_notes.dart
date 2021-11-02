@@ -32,15 +32,18 @@ class PrayerNoteListItem extends StatelessWidget {
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
     void edit() async {
-      final newPrayerNote =
-          await Navigator.pushReplacementNamed(context, "/prayer-times/notes/edit", arguments: prayerNote);
+      final newPrayerNote = await Navigator.pushReplacementNamed(
+          context, "/prayer-times/notes/edit",
+          arguments: prayerNote);
       if (newPrayerNote != null) {
-        await dao.updatePrayerNote(prayerNote, newPrayerNote as PrayerNotesCompanion);
+        await dao.updatePrayerNote(
+            prayerNote, newPrayerNote as PrayerNotesCompanion);
       }
     }
 
     Future<void> open() async {
-      await Navigator.pushNamed(context, "/prayer-times/notes/details", arguments: prayerNote.id);
+      await Navigator.pushNamed(context, "/prayer-times/notes/details",
+          arguments: prayerNote.id);
     }
 
     void delete() async {
@@ -50,7 +53,8 @@ class PrayerNoteListItem extends StatelessWidget {
 
     void share() async {
       Future<String> _createShareLink() async {
-        final data = await SharedContent(prayerNote.title, prayerNote.content).share(SharedContentType.prayerNote);
+        final data = await SharedContent(prayerNote.title, prayerNote.content)
+            .share(SharedContentType.prayerNote);
 
         await dao.updatePrayerNote(
           prayerNote,
@@ -67,7 +71,8 @@ class PrayerNoteListItem extends StatelessWidget {
       }
 
       final shareLink = prayerNote.shareLink ?? await _createShareLink();
-      await Share.share(strings.share_prayer_note(prayerNote.title, prayerNote.content, shareLink));
+      await Share.share(strings.share_prayer_note(
+          prayerNote.title, prayerNote.content, shareLink));
     }
 
     return InkWell(

@@ -33,10 +33,13 @@ class DayReviewPage extends StatelessWidget {
     final locale = Localizations.localeOf(context);
 
     final now = DateTime.now();
-    final date = now.hour < 4 ? now.add(Duration(hours: -12)).startOfDay : now.startOfDay;
+    final date = now.hour < 4
+        ? now.add(Duration(hours: -12)).startOfDay
+        : now.startOfDay;
 
     final pages = [
-      if (settings.prayerTime.getValue() == true) DayReviewPrayerTime(date: date),
+      if (settings.prayerTime.getValue() == true)
+        DayReviewPrayerTime(date: date),
       if (settings.decisions.getValue() == true) DayReviewDecisions(date: date),
       if (settings.deeds.getValue() == true) DayReviewDeeds(date: date),
       DayReviewCalmDown(),
@@ -47,7 +50,8 @@ class DayReviewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(strings.daysreview_date(locale.shortDateFormat.format(date))),
+        title:
+            Text(strings.daysreview_date(locale.shortDateFormat.format(date))),
       ),
       bottomNavigationBar: NavigationBottomAppBar(),
       body: Stack(
@@ -56,7 +60,12 @@ class DayReviewPage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: PageView(
               onPageChanged: (value) {
-                FirebaseAnalytics().setCurrentScreen(screenName: "/day-review/$value");
+                try {
+                  FirebaseAnalytics()
+                      .setCurrentScreen(screenName: "/day-review/$value");
+                } catch (e) {
+                  // ignored
+                }
                 pageNotifier.value = value;
               },
               children: pages,

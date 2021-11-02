@@ -57,7 +57,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
   int? _selectedVerseTo;
 
   void _suggestRandomPassage() async {
-    await FirebaseAnalytics().logEvent(name: AnalyticsConstants.eventViewBibleRandom);
+    await FirebaseAnalytics()
+        .logEvent(name: AnalyticsConstants.eventViewBibleRandom);
 
     final dao = Provider.of<AppDatabase>(context, listen: false).bibleDao;
     final verse = await dao.getRandomVerse();
@@ -76,7 +77,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
       verseTo = verse.verse + 4;
     }
 
-    final passage = await _loadPassage(dao, verse.book, verse.chapter, verseFrom, verseTo);
+    final passage =
+        await _loadPassage(dao, verse.book, verse.chapter, verseFrom, verseTo);
 
     setState(() {
       _selectedBookId = verse.book;
@@ -119,7 +121,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
       content = await bibleDao.getVerseText(bookId, chapter, verseFrom);
     } else {
       title = "${book.abbreviation} $chapter, $verseFrom-$verseTo";
-      content = await bibleDao.getVersesText(bookId, chapter, verseFrom, verseTo);
+      content =
+          await bibleDao.getVersesText(bookId, chapter, verseFrom, verseTo);
     }
 
     return GodsWordsCompanion.insert(
@@ -234,7 +237,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
         initialData: [],
         future: InternetAddress.lookup("app2heaven.firebaseapp.com"),
         builder: (context, snapshot) {
-          if (snapshot.data?.isNotEmpty == true && snapshot.data![0].rawAddress.isNotEmpty == true) {
+          if (snapshot.data?.isNotEmpty == true &&
+              snapshot.data![0].rawAddress.isNotEmpty == true) {
             return _realPage();
           }
 
@@ -384,11 +388,17 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                   _selectedBookId = null;
                 });
               });
-              return pattern.isEmpty ? [] : await bibleDao.searchBooks("$pattern*");
+              return pattern.isEmpty
+                  ? []
+                  : await bibleDao.searchBooks("$pattern*");
             },
             onSuggestionSelected: (suggestion) async {
-              final name = md.Document().parseInline(suggestion.name).map((e) => e.textContent).join();
-              final maxChapter = await bibleDao.getMaxChapterForBook(suggestion.id);
+              final name = md.Document()
+                  .parseInline(suggestion.name)
+                  .map((e) => e.textContent)
+                  .join();
+              final maxChapter =
+                  await bibleDao.getMaxChapterForBook(suggestion.id);
               setState(() {
                 _selectedBookId = suggestion.id;
                 _maxChapter = maxChapter;
@@ -422,7 +432,9 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                       ],
                       validator: (value) {
                         final chapter = int.tryParse(value!) ?? 0;
-                        return 0 < chapter && chapter <= _maxChapter ? null : strings.bible_chapter_max(_maxChapter);
+                        return 0 < chapter && chapter <= _maxChapter
+                            ? null
+                            : strings.bible_chapter_max(_maxChapter);
                       },
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (value) {
@@ -443,7 +455,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                         labelText: strings.bible_verses,
                         hintText: strings.bible_verses_hint,
                       ),
-                      keyboardType: TextInputType.numberWithOptions(signed: true),
+                      keyboardType:
+                          TextInputType.numberWithOptions(signed: true),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       autocorrect: false,
                       enableSuggestions: false,
@@ -453,7 +466,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                             return newValue;
                           }
 
-                          final match = RegExp(r"(\d+)(?:-(\d+))?").matchAsPrefix(newValue.text);
+                          final match = RegExp(r"(\d+)(?:-(\d+))?")
+                              .matchAsPrefix(newValue.text);
                           final maxLength = "$_maxVerse".length;
                           if ((match?.group(1)?.length ?? 0) <= maxLength &&
                               (match?.group(2)?.length ?? 0) <= maxLength) {
@@ -469,7 +483,8 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                         }
 
                         if (RegExp(r"^\d+-\d+$").hasMatch(value)) {
-                          final match = RegExp(r"^(\d+)-(\d+)$").firstMatch(value)!;
+                          final match =
+                              RegExp(r"^(\d+)-(\d+)$").firstMatch(value)!;
                           final from = int.tryParse(match.group(1)!)!;
                           final to = int.tryParse(match.group(2)!);
 
@@ -481,7 +496,9 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                         }
 
                         final verse = int.tryParse(value) ?? 0;
-                        return 0 < verse && verse <= _maxVerse ? null : strings.bible_verse_max(_maxVerse);
+                        return 0 < verse && verse <= _maxVerse
+                            ? null
+                            : strings.bible_verse_max(_maxVerse);
                       },
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (value) async {
@@ -553,7 +570,10 @@ class _OpenBiblePageState extends State<OpenBiblePage> {
                   ? strings.read
                   : _selectedVerseFrom == null
                       ? strings.read_passage
-                      : strings.read_verses((_selectedVerseTo ?? _selectedVerseFrom)! - _selectedVerseFrom! + 1),
+                      : strings.read_verses(
+                          (_selectedVerseTo ?? _selectedVerseFrom)! -
+                              _selectedVerseFrom! +
+                              1),
             ),
           ),
           Padding(

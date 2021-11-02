@@ -32,15 +32,18 @@ class ConfessionPlannerPage extends StatelessWidget {
   DateTime get _tomorrow => _today.add(Duration(days: 1));
 
   Future<void> _createReminder(BuildContext context) async {
-    await FirebaseAnalytics().logEvent(name: AnalyticsConstants.eventConfessionReminder);
+    await FirebaseAnalytics()
+        .logEvent(name: AnalyticsConstants.eventConfessionReminder);
 
     final strings = S.of(context);
     final locale = Localizations.localeOf(context);
-    final confessionPrefs = Provider.of<AppPreferences>(context, listen: false).confession;
+    final confessionPrefs =
+        Provider.of<AppPreferences>(context, listen: false).confession;
 
     final notificationsPlugin = FlutterLocalNotificationsPlugin();
     final result = await notificationsPlugin
-        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
           sound: true,
           alert: true,
@@ -61,7 +64,8 @@ class ConfessionPlannerPage extends StatelessWidget {
     }
 
     final localTimeZone = await FlutterNativeTimezone.getLocalTimezone();
-    final scheduledDate = TZDateTime(getLocation(localTimeZone), date.year, date.month, date.day, 8);
+    final scheduledDate = TZDateTime(
+        getLocation(localTimeZone), date.year, date.month, date.day, 8);
 
     await notificationsPlugin.zonedSchedule(
       NotificationIds.confession,
@@ -69,7 +73,8 @@ class ConfessionPlannerPage extends StatelessWidget {
       strings.confession_reminder_message_today,
       scheduledDate,
       NotificationChannels.main(strings.confession_reminder_message_today),
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.wallClockTime,
       androidAllowWhileIdle: true,
     );
 
@@ -80,7 +85,8 @@ class ConfessionPlannerPage extends StatelessWidget {
       builder: (context) => AlertDialog(
         title: Text(strings.reminder_created),
         content: Text(strings.reminder_created_confession(
-            locale.mediumDateFormat.format(scheduledDate), scheduledDate.timeOfDay.format(context))),
+            locale.mediumDateFormat.format(scheduledDate),
+            scheduledDate.timeOfDay.format(context))),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -183,7 +189,8 @@ class ConfessionPlannerPage extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: locale.fullDateFormat.format(value),
-                                  style: a2hText.copyWith(fontWeight: FontWeight.bold),
+                                  style: a2hText.copyWith(
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -193,16 +200,19 @@ class ConfessionPlannerPage extends StatelessWidget {
                         if (value != DateTime(-1))
                           ElevatedButton.icon(
                             onPressed: () async {
-                              final notificationsPlugin = FlutterLocalNotificationsPlugin();
+                              final notificationsPlugin =
+                                  FlutterLocalNotificationsPlugin();
                               final result = await notificationsPlugin
-                                  .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+                                  .resolvePlatformSpecificImplementation<
+                                      IOSFlutterLocalNotificationsPlugin>()
                                   ?.requestPermissions(
                                     sound: true,
                                     alert: true,
                                     badge: true,
                                   );
                               if (result != false) {
-                                await notificationsPlugin.cancel(NotificationIds.confession);
+                                await notificationsPlugin
+                                    .cancel(NotificationIds.confession);
                               }
 
                               await confessionPrefs.reminderDate.clear();
@@ -214,7 +224,9 @@ class ConfessionPlannerPage extends StatelessWidget {
                         ElevatedButton.icon(
                           onPressed: () async => await _createReminder(context),
                           icon: Icon(Icons.notifications_active_outlined),
-                          label: Text(value.isBefore(_today) ? strings.set_reminder : strings.change_reminder),
+                          label: Text(value.isBefore(_today)
+                              ? strings.set_reminder
+                              : strings.change_reminder),
                         ),
                       ],
                     )
@@ -274,7 +286,8 @@ class ConfessionPlannerPage extends StatelessWidget {
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 4.0),
-                          child: Text(locale.fullDateFormat.format(confession.date)),
+                          child: Text(
+                              locale.fullDateFormat.format(confession.date)),
                         );
                       },
                     );
@@ -315,7 +328,8 @@ class __ConfessionDialogState extends State<_ConfessionDialog> {
             children: [
               Checkbox(
                 value: _clearTopics,
-                onChanged: (value) => setState(() => _clearTopics = value ?? true),
+                onChanged: (value) =>
+                    setState(() => _clearTopics = value ?? true),
               ),
               Expanded(
                 child: Text(strings.clear_confession_topics),

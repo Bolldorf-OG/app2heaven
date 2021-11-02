@@ -90,8 +90,6 @@
   "delete": "Effacer",
   "deregister": "Se désinscrire de ",
   "display": "Affichage",
-  "donations": "Des dons",
-  "donations_text_markdown": "App2Heaven sera toujours entièrement gratuit pour ses utilisateurs. App2Heaven e.V. travaille pour atteindre plus de gens et apporter la lumière de Dieu dans le monde. Aidez-nous à faire passer le message! Plus d'infos sur [App2Heaven e.V.]({link})",
   "done": "Fini",
   "duration": "Durée :",
   "edit": "Modifier",
@@ -293,7 +291,6 @@
   "use_system_language": "Utiliser la langue du système",
   "last_confession": "Votre dernière confession remonte au {date}.",
   "planned_confession": "Vous avez planifié votre prochaine confession le {date}.",
-  "donations_dialog": "App2Heaven sera toujours entièrement gratuit pour ses utilisateurs. App2Heaven e.V. travaille pour atteindre plus de gens et apporter la lumière de Dieu dans le monde. Aidez-nous en nous faisant part de vos commentaires sur votre expérience utilisateur, en nous faisant part de vos suggestions pour le développement ultérieur de l'application, en parlant d'App2Heaven à vos amis ou en visitant la page de dons.",
   "donate_now": "En savoir plus",
   "later": "Plus tard",
   "analytics_dialog": "Aidez-nous à développer davantage l'application en soumettant vos statistiques d'utilisation de manière anonyme. Vous pouvez modifier votre décision à tout moment dans les paramètres.",
@@ -358,5 +355,15 @@
   "clear_confession_topics": "Effacer les sujets de confession (nécessite un mot de passe)",
   "add_confession": "Ajouter une confession",
   "view_code": "Afficher le code",
-  "reset_dialog": "Réinitialiser le dialogue"
+  "reset_dialog": "Réinitialiser le dialogue",
+  "imprint_title": "Imprimer",
+  "imprint_text": "L'App2Heaven est soutenu en tant que projet par la Communauté de l'Emmanuel, mais veut être une plate-forme sur laquelle toutes les communautés participantes peuvent contribuer de manière égale.",
+  "imprint_donations_text": "App2Heaven e.V. est reconnue comme une association à but non lucratif. Les dons peuvent être déduits de l'impôt (en Allemagne et dans certains autres pays).",
+  "imprint_donations_account_title": "Compte de don",
+  "imprint_donations_account_text": "App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05",
+  "imprint_feedback_text": "Faites-nous part de vos commentaires sur votre expérience utilisateur et notez vos idées pour le développement ultérieur de l'application à ",
+  "imprint_address_title": "Adresse postale",
+  "imprint_address_text": "App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: ",
+  "oss_libs": "Open Source Libraries",
+  "choose_word_for_reminder": "Choisissez l'élément pour le rappel"
 }

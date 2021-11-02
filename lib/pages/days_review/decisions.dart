@@ -94,7 +94,8 @@ class DayReviewDecisions extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: <Widget>[
                                     Row(
                                       children: [
@@ -110,13 +111,16 @@ class DayReviewDecisions extends StatelessWidget {
                                           icon: Icon(Icons.read_more),
                                           color: Theme.of(context).primaryColor,
                                           onPressed: () {
-                                            Navigator.pushNamed(context, "/decisions/details", arguments: decision.id);
+                                            Navigator.pushNamed(
+                                                context, "/decisions/details",
+                                                arguments: decision.id);
                                           },
                                         ),
                                       ],
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
                                       child: Text(
                                         decision.content,
                                         maxLines: 5,
@@ -125,14 +129,17 @@ class DayReviewDecisions extends StatelessWidget {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 32.0, vertical: 8.0),
                                       child: DecisionRatingBar(
                                         ratingLevel: rating?.rating ?? 0,
                                         onRatingChanged: (newRating) async {
                                           await FirebaseAnalytics().logEvent(
-                                            name: AnalyticsConstants.eventRateDecision,
+                                            name: AnalyticsConstants
+                                                .eventRateDecision,
                                           );
-                                          await dao.setDecisionRating(DecisionRatingsCompanion.insert(
+                                          await dao.setDecisionRating(
+                                              DecisionRatingsCompanion.insert(
                                             date: date,
                                             rating: newRating,
                                             decisionId: decision.id,
@@ -146,7 +153,8 @@ class DayReviewDecisions extends StatelessWidget {
                             ],
                           );
                         },
-                        separatorBuilder: (context, index) => Divider(color: Colors.grey),
+                        separatorBuilder: (context, index) =>
+                            Divider(color: Colors.grey),
                       );
                   }
                 }),

@@ -63,8 +63,8 @@ class ConfessionPreparationPage extends StatelessWidget {
                   .map((snapshot) {
                 final documents = List<DocumentSnapshot>.from(snapshot.docs);
                 documents.sort(
-                  (a, b) =>
-                      readLocalizedString(a, "title", locale)!.compareTo(readLocalizedString(b, "title", locale)!),
+                  (a, b) => readLocalizedString(a, "title", locale)!
+                      .compareTo(readLocalizedString(b, "title", locale)!),
                 );
                 return documents;
               }),

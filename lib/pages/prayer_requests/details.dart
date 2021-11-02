@@ -21,7 +21,8 @@ import '../../widgets/navigation_drawer.dart';
 class PrayerRequestDetailsPage extends StatelessWidget {
   final int prayerRequestId;
 
-  const PrayerRequestDetailsPage({Key? key, required this.prayerRequestId}) : super(key: key);
+  const PrayerRequestDetailsPage({Key? key, required this.prayerRequestId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,8 @@ class PrayerRequestDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),
@@ -63,29 +65,40 @@ class PrayerRequestDetailsPage extends StatelessWidget {
         }
 
         void edit() async {
-          final newPrayerRequest =
-              await Navigator.pushNamed(context, "/prayer-requests/edit", arguments: prayerRequest);
+          final newPrayerRequest = await Navigator.pushNamed(
+              context, "/prayer-requests/edit",
+              arguments: prayerRequest);
           if (newPrayerRequest != null) {
-            await dao.updatePrayerRequest(prayerRequest, newPrayerRequest as PrayerRequestsCompanion);
+            await dao.updatePrayerRequest(
+                prayerRequest, newPrayerRequest as PrayerRequestsCompanion);
           }
         }
 
         void unarchive() async {
           Navigator.pop(context);
           await dao.updatePrayerRequest(
-              prayerRequest, prayerRequest.copyWith(state: PrayerRequestState.active).toCompanion(false));
+              prayerRequest,
+              prayerRequest
+                  .copyWith(state: PrayerRequestState.active)
+                  .toCompanion(false));
         }
 
         void archive() async {
           Navigator.pop(context);
           await dao.updatePrayerRequest(
-              prayerRequest, prayerRequest.copyWith(state: PrayerRequestState.archived).toCompanion(false));
+              prayerRequest,
+              prayerRequest
+                  .copyWith(state: PrayerRequestState.archived)
+                  .toCompanion(false));
         }
 
         void done() async {
           Navigator.pop(context);
           await dao.updatePrayerRequest(
-              prayerRequest, prayerRequest.copyWith(state: PrayerRequestState.done).toCompanion(false));
+              prayerRequest,
+              prayerRequest
+                  .copyWith(state: PrayerRequestState.done)
+                  .toCompanion(false));
         }
 
         void delete() async {
@@ -96,7 +109,8 @@ class PrayerRequestDetailsPage extends StatelessWidget {
         void share() async {
           Future<String> _createShareLink() async {
             final data =
-                await SharedContent(prayerRequest.title, prayerRequest.content).share(SharedContentType.prayerRequest);
+                await SharedContent(prayerRequest.title, prayerRequest.content)
+                    .share(SharedContentType.prayerRequest);
 
             await dao.updatePrayerRequest(
               prayerRequest,
@@ -114,8 +128,10 @@ class PrayerRequestDetailsPage extends StatelessWidget {
 
           final shareLink = prayerRequest.shareLink ?? await _createShareLink();
           await Share.share(prayerRequest.state == PrayerRequestState.done
-              ? strings.share_prayer_request_done(prayerRequest.title, prayerRequest.content, shareLink)
-              : strings.share_prayer_request(prayerRequest.title, prayerRequest.content, shareLink));
+              ? strings.share_prayer_request_done(
+                  prayerRequest.title, prayerRequest.content, shareLink)
+              : strings.share_prayer_request(
+                  prayerRequest.title, prayerRequest.content, shareLink));
         }
 
         return Scaffold(

@@ -29,7 +29,8 @@ class PrayerNotes extends Table {
 }
 
 @UseDao(tables: [PrayerNotes])
-class PrayerNotesDao extends DatabaseAccessor<AppDatabase> with _$PrayerNotesDaoMixin {
+class PrayerNotesDao extends DatabaseAccessor<AppDatabase>
+    with _$PrayerNotesDaoMixin {
   PrayerNotesDao(AppDatabase db) : super(db);
 
   Stream<PrayerNote> getPrayerNoteStream(int id) {
@@ -48,8 +49,10 @@ class PrayerNotesDao extends DatabaseAccessor<AppDatabase> with _$PrayerNotesDao
     return into(prayerNotes).insert(prayerNote);
   }
 
-  Future<int> updatePrayerNote(PrayerNote prayerNote, PrayerNotesCompanion newPrayerNote) {
-    return (update(prayerNotes)..whereSamePrimaryKey(prayerNote)).write(newPrayerNote);
+  Future<int> updatePrayerNote(
+      PrayerNote prayerNote, PrayerNotesCompanion newPrayerNote) {
+    return (update(prayerNotes)..whereSamePrimaryKey(prayerNote))
+        .write(newPrayerNote);
   }
 
   Future<int> deletePrayerNote(PrayerNote prayerNote) {
@@ -57,7 +60,9 @@ class PrayerNotesDao extends DatabaseAccessor<AppDatabase> with _$PrayerNotesDao
   }
 
   Future<int> deletePrayerNotes(List<PrayerNote> items) {
-    return (delete(prayerNotes)..where((item) => item.id.isIn(items.map((e) => e.id)))).go();
+    return (delete(prayerNotes)
+          ..where((item) => item.id.isIn(items.map((e) => e.id))))
+        .go();
   }
 
   Future<int?> getIdForShareId(String shareId) {

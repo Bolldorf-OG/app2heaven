@@ -47,10 +47,12 @@ class SettingsConstants {
   static const keyLocale = "pref_locale";
   static const keyDashboardAudioStimulus = "pref_dashboard_audio_stimulus";
   static const keyDashboardCurrentWords = "pref_dashboard_current_words";
-  static const keyDashboardCurrentPrayerRequests = "pref_dashboard_current_prayer_requests";
+  static const keyDashboardCurrentPrayerRequests =
+      "pref_dashboard_current_prayer_requests";
   static const keyDashboardPrayerTimer = "pref_dashboard_prayer_timer";
   static const keyDashboardRandomBible = "pref_dashboard_random_bible";
-  static const keyDashboardRandomExperience = "pref_dashboard_random_experience";
+  static const keyDashboardRandomExperience =
+      "pref_dashboard_random_experience";
   static const keyDashboardRandomStimulus = "pref_dashboard_random_stimulus";
   static const keyDaysPreviewGodsWords = "pref_days_preview_gods_words";
   static const keyDaysPreviewDecisions = "pref_days_preview_decisions";
@@ -70,14 +72,7 @@ class DialogsConstants {
   static const keyReset2021 = "dialogs_reset_2021";
   static const keyAskForAnalytics = "dialogs_ask_for_analytics";
   static const keyAskForProgrammers = "dialogs_ask_for_programmers";
-  static const keyAskForDonationsDate = "dialogs_asked_for_donations_on";
   static const emailProgrammers = "info@app2heaven.org";
-}
-
-class DonationsConstants {
-  static const link = "https://www.app2heaven.com/#comp-jgkv57g5";
-  static const timeoutNormal = Duration(days: 14);
-  static const timeoutExtended = Duration(days: 30);
 }
 
 enum GodsWordsReminderType {
@@ -186,7 +181,7 @@ class NotificationChannels {
         android: AndroidNotificationDetails(
           "app2heaven",
           "App2Heaven",
-          "",
+          channelDescription: "",
           importance: Importance.high,
           priority: Priority.high,
           styleInformation: BigTextStyleInformation(bigText),

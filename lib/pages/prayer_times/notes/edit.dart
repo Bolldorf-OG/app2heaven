@@ -20,7 +20,8 @@ class PrayerNoteEditPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _PrayerNoteEditPageState(prayerNote?.title ?? "", prayerNote?.content ?? "");
+    return _PrayerNoteEditPageState(
+        prayerNote?.title ?? "", prayerNote?.content ?? "");
   }
 }
 
@@ -29,10 +30,12 @@ class _PrayerNoteEditPageState extends State<PrayerNoteEditPage> {
   final TextEditingController titleController;
   final TextEditingController contentController;
 
-  _PrayerNoteEditPageState._create(this.titleController, this.contentController);
+  _PrayerNoteEditPageState._create(
+      this.titleController, this.contentController);
 
   _PrayerNoteEditPageState(String title, String content)
-      : this._create(TextEditingController(text: title), TextEditingController(text: content));
+      : this._create(TextEditingController(text: title),
+            TextEditingController(text: content));
 
   @override
   void dispose() {

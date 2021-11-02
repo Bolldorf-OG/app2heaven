@@ -15,7 +15,6 @@ class DialogsPreferences {
   final Preference<bool> reset2021;
   final Preference<bool> askForAnalytics;
   final Preference<bool> askForProgrammers;
-  final Preference<DateTime> askForDonationsDate;
 
   DialogsPreferences(StreamingSharedPreferences preferences)
       : reset2021 = preferences.getBool(
@@ -29,24 +28,17 @@ class DialogsPreferences {
         askForProgrammers = preferences.getBool(
           DialogsConstants.keyAskForProgrammers,
           defaultValue: true,
-        ),
-        askForDonationsDate = preferences.getCustomValue(
-          DialogsConstants.keyAskForDonationsDate,
-          defaultValue: DateTime(1),
-          adapter: DateTimeAdapter.instance,
         );
 
   Map<String, dynamic> get jsonData => {
         "reset2021": reset2021.getValue(),
         "askForAnalytics": askForAnalytics.getValue(),
         "askForProgrammers": askForProgrammers.getValue(),
-        "askForDonationsDate": askForDonationsDate.getValue().toIso8601String(),
       };
 
   Future<void> readFromJson(Map<String, dynamic> prefsJson) async {
     await reset2021.setOrClearValue(prefsJson["reset2021"]);
     await askForAnalytics.setOrClearValue(prefsJson["askForAnalytics"]);
     await askForProgrammers.setOrClearValue(prefsJson["askForProgrammers"]);
-    await askForDonationsDate.setOrClearValue(DateTime.parse(prefsJson["askForDonationsDate"]));
   }
 }

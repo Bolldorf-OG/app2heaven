@@ -21,7 +21,8 @@ class DayPreviewDeeds extends StatelessWidget {
     final strings = S.of(context);
 
     return DayPreviewList<Deed>(
-      dataStream: dao.getCurrentDeedsStreamForDate(DateTime.now().toUtc().startOfDay),
+      dataStream:
+          dao.getCurrentDeedsStreamForDate(DateTime.now().toUtc().startOfDay),
       title: strings.dayspreview_deeds_head,
       subtitle: strings.dayspreview_deeds_sub,
       iconPath: "assets/deeds/list.png",

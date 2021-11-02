@@ -41,7 +41,8 @@ class CurrentGodsWordsPage extends StatelessWidget {
       ),
       onDelete: (items) => dao.deleteGodsWords(items),
       onShare: (items) async {
-        final content = items.map((e) => "${e.title}\n${e.content}\n").join("\n");
+        final content =
+            items.map((e) => "${e.title}\n${e.content}\n").join("\n");
         await Share.share(content);
       },
       noItemsFound: strings.no_gods_words,

@@ -33,9 +33,18 @@ class DashboardPage extends StatelessWidget {
     final settings = Provider.of<AppPreferences>(context).settings.dashboard;
 
     // try to update cache
-    FirebaseFirestore.instance.collection("communities").get(GetOptions(source: Source.server)).catchError((_) {});
-    FirebaseFirestore.instance.collection("stimulus-tags").get(GetOptions(source: Source.server)).catchError((_) {});
-    FirebaseFirestore.instance.collection("stimuli").get(GetOptions(source: Source.server)).catchError((_) {});
+    FirebaseFirestore.instance
+        .collection("communities")
+        .get(GetOptions(source: Source.server))
+        .catchError((_) {});
+    FirebaseFirestore.instance
+        .collection("stimulus-tags")
+        .get(GetOptions(source: Source.server))
+        .catchError((_) {});
+    FirebaseFirestore.instance
+        .collection("stimuli")
+        .get(GetOptions(source: Source.server))
+        .catchError((_) {});
 
     final firebaseMessaging = FirebaseMessaging.instance;
     firebaseMessaging.requestPermission();
@@ -73,7 +82,8 @@ class DashboardPage extends StatelessWidget {
                               itemId: "audio_stimulus",
                             );
 
-                            Navigator.pushNamed(context, "/prayer-times/stimuli/audio-stimulus");
+                            Navigator.pushNamed(context,
+                                "/prayer-times/stimuli/audio-stimulus");
                           },
                         )
                       : Container(),
@@ -111,7 +121,8 @@ class DashboardPage extends StatelessWidget {
                       ? PreviewList(
                           title: strings.current_prayerrequests,
                           emptyText: strings.no_prayer_requests,
-                          stream: db.prayerRequestsDao.getActivePrayerRequestsStream(),
+                          stream: db.prayerRequestsDao
+                              .getActivePrayerRequestsStream(),
                           itemBuilder: (context, dynamic item) => PreviewCard(
                             iconPath: "assets/prayer_requests/current.png",
                             title: item.title,
@@ -155,7 +166,8 @@ class DashboardPage extends StatelessWidget {
                                 itemId: "random_word",
                               );
 
-                              Navigator.pushNamed(context, "/gods-words/bible/random");
+                              Navigator.pushNamed(
+                                  context, "/gods-words/bible/random");
                             },
                           ),
                         )
@@ -175,23 +187,27 @@ class DashboardPage extends StatelessWidget {
                                 itemId: "random_experience",
                               );
 
-                              final communitiesSnapshot = await FirebaseFirestore.instance
-                                  .collection("communities")
-                                  .where("active", isEqualTo: true)
-                                  .where("hasExperiences", isEqualTo: true)
-                                  .snapshots()
-                                  .first;
-                              final community = communitiesSnapshot.docs.random();
+                              final communitiesSnapshot =
+                                  await FirebaseFirestore.instance
+                                      .collection("communities")
+                                      .where("active", isEqualTo: true)
+                                      .where("hasExperiences", isEqualTo: true)
+                                      .snapshots()
+                                      .first;
+                              final community =
+                                  communitiesSnapshot.docs.random();
                               if (community == null) {
                                 return;
                               }
 
-                              final experiencesSnapshot = await community.reference
+                              final experiencesSnapshot = await community
+                                  .reference
                                   .collection("experiences")
                                   .where("active", isEqualTo: true)
                                   .snapshots()
                                   .first;
-                              final experience = experiencesSnapshot.docs.random();
+                              final experience =
+                                  experiencesSnapshot.docs.random();
                               if (experience == null) {
                                 return;
                               }
@@ -223,7 +239,8 @@ class DashboardPage extends StatelessWidget {
                                 itemId: "random_stimulus",
                               );
 
-                              final tagsSnapshot = await FirebaseFirestore.instance
+                              final tagsSnapshot = await FirebaseFirestore
+                                  .instance
                                   .collection("stimulus-tags")
                                   .where("active", isEqualTo: true)
                                   .where("isUsed", isEqualTo: true)
@@ -234,7 +251,8 @@ class DashboardPage extends StatelessWidget {
                                 return;
                               }
 
-                              final stimuliSnapshot = await FirebaseFirestore.instance
+                              final stimuliSnapshot = await FirebaseFirestore
+                                  .instance
                                   .collection("stimuli")
                                   .where("active", isEqualTo: true)
                                   .where("tags", arrayContains: tag.reference)

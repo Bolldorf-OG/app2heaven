@@ -22,7 +22,8 @@ class GodsWordEditPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _GodsWordEditPageState(godsWord?.title ?? "", godsWord?.content ?? "");
+    return _GodsWordEditPageState(
+        godsWord?.title ?? "", godsWord?.content ?? "");
   }
 }
 
@@ -34,7 +35,8 @@ class _GodsWordEditPageState extends State<GodsWordEditPage> {
   _GodsWordEditPageState._create(this.titleController, this.contentController);
 
   _GodsWordEditPageState(String title, String content)
-      : this._create(TextEditingController(text: title), TextEditingController(text: content));
+      : this._create(TextEditingController(text: title),
+            TextEditingController(text: content));
 
   @override
   void dispose() {

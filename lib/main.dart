@@ -6,11 +6,12 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:app2heaven_flutter/util/constants.dart';
 import "package:devicelocale/devicelocale.dart";
 import "package:feature_discovery/feature_discovery.dart";
-import 'package:file_picker_writable/file_picker_writable.dart';
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
+import 'package:firebase_messaging/firebase_messaging.dart';
 import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
@@ -59,7 +60,19 @@ void main() async {
 
   await AudioStimulusHandler.init();
 
-  FilePickerWritable().init();
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    final notification = message.notification;
+    final android = message.notification?.android;
+
+    if (notification != null && android != null) {
+      await flutterLocalNotificationsPlugin.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        NotificationChannels.main(notification.body ?? ""),
+      );
+    }
+  });
 
   runApp(
     Phoenix(

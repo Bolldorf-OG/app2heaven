@@ -53,7 +53,8 @@ class _DayReviewPrayerTimeState extends State<DayReviewPrayerTime> {
             suffixText: " min",
           ),
           textInputAction: TextInputAction.done,
-          onEditingComplete: () => Navigator.pop(context, Duration(minutes: int.parse(_dialogController.text))),
+          onEditingComplete: () => Navigator.pop(
+              context, Duration(minutes: int.parse(_dialogController.text))),
           keyboardType: TextInputType.number,
           autofocus: true,
           focusNode: _dialogFocusNode,
@@ -64,7 +65,8 @@ class _DayReviewPrayerTimeState extends State<DayReviewPrayerTime> {
             child: Text(strings.cancel),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context, Duration(minutes: int.parse(_dialogController.text))),
+            onPressed: () => Navigator.pop(
+                context, Duration(minutes: int.parse(_dialogController.text))),
             child: Text(strings.save),
           )
         ],
@@ -83,13 +85,15 @@ class _DayReviewPrayerTimeState extends State<DayReviewPrayerTime> {
 
   void _loadPrayerDurations() async {
     final dao = Provider.of<AppDatabase>(context).prayerItemsDao;
-    _prayerDurationTodaySubscription = dao.getTotalPrayerDurationForDateStream(widget.date).listen((duration) {
+    _prayerDurationTodaySubscription =
+        dao.getTotalPrayerDurationForDateStream(widget.date).listen((duration) {
       setState(() {
         _prayerDurationToday = duration;
       });
     });
 
-    final durationTomorrow = await getIntendedPrayerTime(widget.date.add(Duration(days: 1)).getWeekday());
+    final durationTomorrow = await getIntendedPrayerTime(
+        widget.date.add(Duration(days: 1)).getWeekday());
     setState(() {
       _prayerDurationTomorrow = durationTomorrow;
     });
@@ -99,7 +103,8 @@ class _DayReviewPrayerTimeState extends State<DayReviewPrayerTime> {
   void initState() {
     super.initState();
     _dialogFocusNode.addListener(() {
-      _dialogController.selection = TextSelection(baseOffset: 0, extentOffset: _dialogController.text.length);
+      _dialogController.selection = TextSelection(
+          baseOffset: 0, extentOffset: _dialogController.text.length);
     });
   }
 

@@ -25,9 +25,13 @@ class PrayerTimeChart extends StatefulWidget {
 class _PrayerTimeChartState extends State<PrayerTimeChart> {
   final _todayLocal = DateTime.now().startOfDay;
 
-  DateTime get _todayUtc => DateTime.utc(_todayLocal.year, _todayLocal.month, _todayLocal.day);
+  DateTime get _todayUtc =>
+      DateTime.utc(_todayLocal.year, _todayLocal.month, _todayLocal.day);
 
-  List<DateTime> get _days => List.generate(7, (index) => _todayUtc.subtract(Duration(days: index))).reversed.toList();
+  List<DateTime> get _days =>
+      List.generate(7, (index) => _todayUtc.subtract(Duration(days: index)))
+          .reversed
+          .toList();
 
   List<PrayerDuration> _intendedPrayerTimes = [];
 
@@ -64,7 +68,9 @@ class _PrayerTimeChartState extends State<PrayerTimeChart> {
             _days.last.endOfDay,
           )
           .map((list) => {
-                for (final item in list) DateTime.utc(item.date.year, item.date.month, item.date.day): item,
+                for (final item in list)
+                  DateTime.utc(item.date.year, item.date.month, item.date.day):
+                      item,
               }),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -81,8 +87,16 @@ class _PrayerTimeChartState extends State<PrayerTimeChart> {
           case ConnectionState.active:
           case ConnectionState.done:
             var maxDuration = max(
-              _intendedPrayerTimes.isEmpty ? 0.0 : _intendedPrayerTimes.map((e) => e.duration.inMinutes).reduce(max),
-              snapshot.data!.values.isEmpty ? 0.0 : snapshot.data!.values.map((e) => e.duration.inMinutes).reduce(max),
+              _intendedPrayerTimes.isEmpty
+                  ? 0.0
+                  : _intendedPrayerTimes
+                      .map((e) => e.duration.inMinutes)
+                      .reduce(max),
+              snapshot.data!.values.isEmpty
+                  ? 0.0
+                  : snapshot.data!.values
+                      .map((e) => e.duration.inMinutes)
+                      .reduce(max),
             );
             maxDuration = (maxDuration / 10.0).ceil() * 10;
 
@@ -106,14 +120,21 @@ class _PrayerTimeChartState extends State<PrayerTimeChart> {
                       barRods: [
                         BarChartRodData(
                           y: max(
-                            _intendedPrayerTimes[i].duration.inMilliseconds.toDouble(),
-                            snapshot.data![_days[i]]?.duration.inMilliseconds.toDouble() ?? 0,
+                            _intendedPrayerTimes[i]
+                                .duration
+                                .inMilliseconds
+                                .toDouble(),
+                            snapshot.data![_days[i]]?.duration.inMilliseconds
+                                    .toDouble() ??
+                                0,
                           ),
                           colors: [Colors.red],
                           rodStackItems: [
                             BarChartRodStackItem(
                               0,
-                              snapshot.data![_days[i]]?.duration.inMilliseconds.toDouble() ?? 0,
+                              snapshot.data![_days[i]]?.duration.inMilliseconds
+                                      .toDouble() ??
+                                  0,
                               Colors.blue,
                             ),
                           ],
@@ -137,15 +158,19 @@ class _PrayerTimeChartState extends State<PrayerTimeChart> {
                   bottomTitles: SideTitles(
                     showTitles: true,
                     getTitles: (value) {
-                      return DateFormat(DateFormat.ABBR_WEEKDAY, locale.toLanguageTag()).format(_days[value.toInt()]);
+                      return DateFormat(
+                              DateFormat.ABBR_WEEKDAY, locale.toLanguageTag())
+                          .format(_days[value.toInt()]);
                     },
                   ),
                   leftTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 32,
-                    interval: max(1, verticalInterval * Duration.millisecondsPerMinute),
+                    interval: max(
+                        1, verticalInterval * Duration.millisecondsPerMinute),
                     getTitles: (value) {
-                      return Duration(milliseconds: value.toInt()).formatHoursMinutesShort();
+                      return Duration(milliseconds: value.toInt())
+                          .formatHoursMinutesShort();
                     },
                   ),
                 ),
@@ -205,12 +230,14 @@ class _PrayerTimeChartState extends State<PrayerTimeChart> {
       return range / 5;
     }
 
-    final pow10 = candidates.where((c) => log(c).remainder(log(10)) == 0).toList();
+    final pow10 =
+        candidates.where((c) => log(c).remainder(log(10)) == 0).toList();
     if (pow10.isNotEmpty) {
       return pow10.last;
     }
 
-    final pow10Half = candidates.where((c) => log(2 * c).remainder(log(10)) == 0).toList();
+    final pow10Half =
+        candidates.where((c) => log(2 * c).remainder(log(10)) == 0).toList();
     if (pow10Half.isNotEmpty) {
       return pow10Half.last;
     }

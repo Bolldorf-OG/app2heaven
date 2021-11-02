@@ -54,7 +54,8 @@ class DayReviewDeeds extends StatelessWidget {
           Expanded(
             child: StreamBuilder<List<Deed>>(
                 initialData: const [],
-                stream: dao.getDeedsStreamForDate(DateTime.utc(date.year, date.month, date.day)),
+                stream: dao.getDeedsStreamForDate(
+                    DateTime.utc(date.year, date.month, date.day)),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return Text("Error: ${snapshot.error}");
@@ -119,17 +120,21 @@ class DayReviewDeeds extends StatelessWidget {
                                     icon: Icon(Icons.read_more),
                                     color: theme.primaryColor,
                                     onPressed: () {
-                                      Navigator.pushNamed(context, "/deeds/details", arguments: deed.id);
+                                      Navigator.pushNamed(
+                                          context, "/deeds/details",
+                                          arguments: deed.id);
                                     },
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.edit),
                                     color: theme.primaryColor,
                                     onPressed: () async {
-                                      final newDeed =
-                                          await Navigator.pushNamed(context, "/deeds/edit", arguments: deed);
+                                      final newDeed = await Navigator.pushNamed(
+                                          context, "/deeds/edit",
+                                          arguments: deed);
                                       if (newDeed != null) {
-                                        await dao.updateDeed(deed, newDeed as DeedsCompanion);
+                                        await dao.updateDeed(
+                                            deed, newDeed as DeedsCompanion);
                                       }
                                     },
                                   ),
@@ -145,7 +150,8 @@ class DayReviewDeeds extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Text(
-                                  strings.deed_planned_for(locale.shortDateFormat.format(deed.date)),
+                                  strings.deed_planned_for(
+                                      locale.shortDateFormat.format(deed.date)),
                                   style: textTheme.subtitle2,
                                 ),
                               ),
@@ -163,7 +169,11 @@ class DayReviewDeeds extends StatelessWidget {
                                       label: Text(strings.done),
                                       icon: const Icon(Icons.check),
                                       onPressed: () async {
-                                        await dao.updateDeed(deed, deed.copyWith(archived: true).toCompanion(false));
+                                        await dao.updateDeed(
+                                            deed,
+                                            deed
+                                                .copyWith(archived: true)
+                                                .toCompanion(false));
                                       },
                                     )
                                   ],
@@ -179,7 +189,8 @@ class DayReviewDeeds extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 16, bottom: 0),
+                                  padding:
+                                      const EdgeInsets.only(top: 16, bottom: 0),
                                   child: Text(
                                     strings.already_done,
                                     textAlign: TextAlign.center,

@@ -72,7 +72,8 @@ extension DurationExtensions on Duration {
 
     final minutes = inMinutes.remainder(Duration.minutesPerHour);
     final seconds = inSeconds.remainder(Duration.secondsPerMinute);
-    final microseconds = inMicroseconds.remainder(Duration.microsecondsPerSecond);
+    final microseconds =
+        inMicroseconds.remainder(Duration.microsecondsPerSecond);
     return "PT${inHours}H${minutes}M$seconds.${sixDigits(microseconds)}S";
   }
 }
@@ -92,9 +93,11 @@ extension StringExtensions on String {
 }
 
 extension DateTimeExtensions on DateTime {
-  DateTime get startOfDay => isUtc ? DateTime.utc(year, month, day) : DateTime(year, month, day);
+  DateTime get startOfDay =>
+      isUtc ? DateTime.utc(year, month, day) : DateTime(year, month, day);
 
-  DateTime get endOfDay => startOfDay.add(Duration(days: 1) - Duration(microseconds: 1));
+  DateTime get endOfDay =>
+      startOfDay.add(Duration(days: 1) - Duration(microseconds: 1));
 
   Weekday getWeekday() => Weekday.values[weekday - 1];
 
@@ -112,14 +115,17 @@ extension TimeOfDayExtensions on TimeOfDay {
   }
 }
 
-String? readLocalizedString(DocumentSnapshot document, String field, Locale locale) {
+String? readLocalizedString(
+    DocumentSnapshot document, String field, Locale locale) {
   Map<String, dynamic>? localizedString = document.get(field);
   final actualLocale = Intl.verifiedLocale(
     locale.toLanguageTag(),
     (locale) => localizedString!.containsKey(locale),
     onFailure: (_) => null,
   );
-  return actualLocale == null ? localizedString!["(default)"] : localizedString![actualLocale];
+  return actualLocale == null
+      ? localizedString!["(default)"]
+      : localizedString![actualLocale];
 }
 
 extension ListExtensions<T> on List<T> {
@@ -130,7 +136,8 @@ extension ListExtensions<T> on List<T> {
 
 /// [weekday] is 0 - 6 for Monday - Sunday
 Future<Duration> getIntendedPrayerTime(Weekday weekday) async {
-  final prefs = AppPreferences(await StreamingSharedPreferences.instance).prayerTimes;
+  final prefs =
+      AppPreferences(await StreamingSharedPreferences.instance).prayerTimes;
   if (prefs.plannedEnabled(weekday).getValue() != true) {
     return Duration.zero;
   }
@@ -168,7 +175,8 @@ extension WeekdayExtensions on Weekday {
 
   String format(Locale locale) {
     final date = _knownMonday.add(Duration(days: index));
-    return DateFormat(DateFormat.ABBR_WEEKDAY, locale.toLanguageTag()).format(date);
+    return DateFormat(DateFormat.ABBR_WEEKDAY, locale.toLanguageTag())
+        .format(date);
   }
 }
 
@@ -217,7 +225,8 @@ class JsonHelper {
       return null;
     }
 
-    final match = RegExp(r'^PT([0-9]+)H([0-9]+)M([0-9]+).([0-9]{0,6})S$').firstMatch(jsonValue);
+    final match = RegExp(r'^PT([0-9]+)H([0-9]+)M([0-9]+).([0-9]{0,6})S$')
+        .firstMatch(jsonValue);
     if (match == null) {
       return null;
     }
@@ -236,14 +245,21 @@ class JsonHelper {
     final seconds = int.tryParse(group3);
     final secondsFraction = int.tryParse(group4);
 
-    if (hours == null || minutes == null || seconds == null || secondsFraction == null) {
+    if (hours == null ||
+        minutes == null ||
+        seconds == null ||
+        secondsFraction == null) {
       return null;
     }
 
     final microseconds = secondsFraction * pow(10, 6 - group4.length) as int;
 
     try {
-      return Duration(hours: hours, minutes: minutes, seconds: seconds, microseconds: microseconds);
+      return Duration(
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          microseconds: microseconds);
     } catch (_) {
       return null;
     }

@@ -25,7 +25,8 @@ class DonePrayerRequestsPage extends StatelessWidget {
       title: strings.god_helped,
       dataStream: dao.getDonePrayerRequestsStream(),
       iconPath: "assets/prayer_requests/list.png",
-      itemBuilder: (context, prayerRequest) => PrayerRequestListItem(prayerRequest),
+      itemBuilder: (context, prayerRequest) =>
+          PrayerRequestListItem(prayerRequest),
       itemTitle: (context, godsWord) => Text(godsWord.title),
       itemSubtitle: (context, godsWord) => Text(
         godsWord.content,
@@ -34,7 +35,8 @@ class DonePrayerRequestsPage extends StatelessWidget {
       ),
       onDelete: (items) => dao.deletePrayerRequests(items),
       onShare: (items) async {
-        final content = items.map((e) => "${e.title}\n${e.content}\n").join("\n");
+        final content =
+            items.map((e) => "${e.title}\n${e.content}\n").join("\n");
         await Share.share(content);
       },
       noItemsFound: strings.no_prayer_requests,

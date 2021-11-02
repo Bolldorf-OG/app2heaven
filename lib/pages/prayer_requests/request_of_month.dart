@@ -41,7 +41,8 @@ class PrayerRequestOfMonthPage extends StatelessWidget {
             .where("month", isEqualTo: Timestamp.fromDate(_currentMonth))
             .limit(1)
             .snapshots()
-            .map((snapshot) => snapshot.docs.isEmpty ? null : snapshot.docs.first),
+            .map((snapshot) =>
+                snapshot.docs.isEmpty ? null : snapshot.docs.first),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");

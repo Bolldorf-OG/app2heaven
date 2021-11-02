@@ -21,14 +21,15 @@ class BibleBookName extends DataClass implements Insertable<BibleBookName> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
     return BibleBookName(
-      abbreviation: stringType
+      abbreviation: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}abbreviation'])!,
-      name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
-      keywords: stringType
+      name: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      keywords: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}keywords'])!,
-      id: stringType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      id: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
     );
   }
   @override
@@ -94,7 +95,7 @@ class BibleBookName extends DataClass implements Insertable<BibleBookName> {
   int get hashCode => $mrjf($mrjc(abbreviation.hashCode,
       $mrjc(name.hashCode, $mrjc(keywords.hashCode, id.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is BibleBookName &&
           other.abbreviation == this.abbreviation &&
@@ -119,7 +120,7 @@ class BibleBookNamesCompanion extends UpdateCompanion<BibleBookName> {
     required String name,
     required String keywords,
     required String id,
-  })   : abbreviation = Value(abbreviation),
+  })  : abbreviation = Value(abbreviation),
         name = Value(name),
         keywords = Value(keywords),
         id = Value(id);
@@ -189,40 +190,27 @@ class BibleBookNames extends Table
   BibleBookNames(this._db, [this._alias]);
   final VerificationMeta _abbreviationMeta =
       const VerificationMeta('abbreviation');
-  late final GeneratedTextColumn abbreviation = _constructAbbreviation();
-  GeneratedTextColumn _constructAbbreviation() {
-    return GeneratedTextColumn('abbreviation', $tableName, false,
-        $customConstraints: '');
-  }
-
+  late final GeneratedColumn<String?> abbreviation = GeneratedColumn<String?>(
+      'abbreviation', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true, $customConstraints: '');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  late final GeneratedTextColumn name = _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn('name', $tableName, false,
-        $customConstraints: '');
-  }
-
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true, $customConstraints: '');
   final VerificationMeta _keywordsMeta = const VerificationMeta('keywords');
-  late final GeneratedTextColumn keywords = _constructKeywords();
-  GeneratedTextColumn _constructKeywords() {
-    return GeneratedTextColumn('keywords', $tableName, false,
-        $customConstraints: '');
-  }
-
+  late final GeneratedColumn<String?> keywords = GeneratedColumn<String?>(
+      'keywords', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true, $customConstraints: '');
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedTextColumn id = _constructId();
-  GeneratedTextColumn _constructId() {
-    return GeneratedTextColumn('id', $tableName, false, $customConstraints: '');
-  }
-
+  late final GeneratedColumn<String?> id = GeneratedColumn<String?>(
+      'id', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true, $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [abbreviation, name, keywords, id];
   @override
-  BibleBookNames get asDslTable => this;
+  String get aliasedName => _alias ?? 'bible_book_names';
   @override
-  String get $tableName => _alias ?? 'bible_book_names';
-  @override
-  final String actualTableName = 'bible_book_names';
+  String get actualTableName => 'bible_book_names';
   @override
   VerificationContext validateIntegrity(Insertable<BibleBookName> instance,
       {bool isInserting = false}) {
@@ -260,8 +248,8 @@ class BibleBookNames extends Table
   Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
   @override
   BibleBookName map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return BibleBookName.fromData(data, _db, prefix: effectivePrefix);
+    return BibleBookName.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -293,22 +281,19 @@ class Deed extends DataClass implements Insertable<Deed> {
   factory Deed.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Deed(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
-      archived:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}archived'])!,
-      created: dateTimeType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
+      archived: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}archived'])!,
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
-      date:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      date: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
     );
   }
   @override
@@ -397,7 +382,7 @@ class Deed extends DataClass implements Insertable<Deed> {
               $mrjc(archived.hashCode,
                   $mrjc(created.hashCode, date.hashCode))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Deed &&
           other.id == this.id &&
@@ -430,7 +415,7 @@ class DeedsCompanion extends UpdateCompanion<Deed> {
     required bool archived,
     this.created = const Value.absent(),
     required DateTime date,
-  })   : title = Value(title),
+  })  : title = Value(title),
         archived = Value(archived),
         date = Value(date);
   static Insertable<Deed> custom({
@@ -511,74 +496,42 @@ class $DeedsTable extends Deeds with TableInfo<$DeedsTable, Deed> {
   final String? _alias;
   $DeedsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'text',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'text', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _archivedMeta = const VerificationMeta('archived');
-  @override
-  late final GeneratedBoolColumn archived = _constructArchived();
-  GeneratedBoolColumn _constructArchived() {
-    return GeneratedBoolColumn(
-      'archived',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> archived = GeneratedColumn<bool?>(
+      'archived', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (archived IN (0, 1))');
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
-  @override
-  late final GeneratedDateTimeColumn date = _constructDate();
-  GeneratedDateTimeColumn _constructDate() {
-    return GeneratedDateTimeColumn(
-      'date',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+      'date', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, title, content, archived, created, date];
   @override
-  $DeedsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'deeds';
   @override
-  String get $tableName => _alias ?? 'deeds';
-  @override
-  final String actualTableName = 'deeds';
+  String get actualTableName => 'deeds';
   @override
   VerificationContext validateIntegrity(Insertable<Deed> instance,
       {bool isInserting = false}) {
@@ -620,8 +573,8 @@ class $DeedsTable extends Deeds with TableInfo<$DeedsTable, Deed> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Deed map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Deed.fromData(data, _db, prefix: effectivePrefix);
+    return Deed.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -645,19 +598,16 @@ class Decision extends DataClass implements Insertable<Decision> {
   factory Decision.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Decision(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
-      archived:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}archived'])!,
-      created: dateTimeType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
+      archived: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}archived'])!,
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
     );
   }
@@ -738,7 +688,7 @@ class Decision extends DataClass implements Insertable<Decision> {
           $mrjc(
               content.hashCode, $mrjc(archived.hashCode, created.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Decision &&
           other.id == this.id &&
@@ -840,62 +790,37 @@ class $DecisionsTable extends Decisions
   final String? _alias;
   $DecisionsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'text',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'text', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _archivedMeta = const VerificationMeta('archived');
-  @override
-  late final GeneratedBoolColumn archived = _constructArchived();
-  GeneratedBoolColumn _constructArchived() {
-    return GeneratedBoolColumn(
-      'archived',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> archived = GeneratedColumn<bool?>(
+      'archived', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (archived IN (0, 1))');
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [id, title, content, archived, created];
   @override
-  $DecisionsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'decisions';
   @override
-  String get $tableName => _alias ?? 'decisions';
-  @override
-  final String actualTableName = 'decisions';
+  String get actualTableName => 'decisions';
   @override
   VerificationContext validateIntegrity(Insertable<Decision> instance,
       {bool isInserting = false}) {
@@ -931,8 +856,8 @@ class $DecisionsTable extends Decisions
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Decision map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Decision.fromData(data, _db, prefix: effectivePrefix);
+    return Decision.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -951,14 +876,12 @@ class DecisionRating extends DataClass implements Insertable<DecisionRating> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final intType = db.typeSystem.forDartType<int>();
     return DecisionRating(
-      date:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
-      rating:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}rating'])!,
-      decisionId: intType
+      date: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      rating: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}rating'])!,
+      decisionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}decision_id'])!,
     );
   }
@@ -1018,7 +941,7 @@ class DecisionRating extends DataClass implements Insertable<DecisionRating> {
   int get hashCode =>
       $mrjf($mrjc(date.hashCode, $mrjc(rating.hashCode, decisionId.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DecisionRating &&
           other.date == this.date &&
@@ -1039,7 +962,7 @@ class DecisionRatingsCompanion extends UpdateCompanion<DecisionRating> {
     required DateTime date,
     required int rating,
     required int decisionId,
-  })   : date = Value(date),
+  })  : date = Value(date),
         rating = Value(rating),
         decisionId = Value(decisionId);
   static Insertable<DecisionRating> custom({
@@ -1095,43 +1018,25 @@ class $DecisionRatingsTable extends DecisionRatings
   final String? _alias;
   $DecisionRatingsTable(this._db, [this._alias]);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
-  @override
-  late final GeneratedDateTimeColumn date = _constructDate();
-  GeneratedDateTimeColumn _constructDate() {
-    return GeneratedDateTimeColumn(
-      'date',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+      'date', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   final VerificationMeta _ratingMeta = const VerificationMeta('rating');
-  @override
-  late final GeneratedIntColumn rating = _constructRating();
-  GeneratedIntColumn _constructRating() {
-    return GeneratedIntColumn(
-      'rating',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<int?> rating = GeneratedColumn<int?>(
+      'rating', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   final VerificationMeta _decisionIdMeta = const VerificationMeta('decisionId');
-  @override
-  late final GeneratedIntColumn decisionId = _constructDecisionId();
-  GeneratedIntColumn _constructDecisionId() {
-    return GeneratedIntColumn('decision_id', $tableName, false,
-        $customConstraints: 'REFERENCES decisions(id)');
-  }
-
+  late final GeneratedColumn<int?> decisionId = GeneratedColumn<int?>(
+      'decision_id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES decisions(id)');
   @override
   List<GeneratedColumn> get $columns => [date, rating, decisionId];
   @override
-  $DecisionRatingsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'decision_ratings';
   @override
-  String get $tableName => _alias ?? 'decision_ratings';
-  @override
-  final String actualTableName = 'decision_ratings';
+  String get actualTableName => 'decision_ratings';
   @override
   VerificationContext validateIntegrity(Insertable<DecisionRating> instance,
       {bool isInserting = false}) {
@@ -1164,8 +1069,8 @@ class $DecisionRatingsTable extends DecisionRatings
   Set<GeneratedColumn> get $primaryKey => {date, decisionId};
   @override
   DecisionRating map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return DecisionRating.fromData(data, _db, prefix: effectivePrefix);
+    return DecisionRating.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1180,10 +1085,9 @@ class Confession extends DataClass implements Insertable<Confession> {
   factory Confession.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Confession(
-      date:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      date: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
     );
   }
   @override
@@ -1219,14 +1123,16 @@ class Confession extends DataClass implements Insertable<Confession> {
       );
   @override
   String toString() {
-    return (StringBuffer('Confession(')..write('date: $date')..write(')'))
+    return (StringBuffer('Confession(')
+          ..write('date: $date')
+          ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => $mrjf(date.hashCode);
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Confession && other.date == this.date);
 }
@@ -1277,24 +1183,15 @@ class $ConfessionsTable extends Confessions
   final String? _alias;
   $ConfessionsTable(this._db, [this._alias]);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
-  @override
-  late final GeneratedDateTimeColumn date = _constructDate();
-  GeneratedDateTimeColumn _constructDate() {
-    return GeneratedDateTimeColumn(
-      'date',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+      'date', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [date];
   @override
-  $ConfessionsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'confessions';
   @override
-  String get $tableName => _alias ?? 'confessions';
-  @override
-  final String actualTableName = 'confessions';
+  String get actualTableName => 'confessions';
   @override
   VerificationContext validateIntegrity(Insertable<Confession> instance,
       {bool isInserting = false}) {
@@ -1313,8 +1210,8 @@ class $ConfessionsTable extends Confessions
   Set<GeneratedColumn> get $primaryKey => {date};
   @override
   Confession map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Confession.fromData(data, _db, prefix: effectivePrefix);
+    return Confession.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1337,16 +1234,14 @@ class ConfessionTopic extends DataClass implements Insertable<ConfessionTopic> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return ConfessionTopic(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
-      created: dateTimeType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
     );
   }
@@ -1413,7 +1308,7 @@ class ConfessionTopic extends DataClass implements Insertable<ConfessionTopic> {
   int get hashCode => $mrjf($mrjc(id.hashCode,
       $mrjc(title.hashCode, $mrjc(content.hashCode, created.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ConfessionTopic &&
           other.id == this.id &&
@@ -1502,51 +1397,31 @@ class $ConfessionTopicsTable extends ConfessionTopics
   final String? _alias;
   $ConfessionTopicsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'text',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'text', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [id, title, content, created];
   @override
-  $ConfessionTopicsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'confession_topics';
   @override
-  String get $tableName => _alias ?? 'confession_topics';
-  @override
-  final String actualTableName = 'confession_topics';
+  String get actualTableName => 'confession_topics';
   @override
   VerificationContext validateIntegrity(Insertable<ConfessionTopic> instance,
       {bool isInserting = false}) {
@@ -1576,8 +1451,8 @@ class $ConfessionTopicsTable extends ConfessionTopics
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ConfessionTopic map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConfessionTopic.fromData(data, _db, prefix: effectivePrefix);
+    return ConfessionTopic.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1605,22 +1480,20 @@ class Experience extends DataClass implements Insertable<Experience> {
   factory Experience.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Experience(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      editKey: stringType
+      editKey: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}edit_key']),
-      shareId: stringType
+      shareId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_id']),
-      shareLink: stringType
+      shareLink: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_link']),
-      created: dateTimeType
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
     );
   }
@@ -1731,7 +1604,7 @@ class Experience extends DataClass implements Insertable<Experience> {
                   $mrjc(shareId.hashCode,
                       $mrjc(shareLink.hashCode, created.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Experience &&
           other.id == this.id &&
@@ -1856,85 +1729,44 @@ class $ExperiencesTable extends Experiences
   final String? _alias;
   $ExperiencesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'content',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _editKeyMeta = const VerificationMeta('editKey');
-  @override
-  late final GeneratedTextColumn editKey = _constructEditKey();
-  GeneratedTextColumn _constructEditKey() {
-    return GeneratedTextColumn(
-      'edit_key',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> editKey = GeneratedColumn<String?>(
+      'edit_key', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareIdMeta = const VerificationMeta('shareId');
-  @override
-  late final GeneratedTextColumn shareId = _constructShareId();
-  GeneratedTextColumn _constructShareId() {
-    return GeneratedTextColumn(
-      'share_id',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareId = GeneratedColumn<String?>(
+      'share_id', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareLinkMeta = const VerificationMeta('shareLink');
-  @override
-  late final GeneratedTextColumn shareLink = _constructShareLink();
-  GeneratedTextColumn _constructShareLink() {
-    return GeneratedTextColumn(
-      'share_link',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareLink = GeneratedColumn<String?>(
+      'share_link', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
       [id, title, content, editKey, shareId, shareLink, created];
   @override
-  $ExperiencesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'experiences';
   @override
-  String get $tableName => _alias ?? 'experiences';
-  @override
-  final String actualTableName = 'experiences';
+  String get actualTableName => 'experiences';
   @override
   VerificationContext validateIntegrity(Insertable<Experience> instance,
       {bool isInserting = false}) {
@@ -1976,8 +1808,8 @@ class $ExperiencesTable extends Experiences
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Experience map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Experience.fromData(data, _db, prefix: effectivePrefix);
+    return Experience.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -2009,27 +1841,24 @@ class GodsWord extends DataClass implements Insertable<GodsWord> {
   factory GodsWord.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return GodsWord(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      archived:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}archived'])!,
-      emphasized: boolType
+      archived: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}archived'])!,
+      emphasized: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}emphasized'])!,
-      editKey: stringType
+      editKey: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}edit_key']),
-      shareId: stringType
+      shareId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_id']),
-      shareLink: stringType
+      shareLink: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_link']),
-      created: dateTimeType
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
     );
   }
@@ -2160,7 +1989,7 @@ class GodsWord extends DataClass implements Insertable<GodsWord> {
                               $mrjc(
                                   shareLink.hashCode, created.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is GodsWord &&
           other.id == this.id &&
@@ -2311,98 +2140,49 @@ class $GodsWordsTable extends GodsWords
   final String? _alias;
   $GodsWordsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'content',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _archivedMeta = const VerificationMeta('archived');
-  @override
-  late final GeneratedBoolColumn archived = _constructArchived();
-  GeneratedBoolColumn _constructArchived() {
-    return GeneratedBoolColumn(
-      'archived',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> archived = GeneratedColumn<bool?>(
+      'archived', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (archived IN (0, 1))');
   final VerificationMeta _emphasizedMeta = const VerificationMeta('emphasized');
-  @override
-  late final GeneratedBoolColumn emphasized = _constructEmphasized();
-  GeneratedBoolColumn _constructEmphasized() {
-    return GeneratedBoolColumn(
-      'emphasized',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> emphasized = GeneratedColumn<bool?>(
+      'emphasized', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (emphasized IN (0, 1))');
   final VerificationMeta _editKeyMeta = const VerificationMeta('editKey');
-  @override
-  late final GeneratedTextColumn editKey = _constructEditKey();
-  GeneratedTextColumn _constructEditKey() {
-    return GeneratedTextColumn(
-      'edit_key',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> editKey = GeneratedColumn<String?>(
+      'edit_key', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareIdMeta = const VerificationMeta('shareId');
-  @override
-  late final GeneratedTextColumn shareId = _constructShareId();
-  GeneratedTextColumn _constructShareId() {
-    return GeneratedTextColumn(
-      'share_id',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareId = GeneratedColumn<String?>(
+      'share_id', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareLinkMeta = const VerificationMeta('shareLink');
-  @override
-  late final GeneratedTextColumn shareLink = _constructShareLink();
-  GeneratedTextColumn _constructShareLink() {
-    return GeneratedTextColumn(
-      'share_link',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareLink = GeneratedColumn<String?>(
+      'share_link', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2416,11 +2196,9 @@ class $GodsWordsTable extends GodsWords
         created
       ];
   @override
-  $GodsWordsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'gods_words';
   @override
-  String get $tableName => _alias ?? 'gods_words';
-  @override
-  final String actualTableName = 'gods_words';
+  String get actualTableName => 'gods_words';
   @override
   VerificationContext validateIntegrity(Insertable<GodsWord> instance,
       {bool isInserting = false}) {
@@ -2476,8 +2254,8 @@ class $GodsWordsTable extends GodsWords
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   GodsWord map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return GodsWord.fromData(data, _db, prefix: effectivePrefix);
+    return GodsWord.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -2505,22 +2283,20 @@ class PrayerNote extends DataClass implements Insertable<PrayerNote> {
   factory PrayerNote.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return PrayerNote(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      editKey: stringType
+      editKey: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}edit_key']),
-      shareId: stringType
+      shareId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_id']),
-      shareLink: stringType
+      shareLink: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_link']),
-      created: dateTimeType
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
     );
   }
@@ -2631,7 +2407,7 @@ class PrayerNote extends DataClass implements Insertable<PrayerNote> {
                   $mrjc(shareId.hashCode,
                       $mrjc(shareLink.hashCode, created.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PrayerNote &&
           other.id == this.id &&
@@ -2756,85 +2532,44 @@ class $PrayerNotesTable extends PrayerNotes
   final String? _alias;
   $PrayerNotesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'content',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _editKeyMeta = const VerificationMeta('editKey');
-  @override
-  late final GeneratedTextColumn editKey = _constructEditKey();
-  GeneratedTextColumn _constructEditKey() {
-    return GeneratedTextColumn(
-      'edit_key',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> editKey = GeneratedColumn<String?>(
+      'edit_key', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareIdMeta = const VerificationMeta('shareId');
-  @override
-  late final GeneratedTextColumn shareId = _constructShareId();
-  GeneratedTextColumn _constructShareId() {
-    return GeneratedTextColumn(
-      'share_id',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareId = GeneratedColumn<String?>(
+      'share_id', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareLinkMeta = const VerificationMeta('shareLink');
-  @override
-  late final GeneratedTextColumn shareLink = _constructShareLink();
-  GeneratedTextColumn _constructShareLink() {
-    return GeneratedTextColumn(
-      'share_link',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareLink = GeneratedColumn<String?>(
+      'share_link', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
       [id, title, content, editKey, shareId, shareLink, created];
   @override
-  $PrayerNotesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'prayer_notes';
   @override
-  String get $tableName => _alias ?? 'prayer_notes';
-  @override
-  final String actualTableName = 'prayer_notes';
+  String get actualTableName => 'prayer_notes';
   @override
   VerificationContext validateIntegrity(Insertable<PrayerNote> instance,
       {bool isInserting = false}) {
@@ -2876,8 +2611,8 @@ class $PrayerNotesTable extends PrayerNotes
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PrayerNote map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PrayerNote.fromData(data, _db, prefix: effectivePrefix);
+    return PrayerNote.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -2910,27 +2645,24 @@ class PrayerRequest extends DataClass implements Insertable<PrayerRequest> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return PrayerRequest(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      state: $PrayerRequestsTable.$converter0.mapToDart(
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}state']))!,
-      emphasized: boolType
+      state: $PrayerRequestsTable.$converter0.mapToDart(const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}state']))!,
+      emphasized: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}emphasized'])!,
-      editKey: stringType
+      editKey: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}edit_key']),
-      shareId: stringType
+      shareId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_id']),
-      shareLink: stringType
+      shareLink: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_link']),
-      created: dateTimeType
+      created: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created'])!,
     );
   }
@@ -3064,7 +2796,7 @@ class PrayerRequest extends DataClass implements Insertable<PrayerRequest> {
                               $mrjc(
                                   shareLink.hashCode, created.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PrayerRequest &&
           other.id == this.id &&
@@ -3216,98 +2948,48 @@ class $PrayerRequestsTable extends PrayerRequests
   final String? _alias;
   $PrayerRequestsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'content',
-      $tableName,
-      false,
-    )..clientDefault = () => "";
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: false, clientDefault: () => "");
   final VerificationMeta _stateMeta = const VerificationMeta('state');
-  @override
-  late final GeneratedTextColumn state = _constructState();
-  GeneratedTextColumn _constructState() {
-    return GeneratedTextColumn(
-      'state',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumnWithTypeConverter<PrayerRequestState, String?>
+      state = GeneratedColumn<String?>('state', aliasedName, false,
+              typeName: 'TEXT', requiredDuringInsert: true)
+          .withConverter<PrayerRequestState>($PrayerRequestsTable.$converter0);
   final VerificationMeta _emphasizedMeta = const VerificationMeta('emphasized');
-  @override
-  late final GeneratedBoolColumn emphasized = _constructEmphasized();
-  GeneratedBoolColumn _constructEmphasized() {
-    return GeneratedBoolColumn(
-      'emphasized',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> emphasized = GeneratedColumn<bool?>(
+      'emphasized', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (emphasized IN (0, 1))');
   final VerificationMeta _editKeyMeta = const VerificationMeta('editKey');
-  @override
-  late final GeneratedTextColumn editKey = _constructEditKey();
-  GeneratedTextColumn _constructEditKey() {
-    return GeneratedTextColumn(
-      'edit_key',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> editKey = GeneratedColumn<String?>(
+      'edit_key', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareIdMeta = const VerificationMeta('shareId');
-  @override
-  late final GeneratedTextColumn shareId = _constructShareId();
-  GeneratedTextColumn _constructShareId() {
-    return GeneratedTextColumn(
-      'share_id',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareId = GeneratedColumn<String?>(
+      'share_id', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _shareLinkMeta = const VerificationMeta('shareLink');
-  @override
-  late final GeneratedTextColumn shareLink = _constructShareLink();
-  GeneratedTextColumn _constructShareLink() {
-    return GeneratedTextColumn(
-      'share_link',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> shareLink = GeneratedColumn<String?>(
+      'share_link', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _createdMeta = const VerificationMeta('created');
-  @override
-  late final GeneratedDateTimeColumn created = _constructCreated();
-  GeneratedDateTimeColumn _constructCreated() {
-    return GeneratedDateTimeColumn('created', $tableName, false,
-        defaultValue: currentDateAndTime);
-  }
-
+  late final GeneratedColumn<DateTime?> created = GeneratedColumn<DateTime?>(
+      'created', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -3321,11 +3003,9 @@ class $PrayerRequestsTable extends PrayerRequests
         created
       ];
   @override
-  $PrayerRequestsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'prayer_requests';
   @override
-  String get $tableName => _alias ?? 'prayer_requests';
-  @override
-  final String actualTableName = 'prayer_requests';
+  String get actualTableName => 'prayer_requests';
   @override
   VerificationContext validateIntegrity(Insertable<PrayerRequest> instance,
       {bool isInserting = false}) {
@@ -3376,8 +3056,8 @@ class $PrayerRequestsTable extends PrayerRequests
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PrayerRequest map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PrayerRequest.fromData(data, _db, prefix: effectivePrefix);
+    return PrayerRequest.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3397,14 +3077,13 @@ class PrayerItem extends DataClass implements Insertable<PrayerItem> {
   factory PrayerItem.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return PrayerItem(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      date:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
-      duration: $PrayerItemsTable.$converter0.mapToDart(
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}duration'])),
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      date: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      duration: $PrayerItemsTable.$converter0.mapToDart(const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}duration'])),
     );
   }
   @override
@@ -3468,7 +3147,7 @@ class PrayerItem extends DataClass implements Insertable<PrayerItem> {
   int get hashCode =>
       $mrjf($mrjc(id.hashCode, $mrjc(date.hashCode, duration.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PrayerItem &&
           other.id == this.id &&
@@ -3544,43 +3223,26 @@ class $PrayerItemsTable extends PrayerItems
   final String? _alias;
   $PrayerItemsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _dateMeta = const VerificationMeta('date');
-  @override
-  late final GeneratedDateTimeColumn date = _constructDate();
-  GeneratedDateTimeColumn _constructDate() {
-    return GeneratedDateTimeColumn(
-      'date',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+      'date', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   final VerificationMeta _durationMeta = const VerificationMeta('duration');
-  @override
-  late final GeneratedIntColumn duration = _constructDuration();
-  GeneratedIntColumn _constructDuration() {
-    return GeneratedIntColumn(
-      'duration',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumnWithTypeConverter<Duration, int?> duration =
+      GeneratedColumn<int?>('duration', aliasedName, true,
+              typeName: 'INTEGER', requiredDuringInsert: false)
+          .withConverter<Duration>($PrayerItemsTable.$converter0);
   @override
   List<GeneratedColumn> get $columns => [id, date, duration];
   @override
-  $PrayerItemsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'prayer_items';
   @override
-  String get $tableName => _alias ?? 'prayer_items';
-  @override
-  final String actualTableName = 'prayer_items';
+  String get actualTableName => 'prayer_items';
   @override
   VerificationContext validateIntegrity(Insertable<PrayerItem> instance,
       {bool isInserting = false}) {
@@ -3603,8 +3265,8 @@ class $PrayerItemsTable extends PrayerItems
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PrayerItem map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PrayerItem.fromData(data, _db, prefix: effectivePrefix);
+    return PrayerItem.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3622,13 +3284,11 @@ class Favorite extends DataClass implements Insertable<Favorite> {
   factory Favorite.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return Favorite(
-      firestoreRef: $FavoritesTable.$converter0.mapToDart(stringType
+      firestoreRef: $FavoritesTable.$converter0.mapToDart(const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}firestore_ref']))!,
-      favorite:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}favorite'])!,
+      favorite: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}favorite'])!,
     );
   }
   @override
@@ -3685,7 +3345,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
   @override
   int get hashCode => $mrjf($mrjc(firestoreRef.hashCode, favorite.hashCode));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Favorite &&
           other.firestoreRef == this.firestoreRef &&
@@ -3752,32 +3412,24 @@ class $FavoritesTable extends Favorites
   $FavoritesTable(this._db, [this._alias]);
   final VerificationMeta _firestoreRefMeta =
       const VerificationMeta('firestoreRef');
-  @override
-  late final GeneratedTextColumn firestoreRef = _constructFirestoreRef();
-  GeneratedTextColumn _constructFirestoreRef() {
-    return GeneratedTextColumn(
-      'firestore_ref',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumnWithTypeConverter<DocumentReference, String?>
+      firestoreRef = GeneratedColumn<String?>(
+              'firestore_ref', aliasedName, false,
+              typeName: 'TEXT', requiredDuringInsert: true)
+          .withConverter<DocumentReference>($FavoritesTable.$converter0);
   final VerificationMeta _favoriteMeta = const VerificationMeta('favorite');
-  @override
-  late final GeneratedBoolColumn favorite = _constructFavorite();
-  GeneratedBoolColumn _constructFavorite() {
-    return GeneratedBoolColumn('favorite', $tableName, false,
-        defaultValue: Constant(false));
-  }
-
+  late final GeneratedColumn<bool?> favorite = GeneratedColumn<bool?>(
+      'favorite', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (favorite IN (0, 1))',
+      defaultValue: Constant(false));
   @override
   List<GeneratedColumn> get $columns => [firestoreRef, favorite];
   @override
-  $FavoritesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'favorites';
   @override
-  String get $tableName => _alias ?? 'favorites';
-  @override
-  final String actualTableName = 'favorites';
+  String get actualTableName => 'favorites';
   @override
   VerificationContext validateIntegrity(Insertable<Favorite> instance,
       {bool isInserting = false}) {
@@ -3795,8 +3447,8 @@ class $FavoritesTable extends Favorites
   Set<GeneratedColumn> get $primaryKey => {firestoreRef};
   @override
   Favorite map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Favorite.fromData(data, _db, prefix: effectivePrefix);
+    return Favorite.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3821,14 +3473,14 @@ class BibleBook extends DataClass implements Insertable<BibleBook> {
   factory BibleBook.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return BibleBook(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
-      abbreviation: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      name: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      abbreviation: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}abbreviation'])!,
-      keywords: stringType
+      keywords: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}keywords'])!,
     );
   }
@@ -3895,7 +3547,7 @@ class BibleBook extends DataClass implements Insertable<BibleBook> {
   int get hashCode => $mrjf($mrjc(id.hashCode,
       $mrjc(name.hashCode, $mrjc(abbreviation.hashCode, keywords.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is BibleBook &&
           other.id == this.id &&
@@ -3920,7 +3572,7 @@ class BibleBooksCompanion extends UpdateCompanion<BibleBook> {
     required String name,
     required String abbreviation,
     required String keywords,
-  })   : name = Value(name),
+  })  : name = Value(name),
         abbreviation = Value(abbreviation),
         keywords = Value(keywords);
   static Insertable<BibleBook> custom({
@@ -3986,55 +3638,30 @@ class $BibleBooksTable extends BibleBooks
   final String? _alias;
   $BibleBooksTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedTextColumn name = _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn(
-      'name',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _abbreviationMeta =
       const VerificationMeta('abbreviation');
-  @override
-  late final GeneratedTextColumn abbreviation = _constructAbbreviation();
-  GeneratedTextColumn _constructAbbreviation() {
-    return GeneratedTextColumn(
-      'abbreviation',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> abbreviation = GeneratedColumn<String?>(
+      'abbreviation', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _keywordsMeta = const VerificationMeta('keywords');
-  @override
-  late final GeneratedTextColumn keywords = _constructKeywords();
-  GeneratedTextColumn _constructKeywords() {
-    return GeneratedTextColumn(
-      'keywords',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> keywords = GeneratedColumn<String?>(
+      'keywords', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [id, name, abbreviation, keywords];
   @override
-  $BibleBooksTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'bible_books';
   @override
-  String get $tableName => _alias ?? 'bible_books';
-  @override
-  final String actualTableName = 'bible_books';
+  String get actualTableName => 'bible_books';
   @override
   VerificationContext validateIntegrity(Insertable<BibleBook> instance,
       {bool isInserting = false}) {
@@ -4070,8 +3697,8 @@ class $BibleBooksTable extends BibleBooks
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   BibleBook map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return BibleBook.fromData(data, _db, prefix: effectivePrefix);
+    return BibleBook.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -4095,16 +3722,17 @@ class BibleVerse extends DataClass implements Insertable<BibleVerse> {
   factory BibleVerse.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return BibleVerse(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      book: intType.mapFromDatabaseResponse(data['${effectivePrefix}book'])!,
-      chapter:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}chapter'])!,
-      verse: intType.mapFromDatabaseResponse(data['${effectivePrefix}verse'])!,
-      content:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      book: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}book'])!,
+      chapter: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}chapter'])!,
+      verse: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}verse'])!,
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}text'])!,
     );
   }
   @override
@@ -4178,7 +3806,7 @@ class BibleVerse extends DataClass implements Insertable<BibleVerse> {
       $mrjc(book.hashCode,
           $mrjc(chapter.hashCode, $mrjc(verse.hashCode, content.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is BibleVerse &&
           other.id == this.id &&
@@ -4207,7 +3835,7 @@ class BibleVersesCompanion extends UpdateCompanion<BibleVerse> {
     required int chapter,
     required int verse,
     required String content,
-  })   : book = Value(book),
+  })  : book = Value(book),
         chapter = Value(chapter),
         verse = Value(verse),
         content = Value(content);
@@ -4282,62 +3910,35 @@ class $BibleVersesTable extends BibleVerses
   final String? _alias;
   $BibleVersesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _bookMeta = const VerificationMeta('book');
-  @override
-  late final GeneratedIntColumn book = _constructBook();
-  GeneratedIntColumn _constructBook() {
-    return GeneratedIntColumn('book', $tableName, false,
-        $customConstraints: 'REFERENCES bible_books(id)');
-  }
-
+  late final GeneratedColumn<int?> book = GeneratedColumn<int?>(
+      'book', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES bible_books(id)');
   final VerificationMeta _chapterMeta = const VerificationMeta('chapter');
-  @override
-  late final GeneratedIntColumn chapter = _constructChapter();
-  GeneratedIntColumn _constructChapter() {
-    return GeneratedIntColumn(
-      'chapter',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<int?> chapter = GeneratedColumn<int?>(
+      'chapter', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   final VerificationMeta _verseMeta = const VerificationMeta('verse');
-  @override
-  late final GeneratedIntColumn verse = _constructVerse();
-  GeneratedIntColumn _constructVerse() {
-    return GeneratedIntColumn(
-      'verse',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<int?> verse = GeneratedColumn<int?>(
+      'verse', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'text',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'text', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [id, book, chapter, verse, content];
   @override
-  $BibleVersesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'bible_verses';
   @override
-  String get $tableName => _alias ?? 'bible_verses';
-  @override
-  final String actualTableName = 'bible_verses';
+  String get actualTableName => 'bible_verses';
   @override
   VerificationContext validateIntegrity(Insertable<BibleVerse> instance,
       {bool isInserting = false}) {
@@ -4377,8 +3978,8 @@ class $BibleVersesTable extends BibleVerses
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   BibleVerse map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return BibleVerse.fromData(data, _db, prefix: effectivePrefix);
+    return BibleVerse.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override

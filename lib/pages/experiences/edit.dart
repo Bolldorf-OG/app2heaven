@@ -20,7 +20,8 @@ class ExperienceEditPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _ExperienceEditPageState(experience?.title ?? "", experience?.content ?? "");
+    return _ExperienceEditPageState(
+        experience?.title ?? "", experience?.content ?? "");
   }
 }
 
@@ -29,10 +30,12 @@ class _ExperienceEditPageState extends State<ExperienceEditPage> {
   final TextEditingController titleController;
   final TextEditingController contentController;
 
-  _ExperienceEditPageState._create(this.titleController, this.contentController);
+  _ExperienceEditPageState._create(
+      this.titleController, this.contentController);
 
   _ExperienceEditPageState(String title, String content)
-      : this._create(TextEditingController(text: title), TextEditingController(text: content));
+      : this._create(TextEditingController(text: title),
+            TextEditingController(text: content));
 
   @override
   void dispose() {

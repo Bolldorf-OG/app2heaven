@@ -31,33 +31,45 @@ class PrayerRequestListItem extends StatelessWidget {
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
     void edit() async {
-      final newPrayerRequest =
-          await Navigator.pushReplacementNamed(context, "/prayer-requests/edit", arguments: prayerRequest);
+      final newPrayerRequest = await Navigator.pushReplacementNamed(
+          context, "/prayer-requests/edit",
+          arguments: prayerRequest);
       if (newPrayerRequest != null) {
-        await dao.updatePrayerRequest(prayerRequest, newPrayerRequest as PrayerRequestsCompanion);
+        await dao.updatePrayerRequest(
+            prayerRequest, newPrayerRequest as PrayerRequestsCompanion);
       }
     }
 
     Future<void> open() async {
-      await Navigator.pushNamed(context, "/prayer-requests/details", arguments: prayerRequest.id);
+      await Navigator.pushNamed(context, "/prayer-requests/details",
+          arguments: prayerRequest.id);
     }
 
     void unarchive() async {
       Navigator.pop(context);
       await dao.updatePrayerRequest(
-          prayerRequest, prayerRequest.copyWith(state: PrayerRequestState.active).toCompanion(false));
+          prayerRequest,
+          prayerRequest
+              .copyWith(state: PrayerRequestState.active)
+              .toCompanion(false));
     }
 
     void archive() async {
       Navigator.pop(context);
       await dao.updatePrayerRequest(
-          prayerRequest, prayerRequest.copyWith(state: PrayerRequestState.archived).toCompanion(false));
+          prayerRequest,
+          prayerRequest
+              .copyWith(state: PrayerRequestState.archived)
+              .toCompanion(false));
     }
 
     void done() async {
       Navigator.pop(context);
       await dao.updatePrayerRequest(
-          prayerRequest, prayerRequest.copyWith(state: PrayerRequestState.done).toCompanion(false));
+          prayerRequest,
+          prayerRequest
+              .copyWith(state: PrayerRequestState.done)
+              .toCompanion(false));
     }
 
     void delete() async {
@@ -68,7 +80,8 @@ class PrayerRequestListItem extends StatelessWidget {
     void share() async {
       Future<String> _createShareLink() async {
         final data =
-            await SharedContent(prayerRequest.title, prayerRequest.content).share(SharedContentType.prayerRequest);
+            await SharedContent(prayerRequest.title, prayerRequest.content)
+                .share(SharedContentType.prayerRequest);
 
         await dao.updatePrayerRequest(
           prayerRequest,
@@ -86,16 +99,20 @@ class PrayerRequestListItem extends StatelessWidget {
 
       final shareLink = prayerRequest.shareLink ?? await _createShareLink();
       await Share.share(prayerRequest.state == PrayerRequestState.done
-          ? strings.share_prayer_request_done(prayerRequest.title, prayerRequest.content, shareLink)
-          : strings.share_prayer_request(prayerRequest.title, prayerRequest.content, shareLink));
+          ? strings.share_prayer_request_done(
+              prayerRequest.title, prayerRequest.content, shareLink)
+          : strings.share_prayer_request(
+              prayerRequest.title, prayerRequest.content, shareLink));
     }
 
     void emphasize() async {
-      await dao.updatePrayerRequest(prayerRequest, prayerRequest.copyWith(emphasized: true).toCompanion(false));
+      await dao.updatePrayerRequest(prayerRequest,
+          prayerRequest.copyWith(emphasized: true).toCompanion(false));
     }
 
     void unemphasize() async {
-      await dao.updatePrayerRequest(prayerRequest, prayerRequest.copyWith(emphasized: false).toCompanion(false));
+      await dao.updatePrayerRequest(prayerRequest,
+          prayerRequest.copyWith(emphasized: false).toCompanion(false));
     }
 
     return InkWell(
@@ -129,7 +146,8 @@ class PrayerRequestListItem extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(prayerRequest.emphasized ? Icons.star : Icons.star_border),
+            icon:
+                Icon(prayerRequest.emphasized ? Icons.star : Icons.star_border),
             onPressed: prayerRequest.emphasized ? unemphasize : emphasize,
           ),
           IconButton(
@@ -154,8 +172,12 @@ class PrayerRequestListItem extends StatelessWidget {
                       onTap: edit,
                     ),
                     ListTile(
-                      leading: Icon(prayerRequest.emphasized ? Icons.star : Icons.star_border),
-                      title: Text(prayerRequest.emphasized ? strings.unhighlight : strings.highlight),
+                      leading: Icon(prayerRequest.emphasized
+                          ? Icons.star
+                          : Icons.star_border),
+                      title: Text(prayerRequest.emphasized
+                          ? strings.unhighlight
+                          : strings.highlight),
                       onTap: () {
                         Navigator.pop(context);
                         if (prayerRequest.emphasized) {

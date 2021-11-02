@@ -950,26 +950,6 @@ class S {
     );
   }
 
-  /// `Donations`
-  String get donations {
-    return Intl.message(
-      'Donations',
-      name: 'donations',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us spread the word! More infos at [App2Heaven e.V.]({link})`
-  String donations_text_markdown(Object link) {
-    return Intl.message(
-      'App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us spread the word! More infos at [App2Heaven e.V.]($link)',
-      name: 'donations_text_markdown',
-      desc: '',
-      args: [link],
-    );
-  }
-
   /// `Done`
   String get done {
     return Intl.message(
@@ -2984,16 +2964,6 @@ class S {
     );
   }
 
-  /// `App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us by giving us feedback about your user experience, giving us your suggestions for the further development of the app, telling your friends about App2Heaven or visiting the donation page.`
-  String get donations_dialog {
-    return Intl.message(
-      'App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us by giving us feedback about your user experience, giving us your suggestions for the further development of the app, telling your friends about App2Heaven or visiting the donation page.',
-      name: 'donations_dialog',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Learn more`
   String get donate_now {
     return Intl.message(
@@ -3641,6 +3611,106 @@ class S {
     return Intl.message(
       'Reset dialog',
       name: 'reset_dialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Imprint`
+  String get imprint_title {
+    return Intl.message(
+      'Imprint',
+      name: 'imprint_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The App2Heaven is supported as a project by the Emmanuel Community, but wants to be a platform on which all participating communities can contribute equally.`
+  String get imprint_text {
+    return Intl.message(
+      'The App2Heaven is supported as a project by the Emmanuel Community, but wants to be a platform on which all participating communities can contribute equally.',
+      name: 'imprint_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App2Heaven e.V. is recognized as a non-profit association. Donations can be deducted from tax (in Germany and some other countries).`
+  String get imprint_donations_text {
+    return Intl.message(
+      'App2Heaven e.V. is recognized as a non-profit association. Donations can be deducted from tax (in Germany and some other countries).',
+      name: 'imprint_donations_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Donations account`
+  String get imprint_donations_account_title {
+    return Intl.message(
+      'Donations account',
+      name: 'imprint_donations_account_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05`
+  String get imprint_donations_account_text {
+    return Intl.message(
+      'App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05',
+      name: 'imprint_donations_account_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Give us feedback about your user experience and write your ideas for the further development of the app to `
+  String get imprint_feedback_text {
+    return Intl.message(
+      'Give us feedback about your user experience and write your ideas for the further development of the app to ',
+      name: 'imprint_feedback_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Postal address`
+  String get imprint_address_title {
+    return Intl.message(
+      'Postal address',
+      name: 'imprint_address_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: `
+  String get imprint_address_text {
+    return Intl.message(
+      'App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: ',
+      name: 'imprint_address_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Source Libraries`
+  String get oss_libs {
+    return Intl.message(
+      'Open Source Libraries',
+      name: 'oss_libs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose the item for the reminder`
+  String get choose_word_for_reminder {
+    return Intl.message(
+      'Choose the item for the reminder',
+      name: 'choose_word_for_reminder',
       desc: '',
       args: [],
     );

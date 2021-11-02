@@ -9,9 +9,11 @@
 import 'dart:ui' as ui;
 
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_installations/firebase_installations.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,12 +42,43 @@ class _SettingsPageState extends State<SettingsPage> {
     final confessionsDao = Provider.of<AppDatabase>(context).confessionsDao;
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final sectionTitleStyle = textTheme.subtitle2!.copyWith(color: theme.accentColor);
+    final sectionTitleStyle =
+        textTheme.subtitle2!.copyWith(color: theme.colorScheme.secondary);
     final analytics = FirebaseAnalytics();
 
     return Scaffold(
       appBar: AppBar(
         title: Text(strings.settings),
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) async {
+              if (value == "debug_info") {
+                final token = await FirebaseMessaging.instance.getToken();
+                final fid = await FirebaseInstallations.id;
+                await showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: SelectableText("Push Token: $token\n\nFID: $fid"),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
+                        child: Text(strings.back),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: "debug_info",
+                child: Text("Debug Infos"),
+              ),
+            ],
+          ),
+        ],
       ),
       bottomNavigationBar: NavigationBottomAppBar(),
       body: ListView(
@@ -61,10 +94,14 @@ class _SettingsPageState extends State<SettingsPage> {
               value: value,
               title: Text(strings.use_system_language),
               onChanged: (value) {
-                analytics.logEvent(name: AnalyticsConstants.eventUseSystemLocale, parameters: {"value": value});
+                analytics.logEvent(
+                    name: AnalyticsConstants.eventUseSystemLocale,
+                    parameters: {"value": value});
                 settings.useSystemLocale.setValue(value);
                 if (value) {
-                  analytics.setUserProperty(name: AnalyticsConstants.keyLocale, value: ui.window.locale.toString());
+                  analytics.setUserProperty(
+                      name: AnalyticsConstants.keyLocale,
+                      value: ui.window.locale.toString());
 
                   settings.locale.setValue(ui.window.locale);
                 }
@@ -98,7 +135,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           ],
                           onChanged: (value) {
                             if (value != null) {
-                              analytics.setUserProperty(name: AnalyticsConstants.keyLocale, value: value);
+                              analytics.setUserProperty(
+                                  name: AnalyticsConstants.keyLocale,
+                                  value: value);
 
                               settings.locale.setValue(Locale(value));
                             }
@@ -161,8 +200,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   await confessionsDao.clearConfessionTopics();
                   await ConfessionIvAndSalt.clear();
                   final secureStorage = FlutterSecureStorage();
-                  await secureStorage.delete(key: ConfessionConstants.keyPasswordHash);
-                  await secureStorage.delete(key: ConfessionConstants.keyPasswordSalt);
+                  await secureStorage.delete(
+                      key: ConfessionConstants.keyPasswordHash);
+                  await secureStorage.delete(
+                      key: ConfessionConstants.keyPasswordSalt);
                 }
               },
               child: Text(strings.reset),
@@ -204,7 +245,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   applicationVersion: packageInfo.version,
                 );
               },
-              child: Text("Open Source Libraries"),
+              child: Text(strings.oss_libs),
             ),
           ),
         ],

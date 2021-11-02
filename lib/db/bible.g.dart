@@ -7,9 +7,9 @@ part of 'bible.dart';
 // **************************************************************************
 
 mixin _$BibleDaoMixin on DatabaseAccessor<AppDatabase> {
-  BibleBookNames get bibleBookNames => attachedDatabase.bibleBookNames;
   $BibleBooksTable get bibleBooks => attachedDatabase.bibleBooks;
   $BibleVersesTable get bibleVerses => attachedDatabase.bibleVerses;
+  BibleBookNames get bibleBookNames => attachedDatabase.bibleBookNames;
   Future<int> clearBookFts5() {
     return customUpdate(
       'DELETE FROM bible_book_names',
@@ -30,8 +30,12 @@ mixin _$BibleDaoMixin on DatabaseAccessor<AppDatabase> {
   Selectable<SearchBookFts5Result> searchBookFts5(String query) {
     return customSelect(
         'SELECT CAST(id AS INTEGER) AS id,\n                                       highlight(bible_book_names, 1, \'_\', \'_\') AS name,\n                                       abbreviation,\n                                       highlight(bible_book_names, 2, \'**\', \'**\') AS keywords\n                                 FROM bible_book_names\n                                 WHERE bible_book_names MATCH :query\n                                 ORDER BY rank',
-        variables: [Variable<String>(query)],
-        readsFrom: {bibleBookNames}).map((QueryRow row) {
+        variables: [
+          Variable<String>(query)
+        ],
+        readsFrom: {
+          bibleBookNames,
+        }).map((QueryRow row) {
       return SearchBookFts5Result(
         id: row.read<int>('id'),
         name: row.read<String>('name'),

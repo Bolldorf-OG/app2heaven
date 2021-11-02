@@ -37,7 +37,8 @@ class DayPreviewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(strings.dayspreview_date(locale.shortDateFormat.format(DateTime.now()))),
+        title: Text(strings
+            .dayspreview_date(locale.shortDateFormat.format(DateTime.now()))),
       ),
       bottomNavigationBar: NavigationBottomAppBar(),
       body: Stack(
@@ -47,7 +48,12 @@ class DayPreviewPage extends StatelessWidget {
             child: pages.isNotEmpty
                 ? PageView(
                     onPageChanged: (value) {
-                      FirebaseAnalytics().setCurrentScreen(screenName: "/day-preview/$value");
+                      try {
+                        FirebaseAnalytics().setCurrentScreen(
+                            screenName: "/day-preview/$value");
+                      } catch (e) {
+                        // ignored
+                      }
                       pageNotifier.value = value;
                     },
                     children: pages,

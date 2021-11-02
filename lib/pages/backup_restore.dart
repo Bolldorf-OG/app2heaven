@@ -8,9 +8,10 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:archive/archive_io.dart';
-import 'package:file_picker_writable/file_picker_writable.dart';
+import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -51,11 +52,8 @@ class BackupRestorePage extends StatelessWidget {
                 icon: const Icon(Icons.save_alt),
                 label: Text(strings.create_backup),
                 onPressed: () async {
-                  await FilePickerWritable().openFileForCreate(
-                    fileName: "Backup_${DateTime.now().toIso8601String().replaceAll(RegExp(r'[.:]'), "-")}.zip",
-                    writer: (file) async {
-                      await _writeBackupTo(file, prefs);
-                    },
+                  await FilePickerCross(await _createBackup(prefs)).exportToStorage(
+                    fileName: "Backup_${DateTime.now().toIso8601String().replaceAll(RegExp(r'[.:]'), "-")}.zip"
                   );
                 },
               ),
@@ -108,9 +106,10 @@ class BackupRestorePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    FilePickerWritable().openFile(
-                      (fileInfo, file) => _readBackupFrom(file, prefs),
-                    )
+                    FilePickerCross.importFromStorage(
+                      type: FileTypeCross.custom,
+                      fileExtension: "zip"
+                    ).then((file) => _readBackupFrom(file, prefs))
                   ]);
                 } on _VersionMismatchError catch (_) {
                   await showDialog(
@@ -137,20 +136,25 @@ class BackupRestorePage extends StatelessWidget {
     );
   }
 
-  Future<void> _writeBackupTo(File file, AppPreferences prefs) async {
+  Future<Uint8List> _createBackup(AppPreferences prefs) async {
     final tempDir = await (await getTemporaryDirectory()).createTemp("backup_");
+    final tempDirOut = await (await getTemporaryDirectory()).createTemp("backupZip_");
 
     await File("${tempDir.path}/info").writeAsString("A2H-Backup v2021");
     await prefs.writeToJsonFile(File("${tempDir.path}/preferences.json"));
     await (await AppDatabase.dbFile).copy("${tempDir.path}/database.db");
 
+    final backup = File("${tempDirOut.path}/backup.zip");
+
     final encoder = ZipFileEncoder();
-    encoder.zipDirectory(tempDir, filename: file.path);
+    encoder.zipDirectory(tempDir, filename: backup.path);
+
+    return await backup.readAsBytes();
   }
 
-  Future<void> _readBackupFrom(File file, AppPreferences prefs) async {
+  Future<void> _readBackupFrom(FilePickerCross file, AppPreferences prefs) async {
     final decoder = ZipDecoder();
-    final archive = decoder.decodeBytes(await file.readAsBytes());
+    final archive = decoder.decodeBytes(file.toUint8List());
     final info = utf8.decode(archive.findFile("info")?.content);
 
     if (info != "A2H-Backup v2021") {

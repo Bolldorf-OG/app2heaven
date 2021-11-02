@@ -28,7 +28,9 @@ class DeedListItem extends StatelessWidget {
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
     void edit() async {
-      final newDeed = await Navigator.pushReplacementNamed(context, "/deeds/edit", arguments: deed);
+      final newDeed = await Navigator.pushReplacementNamed(
+          context, "/deeds/edit",
+          arguments: deed);
       if (newDeed != null) {
         await dao.updateDeed(deed, newDeed as DeedsCompanion);
       }
@@ -40,12 +42,14 @@ class DeedListItem extends StatelessWidget {
 
     void unarchive() async {
       Navigator.pop(context);
-      await dao.updateDeed(deed, deed.copyWith(archived: false).toCompanion(false));
+      await dao.updateDeed(
+          deed, deed.copyWith(archived: false).toCompanion(false));
     }
 
     void archive() async {
       Navigator.pop(context);
-      await dao.updateDeed(deed, deed.copyWith(archived: true).toCompanion(false));
+      await dao.updateDeed(
+          deed, deed.copyWith(archived: true).toCompanion(false));
     }
 
     void delete() async {
@@ -70,7 +74,8 @@ class DeedListItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
-                    strings.deed_planned_for(locale.shortDateFormat.format(deed.date)),
+                    strings.deed_planned_for(
+                        locale.shortDateFormat.format(deed.date)),
                     style: textTheme.subtitle2,
                   ),
                 ),
@@ -112,8 +117,11 @@ class DeedListItem extends StatelessWidget {
                       onTap: edit,
                     ),
                     ListTile(
-                      leading: Icon(deed.archived ? Icons.unarchive : Icons.done),
-                      title: Text(deed.archived ? strings.show_in_current : strings.done),
+                      leading:
+                          Icon(deed.archived ? Icons.unarchive : Icons.done),
+                      title: Text(deed.archived
+                          ? strings.show_in_current
+                          : strings.done),
                       onTap: deed.archived ? unarchive : archive,
                     ),
                     ListTile(

@@ -57,7 +57,9 @@ class ConfessionTopicDetailsPage extends StatelessWidget {
 
     return StreamBuilder<ConfessionTopicData>(
       initialData: null,
-      stream: dao.getConfessionTopicStream(confessionTopicId).asyncMap((topic) async {
+      stream: dao
+          .getConfessionTopicStream(confessionTopicId)
+          .asyncMap((topic) async {
         final ivAndSalt = await ConfessionIvAndSalt.load();
 
         return ConfessionTopicData(
@@ -85,7 +87,8 @@ class ConfessionTopicDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),

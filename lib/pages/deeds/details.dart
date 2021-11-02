@@ -40,7 +40,8 @@ class DeedDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),
@@ -60,7 +61,8 @@ class DeedDetailsPage extends StatelessWidget {
         }
 
         void edit() async {
-          final newDeed = await Navigator.pushNamed(context, "/deeds/edit", arguments: deed);
+          final newDeed = await Navigator.pushNamed(context, "/deeds/edit",
+              arguments: deed);
           if (newDeed != null) {
             await dao.updateDeed(deed, newDeed as DeedsCompanion);
           }
@@ -68,12 +70,14 @@ class DeedDetailsPage extends StatelessWidget {
 
         void unarchive() async {
           Navigator.pop(context);
-          await dao.updateDeed(deed, deed.copyWith(archived: false).toCompanion(false));
+          await dao.updateDeed(
+              deed, deed.copyWith(archived: false).toCompanion(false));
         }
 
         void archive() async {
           Navigator.pop(context);
-          await dao.updateDeed(deed, deed.copyWith(archived: true).toCompanion(false));
+          await dao.updateDeed(
+              deed, deed.copyWith(archived: true).toCompanion(false));
         }
 
         void delete() async {

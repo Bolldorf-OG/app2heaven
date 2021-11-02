@@ -26,8 +26,10 @@ class ConfessionIvAndSalt {
   static Future<ConfessionIvAndSalt> load() async {
     final secureStorage = FlutterSecureStorage();
     return ConfessionIvAndSalt(
-      base64Url.decode((await secureStorage.read(key: ConfessionConstants.keyIv))!),
-      base64Url.decode((await secureStorage.read(key: ConfessionConstants.keySalt))!),
+      base64Url
+          .decode((await secureStorage.read(key: ConfessionConstants.keyIv))!),
+      base64Url.decode(
+          (await secureStorage.read(key: ConfessionConstants.keySalt))!),
     );
   }
 
@@ -70,28 +72,37 @@ class ConfessionEncryptionHelper {
     return rng;
   }();
 
-  String encrypt(String plaintext, String password, Uint8List salt, Uint8List iv) {
-    final derivedKey = (PBKDF2KeyDerivator(HMac(SHA1Digest(), 64))..init(Pbkdf2Parameters(salt, 1000, 32)))
+  String encrypt(
+      String plaintext, String password, Uint8List salt, Uint8List iv) {
+    final derivedKey = (PBKDF2KeyDerivator(HMac(SHA1Digest(), 64))
+          ..init(Pbkdf2Parameters(salt, 1000, 32)))
         .process(utf8.encode(password) as Uint8List);
     final keyParam = KeyParameter(derivedKey);
 
-    final params = PaddedBlockCipherParameters(ParametersWithIV(keyParam, iv), null);
-    final cipher = PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
+    final params =
+        PaddedBlockCipherParameters(ParametersWithIV(keyParam, iv), null);
+    final cipher =
+        PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
     cipher.init(true, params);
 
     final encoded = utf8.encode(plaintext);
-    final encrypted = encoded.isEmpty ? Uint8List(0) : cipher.process(encoded as Uint8List?);
+    final encrypted =
+        encoded.isEmpty ? Uint8List(0) : cipher.process(encoded as Uint8List?);
     final ciphertext = base64Url.encode(encrypted);
     return ciphertext;
   }
 
-  String decrypt(String ciphertext, String password, Uint8List salt, Uint8List iv) {
-    final derivedKey = (PBKDF2KeyDerivator(HMac(SHA1Digest(), 64))..init(Pbkdf2Parameters(salt, 1000, 32)))
+  String decrypt(
+      String ciphertext, String password, Uint8List salt, Uint8List iv) {
+    final derivedKey = (PBKDF2KeyDerivator(HMac(SHA1Digest(), 64))
+          ..init(Pbkdf2Parameters(salt, 1000, 32)))
         .process(utf8.encode(password) as Uint8List);
     final keyParam = KeyParameter(derivedKey);
 
-    final params = PaddedBlockCipherParameters(ParametersWithIV(keyParam, iv), null);
-    final cipher = PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
+    final params =
+        PaddedBlockCipherParameters(ParametersWithIV(keyParam, iv), null);
+    final cipher =
+        PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
     cipher.init(false, params);
 
     final decoded = base64Url.decode(ciphertext);

@@ -30,14 +30,18 @@ class ExperienceListItem extends StatelessWidget {
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
     void edit() async {
-      final newExperience = await Navigator.pushReplacementNamed(context, "/experiences/edit", arguments: experience);
+      final newExperience = await Navigator.pushReplacementNamed(
+          context, "/experiences/edit",
+          arguments: experience);
       if (newExperience != null) {
-        await dao.updateExperience(experience, newExperience as ExperiencesCompanion);
+        await dao.updateExperience(
+            experience, newExperience as ExperiencesCompanion);
       }
     }
 
     Future<void> open() async {
-      await Navigator.pushNamed(context, "/experiences/details", arguments: experience.id);
+      await Navigator.pushNamed(context, "/experiences/details",
+          arguments: experience.id);
     }
 
     void delete() async {
@@ -47,7 +51,8 @@ class ExperienceListItem extends StatelessWidget {
 
     void share() async {
       Future<String> _createShareLink() async {
-        final data = await SharedContent(experience.title, experience.content).share(SharedContentType.experience);
+        final data = await SharedContent(experience.title, experience.content)
+            .share(SharedContentType.experience);
 
         await dao.updateExperience(
           experience,
@@ -64,7 +69,8 @@ class ExperienceListItem extends StatelessWidget {
       }
 
       final shareLink = experience.shareLink ?? await _createShareLink();
-      await Share.share(strings.share_experience(experience.title, experience.content, shareLink));
+      await Share.share(strings.share_experience(
+          experience.title, experience.content, shareLink));
     }
 
     return InkWell(

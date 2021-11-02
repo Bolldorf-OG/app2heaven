@@ -64,7 +64,9 @@ class PrayerStimulusTagsListPage extends StatelessWidget {
                   return Text("Error: ${snapshot.error}");
                 }
 
-                final favorites = {for (var ref in snapshot.data ?? []) ref.path};
+                final favorites = {
+                  for (var ref in snapshot.data ?? []) ref.path
+                };
 
                 documents.sort((a, b) {
                   final favA = favorites.contains(a.reference.path);
@@ -76,7 +78,8 @@ class PrayerStimulusTagsListPage extends StatelessWidget {
                     return comp;
                   }
 
-                  return readLocalizedString(a, "name", locale)!.compareTo(readLocalizedString(b, "name", locale)!);
+                  return readLocalizedString(a, "name", locale)!
+                      .compareTo(readLocalizedString(b, "name", locale)!);
                 });
 
                 return ListView.separated(
@@ -85,7 +88,8 @@ class PrayerStimulusTagsListPage extends StatelessWidget {
                   itemCount: documents.length,
                   itemBuilder: (context, index) {
                     final document = documents[index];
-                    final tagName = readLocalizedString(document, "name", locale)!;
+                    final tagName =
+                        readLocalizedString(document, "name", locale)!;
 
                     return ListTile(
                       title: Text(
@@ -94,13 +98,17 @@ class PrayerStimulusTagsListPage extends StatelessWidget {
                       ),
                       dense: true,
                       trailing: StreamBuilder<bool?>(
-                        stream: favoritesDao.isFavoriteStream(document.reference),
+                        stream:
+                            favoritesDao.isFavoriteStream(document.reference),
                         initialData: false,
                         builder: (context, snapshot) {
                           final favorite = snapshot.data ?? false;
                           return IconButton(
-                            icon: favorite ? Icon(Icons.star) : Icon(Icons.star_border),
-                            onPressed: () async => await favoritesDao.setFavorite(document.reference, !favorite),
+                            icon: favorite
+                                ? Icon(Icons.star)
+                                : Icon(Icons.star_border),
+                            onPressed: () async => await favoritesDao
+                                .setFavorite(document.reference, !favorite),
                           );
                         },
                       ),
@@ -112,12 +120,14 @@ class PrayerStimulusTagsListPage extends StatelessWidget {
                         await Navigator.pushNamed(
                           context,
                           "/prayer-times/stimuli/with-tag",
-                          arguments: PrayerStimuliWithTagPageArgs(tagName, document.reference),
+                          arguments: PrayerStimuliWithTagPageArgs(
+                              tagName, document.reference),
                         );
                       },
                     );
                   },
-                  separatorBuilder: (context, index) => Divider(color: Colors.grey),
+                  separatorBuilder: (context, index) =>
+                      Divider(color: Colors.grey),
                 );
               },
             );

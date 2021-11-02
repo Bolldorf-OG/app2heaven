@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:selectable_autolink_text/selectable_autolink_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app2heaven.dart';
@@ -81,8 +82,8 @@ class AudioStimulusPage extends StatelessWidget {
 
               return StatefulBuilder(
                 builder: (context, setState) {
-                  if (loading) {
-                    http.head(audioUri!).then((response) {
+                  if (audioUri != null && loading) {
+                    http.head(audioUri).then((response) {
                       setState(() {
                         loading = false;
                         useSoundcloud = response.statusCode != HttpStatus.ok;
@@ -97,9 +98,15 @@ class AudioStimulusPage extends StatelessWidget {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text(
+                      SelectableAutoLinkText(
                         readLocalizedString(snapshot.data!, "text", locale)!,
                         style: textTheme.bodyText1,
+                        linkStyle: TextStyle(color: Colors.blueAccent),
+                        highlightedLinkStyle: TextStyle(
+                          color: Colors.blueAccent,
+                          backgroundColor: Colors.blueAccent.withAlpha(0x33),
+                        ),
+                        onTap: (url) => launch(url, forceSafariVC: false),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -113,7 +120,8 @@ class AudioStimulusPage extends StatelessWidget {
                         TextSpan(
                           text: strings.audio_stimuli_last_days,
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => launch("https://www.credo-online.de/impulse/einfach-gemeinsam-beten.html"),
+                            ..onTap = () => launch(
+                                "https://www.credo-online.de/impulse/einfach-gemeinsam-beten.html"),
                         ),
                         style: a2hText.copyWith(
                           decoration: TextDecoration.underline,

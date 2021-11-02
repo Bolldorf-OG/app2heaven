@@ -34,7 +34,8 @@ class _SoundCloudWebViewState extends State<SoundCloudWebView> {
         javascriptMode: JavascriptMode.unrestricted,
         debuggingEnabled: true,
         onPageFinished: (url) {
-          _controller?.evaluateJavascript("document.querySelector('.mobilePrestitial__link').click()");
+          _controller?.evaluateJavascript(
+              "document.querySelector('.mobilePrestitial__link').click()");
         },
       ),
     );

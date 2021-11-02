@@ -48,7 +48,8 @@ class DayPreviewPrayerTime extends StatelessWidget {
                   Image.asset("assets/prayer_times/icon.png"),
                   FutureBuilder<Duration>(
                     future: getIntendedPrayerTime(DateTime.now().getWeekday()),
-                    builder: (context, snapshot) => Text(snapshot.data?.formatHoursMinutes(context) ?? ""),
+                    builder: (context, snapshot) =>
+                        Text(snapshot.data?.formatHoursMinutes(context) ?? ""),
                   )
                 ],
               ),

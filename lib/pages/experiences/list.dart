@@ -26,7 +26,8 @@ class MyExperiencesPage extends StatelessWidget {
       dataStream: dao.getAllExperiencesStream(),
       iconPath: "assets/experiences/my_experiences.png",
       onAdd: () async {
-        final experience = await Navigator.pushNamed(context, "/experiences/edit");
+        final experience =
+            await Navigator.pushNamed(context, "/experiences/edit");
         if (experience != null) {
           await dao.insertExperience(experience as ExperiencesCompanion);
         }
@@ -40,7 +41,8 @@ class MyExperiencesPage extends StatelessWidget {
       ),
       onDelete: (items) => dao.deleteExperiences(items),
       onShare: (items) async {
-        final content = items.map((e) => "${e.title}\n${e.content}\n").join("\n");
+        final content =
+            items.map((e) => "${e.title}\n${e.content}\n").join("\n");
         await Share.share(content);
       },
       noItemsFound: strings.no_experiences,

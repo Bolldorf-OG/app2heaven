@@ -31,11 +31,13 @@ class ConfessionTopics extends Table {
 }
 
 @UseDao(tables: [Confessions, ConfessionTopics])
-class ConfessionsDao extends DatabaseAccessor<AppDatabase> with _$ConfessionsDaoMixin {
+class ConfessionsDao extends DatabaseAccessor<AppDatabase>
+    with _$ConfessionsDaoMixin {
   ConfessionsDao(AppDatabase db) : super(db);
 
   Stream<ConfessionTopic> getConfessionTopicStream(int id) {
-    return (select(confessionTopics)..where((d) => d.id.equals(id))).watchSingle();
+    return (select(confessionTopics)..where((d) => d.id.equals(id)))
+        .watchSingle();
   }
 
   Stream<List<ConfessionTopic>> getAllConfessionTopicsStream() {
@@ -50,8 +52,10 @@ class ConfessionsDao extends DatabaseAccessor<AppDatabase> with _$ConfessionsDao
     return into(confessionTopics).insert(confessionTopic);
   }
 
-  Future<int> updateConfessionTopic(ConfessionTopic confessionTopic, ConfessionTopicsCompanion newConfessionTopic) {
-    return (update(confessionTopics)..whereSamePrimaryKey(confessionTopic)).write(newConfessionTopic);
+  Future<int> updateConfessionTopic(ConfessionTopic confessionTopic,
+      ConfessionTopicsCompanion newConfessionTopic) {
+    return (update(confessionTopics)..whereSamePrimaryKey(confessionTopic))
+        .write(newConfessionTopic);
   }
 
   Future<int> deleteConfessionTopic(ConfessionTopic confessionTopic) {
@@ -63,8 +67,9 @@ class ConfessionsDao extends DatabaseAccessor<AppDatabase> with _$ConfessionsDao
   }
 
   Future<int> insertConfession(DateTime date) {
-    return into(confessions)
-        .insert(ConfessionsCompanion.insert(date: date.startOfDay), mode: InsertMode.insertOrReplace);
+    return into(confessions).insert(
+        ConfessionsCompanion.insert(date: date.startOfDay),
+        mode: InsertMode.insertOrReplace);
   }
 
   Stream<Confession> getLastConfessionStream() {
@@ -75,6 +80,8 @@ class ConfessionsDao extends DatabaseAccessor<AppDatabase> with _$ConfessionsDao
   }
 
   Stream<List<Confession>> getConfessionsStream() {
-    return (select(confessions)..orderBy([(confession) => OrderingTerm.desc(confession.date)])).watch();
+    return (select(confessions)
+          ..orderBy([(confession) => OrderingTerm.desc(confession.date)]))
+        .watch();
   }
 }

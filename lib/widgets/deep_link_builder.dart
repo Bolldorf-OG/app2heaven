@@ -12,7 +12,8 @@ import "package:firebase_dynamic_links/firebase_dynamic_links.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:uni_links2/uni_links.dart";
+import "package:uni_links/uni_links.dart";
+import 'package:url_launcher/url_launcher.dart';
 
 class DeepLinkBuilder extends StatefulWidget {
   final Widget Function(BuildContext context) builder;
@@ -64,6 +65,16 @@ class _DeepLinkBuilderState extends State<DeepLinkBuilder> {
         "deepQuery": deepLink.queryParameters,
         "query": uri.queryParameters,
       });
+    } else {
+      try {
+        await launch(
+          uri.toString(),
+          forceSafariVC: false,
+          forceWebView: false,
+        );
+      } catch (_) {
+        // ignored
+      }
     }
   }
 

@@ -18,14 +18,16 @@ class PrayerItems extends Table {
 
   DateTimeColumn get date => dateTime()();
 
-  IntColumn get duration => integer().nullable().map(const DurationConverter())();
+  IntColumn get duration =>
+      integer().nullable().map(const DurationConverter())();
 }
 
 @UseDao(
   tables: [PrayerItems],
   include: {"prayer_items.moor"},
 )
-class PrayerItemsDao extends DatabaseAccessor<AppDatabase> with _$PrayerItemsDaoMixin {
+class PrayerItemsDao extends DatabaseAccessor<AppDatabase>
+    with _$PrayerItemsDaoMixin {
   PrayerItemsDao(AppDatabase db) : super(db);
 
   Stream<Duration> getTotalPrayerDurationForDateStream(DateTime date) {
@@ -33,13 +35,18 @@ class PrayerItemsDao extends DatabaseAccessor<AppDatabase> with _$PrayerItemsDao
 
     return (selectOnly(prayerItems)
           ..addColumns([totalDuration])
-          ..where(prayerItems.date.isBetweenValues(date.startOfDay, date.endOfDay)))
-        .map((result) => const DurationConverter().mapToDart(result.read(totalDuration)) ?? Duration.zero)
+          ..where(
+              prayerItems.date.isBetweenValues(date.startOfDay, date.endOfDay)))
+        .map((result) =>
+            const DurationConverter().mapToDart(result.read(totalDuration)) ??
+            Duration.zero)
         .watchSingle();
   }
 
-  Stream<List<PrayerDuration>> getTotalPrayerDurationsForDateRange(DateTime from, DateTime to) {
-    return totalPrayerDurationsForDateRange(Constant(from), Constant(to)).watch();
+  Stream<List<PrayerDuration>> getTotalPrayerDurationsForDateRange(
+      DateTime from, DateTime to) {
+    return totalPrayerDurationsForDateRange(Constant(from), Constant(to))
+        .watch();
   }
 
   Stream<PrayerItem?> getCurrentPrayerItemStream() {
@@ -77,7 +84,8 @@ class PrayerItemsDao extends DatabaseAccessor<AppDatabase> with _$PrayerItemsDao
 
   Stream<Duration> getAveragePrayerTimeStream() {
     return prayerTimeAvergePerDayLastWeek()
-        .map((value) => const DurationConverter().mapToDart(value) ?? Duration.zero)
+        .map((value) =>
+            const DurationConverter().mapToDart(value) ?? Duration.zero)
         .watchSingle();
   }
 }

@@ -33,7 +33,8 @@ class GodsWords extends Table {
 }
 
 @UseDao(tables: [GodsWords])
-class GodsWordsDao extends DatabaseAccessor<AppDatabase> with _$GodsWordsDaoMixin {
+class GodsWordsDao extends DatabaseAccessor<AppDatabase>
+    with _$GodsWordsDaoMixin {
   GodsWordsDao(AppDatabase db) : super(db);
 
   Stream<GodsWord> getGodsWordStream(int id) {
@@ -64,8 +65,10 @@ class GodsWordsDao extends DatabaseAccessor<AppDatabase> with _$GodsWordsDaoMixi
     return into(godsWords).insert(godsWord);
   }
 
-  Future<int> updateGodsWord(GodsWord godsWord, GodsWordsCompanion newGodsWord) {
-    return (update(godsWords)..whereSamePrimaryKey(godsWord)).write(newGodsWord);
+  Future<int> updateGodsWord(
+      GodsWord godsWord, GodsWordsCompanion newGodsWord) {
+    return (update(godsWords)..whereSamePrimaryKey(godsWord))
+        .write(newGodsWord);
   }
 
   Future<int> deleteGodsWord(GodsWord godsWord) {
@@ -73,7 +76,9 @@ class GodsWordsDao extends DatabaseAccessor<AppDatabase> with _$GodsWordsDaoMixi
   }
 
   Future<int> deleteGodsWords(List<GodsWord> items) {
-    return (delete(godsWords)..where((item) => item.id.isIn(items.map((e) => e.id)))).go();
+    return (delete(godsWords)
+          ..where((item) => item.id.isIn(items.map((e) => e.id))))
+        .go();
   }
 
   Future<int?> getIdForShareId(String shareId) {

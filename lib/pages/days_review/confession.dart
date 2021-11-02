@@ -24,7 +24,8 @@ class DayReviewConfession extends StatefulWidget {
   State<StatefulWidget> createState() => _DayReviewConfessionState();
 }
 
-class _DayReviewConfessionState extends State<DayReviewConfession> with WidgetsBindingObserver {
+class _DayReviewConfessionState extends State<DayReviewConfession>
+    with WidgetsBindingObserver {
   String? _storedPassword;
 
   @override

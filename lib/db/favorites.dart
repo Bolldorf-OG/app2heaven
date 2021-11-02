@@ -23,24 +23,29 @@ class Favorites extends Table {
 }
 
 @UseDao(tables: [Favorites])
-class FavoritesDao extends DatabaseAccessor<AppDatabase> with _$FavoritesDaoMixin {
+class FavoritesDao extends DatabaseAccessor<AppDatabase>
+    with _$FavoritesDaoMixin {
   FavoritesDao(AppDatabase db) : super(db);
 
   Stream<List<DocumentReference>> getFavoritesStream() {
-    return (select(favorites)..where((tbl) => tbl.favorite.equals(true))).map((result) => result.firestoreRef).watch();
+    return (select(favorites)..where((tbl) => tbl.favorite.equals(true)))
+        .map((result) => result.firestoreRef)
+        .watch();
   }
 
   Stream<bool> isFavoriteStream(DocumentReference reference) {
     return (select(favorites)
           ..addColumns([favorites.favorite])
-          ..whereSamePrimaryKey(FavoritesCompanion.insert(firestoreRef: reference)))
+          ..whereSamePrimaryKey(
+              FavoritesCompanion.insert(firestoreRef: reference)))
         .map((result) => result.favorite)
         .watchSingle();
   }
 
   Future<void> setFavorite(DocumentReference reference, bool favorite) {
     return into(favorites).insert(
-      FavoritesCompanion.insert(firestoreRef: reference, favorite: Value(favorite)),
+      FavoritesCompanion.insert(
+          firestoreRef: reference, favorite: Value(favorite)),
       mode: InsertMode.insertOrReplace,
     );
   }

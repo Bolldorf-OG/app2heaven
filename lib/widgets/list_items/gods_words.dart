@@ -33,24 +33,29 @@ class GodsWordListItem extends StatelessWidget {
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
     void edit() async {
-      final newGodsWord = await Navigator.pushReplacementNamed(context, "/gods-words/edit", arguments: godsWord);
+      final newGodsWord = await Navigator.pushReplacementNamed(
+          context, "/gods-words/edit",
+          arguments: godsWord);
       if (newGodsWord != null) {
         await dao.updateGodsWord(godsWord, newGodsWord as GodsWordsCompanion);
       }
     }
 
     Future<void> open() async {
-      await Navigator.pushNamed(context, "/gods-words/details", arguments: godsWord.id);
+      await Navigator.pushNamed(context, "/gods-words/details",
+          arguments: godsWord.id);
     }
 
     void unarchive() async {
       Navigator.pop(context);
-      await dao.updateGodsWord(godsWord, godsWord.copyWith(archived: false).toCompanion(false));
+      await dao.updateGodsWord(
+          godsWord, godsWord.copyWith(archived: false).toCompanion(false));
     }
 
     void archive() async {
       Navigator.pop(context);
-      await dao.updateGodsWord(godsWord, godsWord.copyWith(archived: true).toCompanion(false));
+      await dao.updateGodsWord(
+          godsWord, godsWord.copyWith(archived: true).toCompanion(false));
     }
 
     void delete() async {
@@ -60,7 +65,8 @@ class GodsWordListItem extends StatelessWidget {
 
     void share() async {
       Future<String> _createShareLink() async {
-        final data = await SharedContent(godsWord.title, godsWord.content).share(SharedContentType.godsWord);
+        final data = await SharedContent(godsWord.title, godsWord.content)
+            .share(SharedContentType.godsWord);
 
         await dao.updateGodsWord(
           godsWord,
@@ -77,15 +83,18 @@ class GodsWordListItem extends StatelessWidget {
       }
 
       final shareLink = godsWord.shareLink ?? await _createShareLink();
-      await Share.share(strings.share_gods_word(godsWord.title, godsWord.content, shareLink));
+      await Share.share(
+          strings.share_gods_word(godsWord.title, godsWord.content, shareLink));
     }
 
     void emphasize() async {
-      await dao.updateGodsWord(godsWord, godsWord.copyWith(emphasized: true).toCompanion(false));
+      await dao.updateGodsWord(
+          godsWord, godsWord.copyWith(emphasized: true).toCompanion(false));
     }
 
     void unemphasize() async {
-      await dao.updateGodsWord(godsWord, godsWord.copyWith(emphasized: false).toCompanion(false));
+      await dao.updateGodsWord(
+          godsWord, godsWord.copyWith(emphasized: false).toCompanion(false));
     }
 
     return InkWell(
@@ -144,8 +153,11 @@ class GodsWordListItem extends StatelessWidget {
                       onTap: edit,
                     ),
                     ListTile(
-                      leading: Icon(godsWord.emphasized ? Icons.star : Icons.star_border),
-                      title: Text(godsWord.emphasized ? strings.unhighlight : strings.highlight),
+                      leading: Icon(
+                          godsWord.emphasized ? Icons.star : Icons.star_border),
+                      title: Text(godsWord.emphasized
+                          ? strings.unhighlight
+                          : strings.highlight),
                       onTap: () {
                         Navigator.pop(context);
                         if (godsWord.emphasized) {
@@ -156,8 +168,11 @@ class GodsWordListItem extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: Icon(godsWord.archived ? Icons.unarchive : Icons.archive),
-                      title: Text(godsWord.archived ? strings.show_in_current : strings.archive),
+                      leading: Icon(
+                          godsWord.archived ? Icons.unarchive : Icons.archive),
+                      title: Text(godsWord.archived
+                          ? strings.show_in_current
+                          : strings.archive),
                       onTap: godsWord.archived ? unarchive : archive,
                     ),
                     ListTile(

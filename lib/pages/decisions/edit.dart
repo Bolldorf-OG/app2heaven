@@ -20,7 +20,8 @@ class DecisionEditPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _DecisionEditPageState(decision?.title ?? "", decision?.content ?? "");
+    return _DecisionEditPageState(
+        decision?.title ?? "", decision?.content ?? "");
   }
 }
 
@@ -32,7 +33,8 @@ class _DecisionEditPageState extends State<DecisionEditPage> {
   _DecisionEditPageState._create(this.titleController, this.contentController);
 
   _DecisionEditPageState(String title, String content)
-      : this._create(TextEditingController(text: title), TextEditingController(text: content));
+      : this._create(TextEditingController(text: title),
+            TextEditingController(text: content));
 
   @override
   void dispose() {

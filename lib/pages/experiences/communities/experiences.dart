@@ -20,7 +20,8 @@ import 'details.dart';
 class CommunityExperiencesPage extends StatelessWidget {
   final String communityId;
 
-  const CommunityExperiencesPage({Key? key, required this.communityId}) : super(key: key);
+  const CommunityExperiencesPage({Key? key, required this.communityId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +67,11 @@ class CommunityExperiencesPage extends StatelessWidget {
                 );
               }
 
-              final documents = List<QueryDocumentSnapshot>.from(snapshot.data!.docs);
+              final documents =
+                  List<QueryDocumentSnapshot>.from(snapshot.data!.docs);
               documents.sort(
-                (a, b) => readLocalizedString(a, "title", locale)!.compareTo(readLocalizedString(b, "title", locale)!),
+                (a, b) => readLocalizedString(a, "title", locale)!
+                    .compareTo(readLocalizedString(b, "title", locale)!),
               );
 
               return ListView.separated(
@@ -87,7 +90,8 @@ class CommunityExperiencesPage extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      readLocalizedString(document, "text", locale)!.replaceAll("\n", " "),
+                      readLocalizedString(document, "text", locale)!
+                          .replaceAll("\n", " "),
                       style: a2hText,
                       maxLines: 5,
                       overflow: TextOverflow.ellipsis,
@@ -100,12 +104,14 @@ class CommunityExperiencesPage extends StatelessWidget {
                       await Navigator.pushNamed(
                         context,
                         "/experiences/communities/experiences/details",
-                        arguments: CommunityExperienceDetailsPageArgs(communityId, document.id),
+                        arguments: CommunityExperienceDetailsPageArgs(
+                            communityId, document.id),
                       );
                     },
                   );
                 },
-                separatorBuilder: (context, index) => Divider(color: Colors.grey),
+                separatorBuilder: (context, index) =>
+                    Divider(color: Colors.grey),
               );
           }
         },

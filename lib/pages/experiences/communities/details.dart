@@ -63,7 +63,8 @@ class CommunityExperienceDetailsPage extends StatelessWidget {
             return Text("Error: ${snapshot.error}");
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.connectionState == ConnectionState.none) {
             return Container(
               alignment: Alignment.center,
               child: CircularProgressIndicator(),
@@ -97,7 +98,8 @@ class CommunityExperienceDetailsPage extends StatelessWidget {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
                   child: SelectableText(
                     readLocalizedString(document, "text", locale)!,
                     style: a2hText,

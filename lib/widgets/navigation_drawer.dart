@@ -149,14 +149,14 @@ Widget _drawerContent(context, controller) {
           routeName: "/settings",
         ),
         _MenuEntry(
-          title: strings.donations,
-          iconPath: "assets/sidemenu/donations.png",
-          routeName: "/donations",
-        ),
-        _MenuEntry(
           title: strings.backup_restore,
           iconPath: "assets/sidemenu/backup.png",
           routeName: "/backup",
+        ),
+        _MenuEntry(
+          title: strings.imprint_title,
+          iconPath: "assets/sidemenu/imprint.png",
+          routeName: "/imprint",
         ),
       ],
     ),

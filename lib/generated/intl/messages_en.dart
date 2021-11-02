@@ -29,58 +29,55 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(date) => "Planned for: ${date}";
 
-  static String m5(link) =>
-      "App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us spread the word! More infos at [App2Heaven e.V.](${link})";
+  static String m5(date) => "Your last confession was on ${date}.";
 
-  static String m6(date) => "Your last confession was on ${date}.";
+  static String m6(date, time) => "My confession was on ${date} at ${time}";
 
-  static String m7(date, time) => "My confession was on ${date} at ${time}";
+  static String m7(date) => "You planned your next confession on ${date}.";
 
-  static String m8(date) => "You planned your next confession on ${date}.";
-
-  static String m9(startTime, duration) =>
+  static String m8(startTime, duration) =>
       "Prayer time at ${startTime} today (${duration}). God awaits you.";
 
-  static String m10(email) =>
+  static String m9(email) =>
       "App2Heaven is looking for app programmers to jointly develop the app on an open source platform. Interested? Then write us at ${email} or take a look at the code at https://github.com/Bolldorf-OG/app2heaven.";
 
-  static String m11(count) =>
+  static String m10(count) =>
       "${Intl.plural(count, one: 'Read verse', other: 'Read verses')}";
 
-  static String m12(date, time) =>
+  static String m11(date, time) =>
       "A reminder for your next confession on ${date} was created. You will be reminded on ${date} at ${time}.";
 
-  static String m13(title, text, uri) =>
+  static String m12(title, text, uri) =>
       "Take a look at this experience from my App2Heaven:\n${title}\n\n${text}\n${uri}";
 
-  static String m14(title, text, uri) =>
+  static String m13(title, text, uri) =>
       "Take a look at this word of god from my App2Heaven:\n${title}\n\n${text}\n${uri}";
 
-  static String m15(title, text, uri) =>
+  static String m14(title, text, uri) =>
       "Take a look at this prayer note from my App2Heaven:\n${title}\n\n${text}\n${uri}";
 
-  static String m16(title, text, uri) =>
+  static String m15(title, text, uri) =>
       "Please pray with me for this request from my App2Heaven:\n${title}\n\n${text}\n${uri}";
 
-  static String m17(title, text, uri) =>
+  static String m16(title, text, uri) =>
       "God helped! Thank you for praying for this request:\n${title}\n\n${text}\n${uri}";
 
-  static String m18(date) => "Stimulus ${date}";
+  static String m17(date) => "Stimulus ${date}";
 
-  static String m19(title, text) =>
+  static String m18(title, text) =>
       "Your daily reminder for \"${title}\":\n\n${text}";
 
-  static String m20(title) => "\'${title}\' was saved.";
+  static String m19(title) => "\'${title}\' was saved.";
 
-  static String m21(title, time) =>
+  static String m20(title, time) =>
       "You will be reminded of \'${title}\' at ${time} every day.";
 
-  static String m22(x, y) => "${x} h ${y} min";
+  static String m21(x, y) => "${x} h ${y} min";
 
-  static String m23(x) =>
+  static String m22(x) =>
       "${Intl.plural(x, one: '1 hour', other: '${x} hours')}";
 
-  static String m24(x) =>
+  static String m23(x) =>
       "${Intl.plural(x, one: '1 minute', other: '${x} minutes')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -133,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_reminder":
             MessageLookupByLibrary.simpleMessage("Change reminder"),
         "choose_folder": MessageLookupByLibrary.simpleMessage("Choose folder"),
+        "choose_word_for_reminder": MessageLookupByLibrary.simpleMessage(
+            "Choose the item for the reminder"),
         "clear_confession_topics": MessageLookupByLibrary.simpleMessage(
             "Clear confession topics (requires password)"),
         "clear_reminder":
@@ -296,10 +295,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "You can now share or export multiple items at once by clicking this icon, selecting them in the list and then clicking the button in the bottom right corner."),
         "display": MessageLookupByLibrary.simpleMessage("Display"),
         "donate_now": MessageLookupByLibrary.simpleMessage("Learn more"),
-        "donations": MessageLookupByLibrary.simpleMessage("Donations"),
-        "donations_dialog": MessageLookupByLibrary.simpleMessage(
-            "App2Heaven will always be completely free for its users. App2Heaven e.V. works to reach more people and bring God’s light into the world. Help us by giving us feedback about your user experience, giving us your suggestions for the further development of the app, telling your friends about App2Heaven or visiting the donation page."),
-        "donations_text_markdown": m5,
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration:"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -346,6 +341,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hide from current"),
         "highlight": MessageLookupByLibrary.simpleMessage("Highlight"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
+        "imprint_address_text": MessageLookupByLibrary.simpleMessage(
+            "App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: "),
+        "imprint_address_title":
+            MessageLookupByLibrary.simpleMessage("Postal address"),
+        "imprint_donations_account_text": MessageLookupByLibrary.simpleMessage(
+            "App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05"),
+        "imprint_donations_account_title":
+            MessageLookupByLibrary.simpleMessage("Donations account"),
+        "imprint_donations_text": MessageLookupByLibrary.simpleMessage(
+            "App2Heaven e.V. is recognized as a non-profit association. Donations can be deducted from tax (in Germany and some other countries)."),
+        "imprint_feedback_text": MessageLookupByLibrary.simpleMessage(
+            "Give us feedback about your user experience and write your ideas for the further development of the app to "),
+        "imprint_text": MessageLookupByLibrary.simpleMessage(
+            "The App2Heaven is supported as a project by the Emmanuel Community, but wants to be a platform on which all participating communities can contribute equally."),
+        "imprint_title": MessageLookupByLibrary.simpleMessage("Imprint"),
         "info": MessageLookupByLibrary.simpleMessage("Info"),
         "intended_min": MessageLookupByLibrary.simpleMessage("Intended (min)"),
         "introduction": MessageLookupByLibrary.simpleMessage("Introduction"),
@@ -357,7 +367,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Not all items have a valid prayer time"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "large": MessageLookupByLibrary.simpleMessage("large"),
-        "last_confession": m6,
+        "last_confession": m5,
         "later": MessageLookupByLibrary.simpleMessage("Later"),
         "loading_experience":
             MessageLookupByLibrary.simpleMessage("Loading experience..."),
@@ -379,7 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "(automatically translated from German)\n\nLord Jesus Christ, in the silence of this dawning morning, I come to you and plead with humility and confidence for your peace, your wisdom, your strength.\nGrant that today I look at the world with eyes that are full of love.\nLet me understand that all the glory of the church springs from your cross as its source.\nLet me receive my neighbor as the man whom you want to love through me.\nGive me the willingness to serve Him with devotion and unfold all the goodness you have put into Him.\nMy words should radiate gentleness and my whole behavior should bring peace.\nOnly those thoughts that spread blessings should stick in my mind.\nClose my ears to any malicious word and criticism.\nMay my tongue only serve to emphasize the good.\nAbove all, O Lord, cause that I am so full of joy and well-being that all who meet me will feel both your presence and your love.\nDress me with the splendor of your goodness and your beauty, so that I may reveal you in the course of this day.\nAmen."),
         "morning_prayer_head": MessageLookupByLibrary.simpleMessage(
             "Morning prayer of Sacred Mirjam of Abellin (view)"),
-        "my_confession_was_on": m7,
+        "my_confession_was_on": m6,
         "my_confession_was_on_fallback":
             MessageLookupByLibrary.simpleMessage("No confession yet"),
         "my_faithexperiences":
@@ -456,6 +466,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Suggest bible verse"),
         "open_bible_sub":
             MessageLookupByLibrary.simpleMessage("Read and write words"),
+        "oss_libs":
+            MessageLookupByLibrary.simpleMessage("Open Source Libraries"),
         "others": MessageLookupByLibrary.simpleMessage("Others"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_request":
@@ -467,7 +479,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "plan_next_confession":
             MessageLookupByLibrary.simpleMessage("Plan next confession"),
         "planned": MessageLookupByLibrary.simpleMessage("Planned"),
-        "planned_confession": m8,
+        "planned_confession": m7,
         "planning": MessageLookupByLibrary.simpleMessage("Planning"),
         "planning_button_sub":
             MessageLookupByLibrary.simpleMessage("Finding time for God."),
@@ -504,7 +516,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Prayer requests"),
         "prayerrequests_info_paragraph": MessageLookupByLibrary.simpleMessage(
             "Here you can write down all the concerns for which you want to pray, so they are not forgotten. Very urgent concerns can be highlighted. Perhaps it turns out over time, that your requests are changing - then you can rephrase them. With one click you have all your current prayer requests in mind. You can also share them with other App2heaven users. Your can tag your prayer requests in which you have experienced they have been heard. It feels good reading those petitions, who have been heard, now and again and for thanking what God has done for us."),
-        "prayertime_reminder": m9,
+        "prayertime_reminder": m8,
         "prayertimes": MessageLookupByLibrary.simpleMessage("Prayer times"),
         "prayertimes1": MessageLookupByLibrary.simpleMessage("Prayer times"),
         "preparation": MessageLookupByLibrary.simpleMessage("Preparation"),
@@ -517,7 +529,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy_text_ok": MessageLookupByLibrary.simpleMessage("Roger"),
         "privacy_text_title":
             MessageLookupByLibrary.simpleMessage("Privacy note"),
-        "programmers_dialog": m10,
+        "programmers_dialog": m9,
         "random_experience":
             MessageLookupByLibrary.simpleMessage("Faith experience"),
         "random_stimulus": MessageLookupByLibrary.simpleMessage("Stimulus"),
@@ -530,7 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Don\'t be sad. Tomorrow is a new day and “the Lord\'s mercies new every morning” (Lam. 3:22-23)"),
         "read": MessageLookupByLibrary.simpleMessage("Read"),
         "read_passage": MessageLookupByLibrary.simpleMessage("Read passage"),
-        "read_verses": m11,
+        "read_verses": m10,
         "real_prayertimes": MessageLookupByLibrary.simpleMessage("Pray now"),
         "real_prayertimes_sub":
             MessageLookupByLibrary.simpleMessage("Your spent time with God"),
@@ -543,7 +555,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
         "reminder_created":
             MessageLookupByLibrary.simpleMessage("Reminder created"),
-        "reminder_created_confession": m12,
+        "reminder_created_confession": m11,
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "reset_demo": MessageLookupByLibrary.simpleMessage("Reset demo"),
         "reset_dialog": MessageLookupByLibrary.simpleMessage("Reset dialog"),
@@ -577,11 +589,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "seven_day_review":
             MessageLookupByLibrary.simpleMessage("Seven-Day review"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
-        "share_experience": m13,
-        "share_gods_word": m14,
-        "share_prayer_note": m15,
-        "share_prayer_request": m16,
-        "share_prayer_request_done": m17,
+        "share_experience": m12,
+        "share_gods_word": m13,
+        "share_prayer_note": m14,
+        "share_prayer_request": m15,
+        "share_prayer_request_done": m16,
         "show_history": MessageLookupByLibrary.simpleMessage("Show history"),
         "show_in_current":
             MessageLookupByLibrary.simpleMessage("Show in Current"),
@@ -594,7 +606,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Start prayer time"),
         "stimuli_by_category":
             MessageLookupByLibrary.simpleMessage("Stimuli by category"),
-        "stimulus_head": m18,
+        "stimulus_head": m17,
         "stimulus_intro": MessageLookupByLibrary.simpleMessage(
             "In the name of the Father and the Son and the Holy Spirit. Amen."),
         "stimulus_to_prayer":
@@ -628,8 +640,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "word_format_error": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid bible reference (in German format). e.g. \'1. Petrus 2,3\' oder \'1. Petrus 2,4-6\'"),
         "word_of_god": MessageLookupByLibrary.simpleMessage("Word of God"),
-        "word_reminder": m19,
-        "word_saved": m20,
+        "word_reminder": m18,
+        "word_saved": m19,
         "words": MessageLookupByLibrary.simpleMessage("Words"),
         "words_archive_sub":
             MessageLookupByLibrary.simpleMessage("of all saved words"),
@@ -637,7 +649,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "In the words of Scripture, God speaks to us. He shows us what he is like and lets us see important things about our life. We often feel when we read the Bible or hear the services: This word is for me! It makes me understand something important. It shows me something to do. Then it is important that I also record this word. \"Don\'t just listen to the word, but act accordingly; otherwise you will cheat yourself,\" says the letter to James (1:22). The danger is that we will quickly forget what we have heard and nothing will change in our life. But if we hear the word and act on it, our life becomes and God leads us on his way. This function helps you to listen better to God\'s word. Write down the words that have spoken to you. Take them back for prayer, look at them again in between or let yourself through the memories remember them in everyday life. Then the words will seep into your heart, they will stay in you and bear fruit. You can decide which current words you want to see immediately, add new words or hide other words. Under \"all words\" you can also see those that have been hidden for some time. Sometimes it is interesting to read these words in context again and discover a “common thread” and see how God leads you through his word.\nYou can decide which current words you want to see immediately, add new words or hide other words. Under \"all words\" you can also see those that have been hidden for some time. Sometimes it is interesting to read these words together again and discover a “common thread” and see how God leads you through his word. "),
         "words_info_sub":
             MessageLookupByLibrary.simpleMessage("Life with God\'s Word"),
-        "words_reminder_enabled": m21,
+        "words_reminder_enabled": m20,
         "words_reminder_head": MessageLookupByLibrary.simpleMessage(
             "Let yourself remember in everyday life to the Word of God!"),
         "words_reminder_no_current_words": MessageLookupByLibrary.simpleMessage(
@@ -649,9 +661,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wrong password"),
         "wrong_password_text": MessageLookupByLibrary.simpleMessage(
             "The password is wrong, please try again. (You can reset your password in the settings, if you forgot it.)"),
-        "x_h_y_min": m22,
-        "x_hours": m23,
-        "x_minutes": m24,
+        "x_h_y_min": m21,
+        "x_hours": m22,
+        "x_minutes": m23,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

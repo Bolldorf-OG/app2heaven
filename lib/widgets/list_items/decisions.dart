@@ -28,24 +28,29 @@ class DecisionListItem extends StatelessWidget {
     final a2hText = Provider.of<App2HeavenTextStyle>(context).textStyle;
 
     void edit() async {
-      final newDecision = await Navigator.pushReplacementNamed(context, "/decisions/edit", arguments: decision);
+      final newDecision = await Navigator.pushReplacementNamed(
+          context, "/decisions/edit",
+          arguments: decision);
       if (newDecision != null) {
         await dao.updateDecision(decision, newDecision as DecisionsCompanion);
       }
     }
 
     Future<void> open() async {
-      await Navigator.pushNamed(context, "/decisions/details", arguments: decision.id);
+      await Navigator.pushNamed(context, "/decisions/details",
+          arguments: decision.id);
     }
 
     void unarchive() async {
       Navigator.pop(context);
-      await dao.updateDecision(decision, decision.copyWith(archived: false).toCompanion(false));
+      await dao.updateDecision(
+          decision, decision.copyWith(archived: false).toCompanion(false));
     }
 
     void archive() async {
       Navigator.pop(context);
-      await dao.updateDecision(decision, decision.copyWith(archived: true).toCompanion(false));
+      await dao.updateDecision(
+          decision, decision.copyWith(archived: true).toCompanion(false));
     }
 
     void delete() async {
@@ -105,8 +110,11 @@ class DecisionListItem extends StatelessWidget {
                       onTap: edit,
                     ),
                     ListTile(
-                      leading: Icon(decision.archived ? Icons.unarchive : Icons.archive),
-                      title: Text(decision.archived ? strings.show_in_current : strings.archive),
+                      leading: Icon(
+                          decision.archived ? Icons.unarchive : Icons.archive),
+                      title: Text(decision.archived
+                          ? strings.show_in_current
+                          : strings.archive),
                       onTap: decision.archived ? unarchive : archive,
                     ),
                     ListTile(

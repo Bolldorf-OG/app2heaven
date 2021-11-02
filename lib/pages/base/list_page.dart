@@ -40,7 +40,8 @@ class ListPage<T extends Object> extends StatefulWidget {
     this.itemTitle,
     this.itemSubtitle,
   }) : super(key: key) {
-    assert((onShare == null && onDelete == null) || (itemTitle != null && itemSubtitle != null));
+    assert((onShare == null && onDelete == null) ||
+        (itemTitle != null && itemSubtitle != null));
   }
 
   @override
@@ -132,7 +133,8 @@ class _ListPageState<T extends Object> extends State<ListPage<T>> {
         tapTarget: const Icon(Icons.delete),
         description: Text(strings.description_delete_many),
         onDismiss: () async {
-          Future.delayed(Duration(milliseconds: 100), () => FeatureDiscovery.completeCurrentStep(context));
+          Future.delayed(Duration(milliseconds: 100),
+              () => FeatureDiscovery.completeCurrentStep(context));
           return false;
         },
         onComplete: () async => true,
@@ -155,7 +157,8 @@ class _ListPageState<T extends Object> extends State<ListPage<T>> {
         tapTarget: const Icon(Icons.share),
         description: Text(strings.description_share_many),
         onDismiss: () async {
-          Future.delayed(Duration(milliseconds: 100), () => FeatureDiscovery.completeCurrentStep(context));
+          Future.delayed(Duration(milliseconds: 100),
+              () => FeatureDiscovery.completeCurrentStep(context));
           return false;
         },
         onComplete: () async => true,
@@ -238,7 +241,9 @@ class _ListPageState<T extends Object> extends State<ListPage<T>> {
                                     selected: checked[index] != null,
                                     onChanged: (value) {
                                       setState(() {
-                                        checked[index] = value! ? snapshot.data![index] : null;
+                                        checked[index] = value!
+                                            ? snapshot.data![index]
+                                            : null;
                                       });
                                     },
                                     title: Builder(
@@ -246,15 +251,23 @@ class _ListPageState<T extends Object> extends State<ListPage<T>> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline6!
-                                            .copyWith(color: DefaultTextStyle.of(context).style.color),
-                                        child: widget.itemTitle!(context, snapshot.data![index]!),
+                                            .copyWith(
+                                                color:
+                                                    DefaultTextStyle.of(context)
+                                                        .style
+                                                        .color),
+                                        child: widget.itemTitle!(
+                                            context, snapshot.data![index]!),
                                       ),
                                     ),
-                                    subtitle: widget.itemSubtitle!(context, snapshot.data![index]!),
+                                    subtitle: widget.itemSubtitle!(
+                                        context, snapshot.data![index]!),
                                   )
-                                : widget.itemBuilder(context, snapshot.data![index]!),
+                                : widget.itemBuilder(
+                                    context, snapshot.data![index]!),
                           ),
-                          separatorBuilder: (context, index) => Divider(color: Colors.grey),
+                          separatorBuilder: (context, index) =>
+                              Divider(color: Colors.grey),
                         );
                     }
                   },

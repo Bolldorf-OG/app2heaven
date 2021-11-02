@@ -31,17 +31,21 @@ class PrayerTimePlanningPage extends StatefulWidget {
 }
 
 class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
-  final Map<Weekday, TextEditingController> _durationControllers =
-      Weekday.values.asMap().map((_, day) => MapEntry(day, TextEditingController()));
+  final Map<Weekday, TextEditingController> _durationControllers = Weekday
+      .values
+      .asMap()
+      .map((_, day) => MapEntry(day, TextEditingController()));
 
   List<StreamSubscription<dynamic>>? _streamSubscriptions;
 
-  void _updateNotification(Weekday weekday, PrayerTimesPreferences prefs) async {
+  void _updateNotification(
+      Weekday weekday, PrayerTimesPreferences prefs) async {
     final strings = S.of(context);
     final notificationsPlugin = FlutterLocalNotificationsPlugin();
 
     final result = await notificationsPlugin
-        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
           sound: true,
           alert: true,
@@ -57,12 +61,16 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
     if (prefs.plannedEnabled(weekday).getValue()) {
       await FirebaseAnalytics().logEvent(
         name: AnalyticsConstants.eventPrayerTimePlanned,
-        parameters: {"weekday": weekday.format(Locale("en")), "duration": duration.inMinutes},
+        parameters: {
+          "weekday": weekday.format(Locale("en")),
+          "duration": duration.inMinutes
+        },
       );
 
       final localTimeZone = await FlutterNativeTimezone.getLocalTimezone();
       final now = TZDateTime.now(getLocation(localTimeZone));
-      var scheduledDate = TZDateTime(now.location, now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      var scheduledDate = TZDateTime(now.location, now.year, now.month, now.day,
+          timeOfDay.hour, timeOfDay.minute);
       while (scheduledDate.getWeekday() != weekday) {
         scheduledDate = scheduledDate.add(Duration(days: 1));
       }
@@ -81,11 +89,13 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
       await notificationsPlugin.zonedSchedule(
         NotificationIds.prayerTimes[weekday]!,
         strings.prayer_time,
-        strings.prayertime_reminder(timeOfDay.format(context), duration.formatHoursMinutes(context)),
+        strings.prayertime_reminder(
+            timeOfDay.format(context), duration.formatHoursMinutes(context)),
         scheduledDate,
-        NotificationChannels.main(
-            strings.prayertime_reminder(timeOfDay.format(context), duration.formatHoursMinutes(context))),
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
+        NotificationChannels.main(strings.prayertime_reminder(
+            timeOfDay.format(context), duration.formatHoursMinutes(context))),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.wallClockTime,
         androidAllowWhileIdle: true,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       );
@@ -117,7 +127,8 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
         [
           for (final day in Weekday.values)
             prefs.plannedDuration(day).listen((value) {
-              _durationControllers[day]!.text = value.formatHoursMinutes(context);
+              _durationControllers[day]!.text =
+                  value.formatHoursMinutes(context);
               _updateNotification(day, prefs);
             })
         ];
@@ -172,7 +183,8 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                   ),
                 ),
                 _everydayRow(everydayEnabled, prefs.everydayEnabled.setValue),
-                if (!everydayEnabled) ...days.map((weekday) => _plannedRow(weekday)),
+                if (!everydayEnabled)
+                  ...days.map((weekday) => _plannedRow(weekday)),
               ],
             ),
           ),
@@ -265,23 +277,31 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                         preference: prefs.plannedTime(Weekday.monday),
                         builder: (context, timeOfDay) => DateTimeField(
                           controller: TextEditingController(
-                              text: DateFormat(DateFormat.HOUR_MINUTE, locale.toLanguageTag())
+                              text: DateFormat(DateFormat.HOUR_MINUTE,
+                                      locale.toLanguageTag())
                                   .format(DateTimeField.convert(timeOfDay)!)),
-                          format: DateFormat(DateFormat.HOUR_MINUTE, locale.toLanguageTag()),
+                          format: DateFormat(
+                              DateFormat.HOUR_MINUTE, locale.toLanguageTag()),
                           onShowPicker: (context, currentValue) async {
                             final time = await showTimePicker(
                               context: context,
-                              initialTime: TimeOfDay.fromDateTime(currentValue!),
+                              initialTime:
+                                  TimeOfDay.fromDateTime(currentValue!),
                             );
-                            return time == null ? null : DateTimeField.convert(time);
+                            return time == null
+                                ? null
+                                : DateTimeField.convert(time);
                           },
                           resetIcon: null,
                           onChanged: (value) async {
                             for (final weekday in Weekday.values) {
-                              await prefs.plannedTime(weekday).setValue(TimeOfDay.fromDateTime(value!));
+                              await prefs
+                                  .plannedTime(weekday)
+                                  .setValue(TimeOfDay.fromDateTime(value!));
                             }
                           },
-                          decoration: InputDecoration(border: OutlineInputBorder()),
+                          decoration:
+                              InputDecoration(border: OutlineInputBorder()),
                         ),
                       ),
                     ),
@@ -301,9 +321,11 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                           context: context,
                           builder: (context) => SimpleDialog(
                             children: [
-                                  for (final duration in PrayerTimesConstants.plannedDurations)
+                                  for (final duration
+                                      in PrayerTimesConstants.plannedDurations)
                                     SimpleDialogOption(
-                                      onPressed: () => Navigator.pop(context, duration),
+                                      onPressed: () =>
+                                          Navigator.pop(context, duration),
                                       child: Text(
                                         duration.formatHoursMinutes(context),
                                         style: textTheme.subtitle1,
@@ -312,7 +334,9 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                                 ] +
                                 [
                                   SimpleDialogOption(
-                                    onPressed: () async => Navigator.pop(context, await _showCustomDurationDialog()),
+                                    onPressed: () async => Navigator.pop(
+                                        context,
+                                        await _showCustomDurationDialog()),
                                     child: Text(
                                       strings.custom,
                                       style: textTheme.subtitle1,
@@ -324,7 +348,9 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
 
                         if (duration != null) {
                           for (final weekday in Weekday.values) {
-                            await prefs.plannedDuration(weekday).setValue(duration);
+                            await prefs
+                                .plannedDuration(weekday)
+                                .setValue(duration);
                           }
                         }
                       },
@@ -373,9 +399,11 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                   builder: (context, timeOfDay) => DateTimeField(
                     enabled: enabled,
                     controller: TextEditingController(
-                        text: DateFormat(DateFormat.HOUR_MINUTE, locale.toLanguageTag())
+                        text: DateFormat(
+                                DateFormat.HOUR_MINUTE, locale.toLanguageTag())
                             .format(DateTimeField.convert(timeOfDay)!)),
-                    format: DateFormat(DateFormat.HOUR_MINUTE, locale.toLanguageTag()),
+                    format: DateFormat(
+                        DateFormat.HOUR_MINUTE, locale.toLanguageTag()),
                     onShowPicker: (context, currentValue) async {
                       final time = await showTimePicker(
                         context: context,
@@ -384,7 +412,9 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                       return time == null ? null : DateTimeField.convert(time);
                     },
                     resetIcon: null,
-                    onChanged: (value) => prefs.plannedTime(weekday).setValue(TimeOfDay.fromDateTime(value!)),
+                    onChanged: (value) => prefs
+                        .plannedTime(weekday)
+                        .setValue(TimeOfDay.fromDateTime(value!)),
                     decoration: InputDecoration(border: OutlineInputBorder()),
                   ),
                 ),
@@ -406,9 +436,11 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                     context: context,
                     builder: (context) => SimpleDialog(
                       children: [
-                            for (final duration in PrayerTimesConstants.plannedDurations)
+                            for (final duration
+                                in PrayerTimesConstants.plannedDurations)
                               SimpleDialogOption(
-                                onPressed: () => Navigator.pop(context, duration),
+                                onPressed: () =>
+                                    Navigator.pop(context, duration),
                                 child: Text(
                                   duration.formatHoursMinutes(context),
                                   style: textTheme.subtitle1,
@@ -417,7 +449,8 @@ class _PrayerTimePlanningPageState extends State<PrayerTimePlanningPage> {
                           ] +
                           [
                             SimpleDialogOption(
-                              onPressed: () async => Navigator.pop(context, await _showCustomDurationDialog()),
+                              onPressed: () async => Navigator.pop(
+                                  context, await _showCustomDurationDialog()),
                               child: Text(
                                 strings.custom,
                                 style: textTheme.subtitle1,

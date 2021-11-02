@@ -90,8 +90,6 @@
   "delete": "Löschen",
   "deregister": "Abmelden",
   "display": "Anzeige",
-  "donations": "Spenden",
-  "donations_text_markdown": "Die App2Heaven wird für Benutzer immer völlig kostenlos sein. App2Heaven e.V. arbeitet daran, mehr Menschen zu erreichen und Gottes Licht in die Welt zu bringen. Hilf uns dabei! Mehr Infos bei [App2Heaven e.V.]({link})",
   "done": "Erledigt",
   "duration": "Dauer:",
   "edit": "Bearbeiten",
@@ -293,7 +291,6 @@
   "use_system_language": "Systemsprache verwenden",
   "last_confession": "Deine letzte Beichte war am {date}.",
   "planned_confession": "Du hast deine nächste Beichte am {date} geplant.",
-  "donations_dialog": "Die App2Heaven wird für Benutzer immer völlig kostenlos sein. App2Heaven e.V. arbeitet daran, mehr Menschen zu erreichen und Gottes Licht in die Welt zu bringen. Hilf uns dabei, indem du uns Feedback über deine Nutzererfahrung gibst, uns deine Anregungen für die Weiterentwicklung der App mitteilst, deinen Freunden von der App2Heaven erzählst oder auf die Spendenseite gehst.",
   "donate_now": "Mehr Infos",
   "later": "Später",
   "analytics_dialog": "Hilf uns, die App weiterzuentwickeln, indem du uns anonym deine Nutzungsstatistik übermittelst. Du kannst deine Entscheidung jederzeit in den Einstellungen ändern.",
@@ -358,5 +355,15 @@
   "clear_confession_topics": "Beichtzettel löschen (benötigt Passwort)",
   "add_confession": "Abgelegte Beichte eintragen",
   "view_code": "Code ansehen",
-  "reset_dialog": "Dialog zurücksetzen"
+  "reset_dialog": "Dialog zurücksetzen",
+  "imprint_title": "Impressum",
+  "imprint_text": "Die App2Heaven wird als Projekt getragen von der Gemeinschaft Emmanuel, will aber eine Plattform sein, auf der alle teilnehmenden Gemeinschaften sich gleichberechtigt einbringen können.",
+  "imprint_donations_text": "Der App2Heaven e.V. ist anerkannt als gemeinnütziger Verein. Spenden können von der Steuer abgesetzt werden.",
+  "imprint_donations_account_title": "Spendenkonto",
+  "imprint_donations_account_text": "App2Heaven e.V.\nIBAN: DE14 7509 0300 0002 2355 28\nBIC: GENODEF1M05",
+  "imprint_feedback_text": "Gib uns Feedback über deine Nutzererfahrung und schreib deine Ideen für die Weiterentwicklung der App an ",
+  "imprint_address_title": "Postanschrift",
+  "imprint_address_text": "App2Heaven e. V.\nSpiritual Dr. Andreas Schmidt\nGeorgenstr. 14\n80799 München\nTel: +49 89 38176180\nWebsite: ",
+  "oss_libs": "Open Source Libraries",
+  "choose_word_for_reminder": "Wähle den Eintrag, an den du erinnert werden willst"
 }

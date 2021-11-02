@@ -22,7 +22,8 @@ class DeedEditPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _DeedEditPageState(deed?.title ?? "", deed?.content ?? "", deed?.date ?? DateTime.now());
+    return _DeedEditPageState(
+        deed?.title ?? "", deed?.content ?? "", deed?.date ?? DateTime.now());
   }
 }
 
@@ -34,10 +35,12 @@ class _DeedEditPageState extends State<DeedEditPage> {
 
   final _today = DateTime.now().startOfDay;
 
-  _DeedEditPageState._create(this.titleController, this.contentController, this.date);
+  _DeedEditPageState._create(
+      this.titleController, this.contentController, this.date);
 
   _DeedEditPageState(String title, String content, DateTime date)
-      : this._create(TextEditingController(text: title), TextEditingController(text: content), date);
+      : this._create(TextEditingController(text: title),
+            TextEditingController(text: content), date);
 
   @override
   void dispose() {
@@ -105,7 +108,9 @@ class _DeedEditPageState extends State<DeedEditPage> {
                   format: locale.mediumDateFormat,
                   onShowPicker: (context, currentValue) => showDatePicker(
                     context: context,
-                    initialDate: currentValue?.isAfter(_today) == true ? currentValue! : _today,
+                    initialDate: currentValue?.isAfter(_today) == true
+                        ? currentValue!
+                        : _today,
                     firstDate: _today,
                     lastDate: _today.add(Duration(days: 365 * 10)),
                   ),

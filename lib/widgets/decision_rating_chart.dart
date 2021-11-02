@@ -19,7 +19,8 @@ class DecisionRatingChart extends StatelessWidget {
 
   final _today = DateTime.now().startOfDay;
 
-  List<DateTime> get _days => List.generate(7, (index) => _today.add(Duration(days: -6 + index)));
+  List<DateTime> get _days =>
+      List.generate(7, (index) => _today.add(Duration(days: -6 + index)));
 
   DecisionRatingChart({
     Key? key,
@@ -66,15 +67,19 @@ class DecisionRatingChart extends StatelessWidget {
                   bottomTitles: SideTitles(
                     showTitles: true,
                     getTitles: (value) {
-                      return DateFormat(DateFormat.ABBR_WEEKDAY, locale.toLanguageTag()).format(_days[value.toInt()]);
+                      return DateFormat(
+                              DateFormat.ABBR_WEEKDAY, locale.toLanguageTag())
+                          .format(_days[value.toInt()]);
                     },
                   ),
                   leftTitles: SideTitles(
                     showTitles: true,
                     getTitles: (value) {
-                      return value == 0 ? "" : String.fromCharCode(0xe800 + value.toInt() - 1);
+                      return value == 0
+                          ? ""
+                          : String.fromCharCode(0xe800 + value.toInt() - 1);
                     },
-                    getTextStyles: (value) {
+                    getTextStyles: (context, value) {
                       if (value == 0) {
                         return TextStyle();
                       }
@@ -95,7 +100,9 @@ class DecisionRatingChart extends StatelessWidget {
                     spots: snapshot.data!
                         .map(
                           (e) => FlSpot(
-                            ((e.date.weekday.toDouble() - 1) - (_days.first.weekday - 1)) % 7,
+                            ((e.date.weekday.toDouble() - 1) -
+                                    (_days.first.weekday - 1)) %
+                                7,
                             e.rating.toDouble(),
                           ),
                         )

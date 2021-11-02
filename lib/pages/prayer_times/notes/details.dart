@@ -22,7 +22,8 @@ import '../../../widgets/navigation_drawer.dart';
 class PrayerNoteDetailsPage extends StatelessWidget {
   final int prayerNoteId;
 
-  const PrayerNoteDetailsPage({Key? key, required this.prayerNoteId}) : super(key: key);
+  const PrayerNoteDetailsPage({Key? key, required this.prayerNoteId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,8 @@ class PrayerNoteDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),
@@ -64,9 +66,12 @@ class PrayerNoteDetailsPage extends StatelessWidget {
         }
 
         void edit() async {
-          final newPrayerNote = await Navigator.pushNamed(context, "/prayer-times/notes/edit", arguments: prayerNote);
+          final newPrayerNote = await Navigator.pushNamed(
+              context, "/prayer-times/notes/edit",
+              arguments: prayerNote);
           if (newPrayerNote != null) {
-            await dao.updatePrayerNote(prayerNote, newPrayerNote as PrayerNotesCompanion);
+            await dao.updatePrayerNote(
+                prayerNote, newPrayerNote as PrayerNotesCompanion);
           }
         }
 
@@ -77,7 +82,9 @@ class PrayerNoteDetailsPage extends StatelessWidget {
 
         void share() async {
           Future<String> _createShareLink() async {
-            final data = await SharedContent(prayerNote.title, prayerNote.content).share(SharedContentType.prayerNote);
+            final data =
+                await SharedContent(prayerNote.title, prayerNote.content)
+                    .share(SharedContentType.prayerNote);
 
             await dao.updatePrayerNote(
               prayerNote,
@@ -94,7 +101,8 @@ class PrayerNoteDetailsPage extends StatelessWidget {
           }
 
           final shareLink = prayerNote.shareLink ?? await _createShareLink();
-          await Share.share(strings.share_prayer_note(prayerNote.title, prayerNote.content, shareLink));
+          await Share.share(strings.share_prayer_note(
+              prayerNote.title, prayerNote.content, shareLink));
         }
 
         return Scaffold(

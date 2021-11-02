@@ -107,7 +107,8 @@ class SharedContent {
     final id = uri.pathSegments[1];
     final iv = base64Url.decode(uri.queryParameters["i"]!);
 
-    final response = await http.get(Uri.https(await cloudFunctionsHost(), "/api/shared-content/$id"));
+    final response = await http
+        .get(Uri.https(await cloudFunctionsHost(), "/api/shared-content/$id"));
     final responseData = jsonDecode(response.body);
 
     final data = json.decode(
@@ -136,17 +137,22 @@ class _EncryptionHelper {
   }();
 
   String encrypt(String plaintext, Uint8List key, Uint8List iv) {
-    final params = PaddedBlockCipherParameters(ParametersWithIV(KeyParameter(key), iv), null);
-    final cipher = PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
+    final params = PaddedBlockCipherParameters(
+        ParametersWithIV(KeyParameter(key), iv), null);
+    final cipher =
+        PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
     cipher.init(true, params);
 
-    final ciphertext = base64Url.encode(cipher.process(utf8.encode(plaintext) as Uint8List?));
+    final ciphertext =
+        base64Url.encode(cipher.process(utf8.encode(plaintext) as Uint8List?));
     return ciphertext;
   }
 
   String decrypt(String ciphertext, Uint8List key, Uint8List iv) {
-    final params = PaddedBlockCipherParameters(ParametersWithIV(KeyParameter(key), iv), null);
-    final cipher = PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
+    final params = PaddedBlockCipherParameters(
+        ParametersWithIV(KeyParameter(key), iv), null);
+    final cipher =
+        PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESFastEngine()));
     cipher.init(false, params);
 
     final plaintext = utf8.decode(cipher.process(base64Url.decode(ciphertext)));

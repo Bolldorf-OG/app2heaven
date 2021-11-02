@@ -10,7 +10,6 @@ import "dart:convert";
 
 import "package:firebase_analytics/firebase_analytics.dart";
 import "package:firebase_analytics/observer.dart";
-import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:firebase_messaging/firebase_messaging.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
@@ -28,9 +27,9 @@ import 'pages/days_preview/days_preview.dart';
 import 'pages/days_review/days_review.dart';
 import 'pages/decisions/decisions.dart';
 import 'pages/deeds/deeds.dart';
-import "pages/donations.dart";
 import 'pages/experiences/experiences.dart';
 import 'pages/gods_words/gods_words.dart';
+import 'pages/imprint.dart';
 import "pages/introduction.dart";
 import 'pages/prayer_requests/prayer_requests.dart';
 import 'pages/prayer_times/prayer_times.dart';
@@ -45,7 +44,8 @@ class App2Heaven extends StatelessWidget {
     final analytics = FirebaseAnalytics();
     analytics.logAppOpen();
     FirebaseMessaging.instance.getToken().then(
-          (value) => analytics.setUserId(value?.substring(0, value.indexOf(":"))),
+          (value) =>
+              analytics.setUserId(value?.substring(0, value.indexOf(":"))),
         );
 
     final settings = Provider.of<AppPreferences>(context).settings;
@@ -61,11 +61,11 @@ class App2Heaven extends StatelessWidget {
             backgroundColor: Colors.grey.shade200,
             brightness: Brightness.light,
             appBarTheme: AppBarTheme(
-              brightness: Brightness.light,
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               color: Colors.white,
+              foregroundColor: Colors.black,
               iconTheme: IconThemeData(color: Colors.black38),
               actionsIconTheme: IconThemeData(color: Colors.blue),
-              textTheme: Typography.englishLike2014.merge(Typography.material2014().black),
             ),
             buttonTheme: ButtonThemeData(
               buttonColor: Colors.blue,
@@ -88,7 +88,6 @@ class App2Heaven extends StatelessWidget {
             "/": (_) => DeepLinkBuilder(
                   builder: (context) => DashboardPage(),
                 ),
-            "/donations": (_) => DonationsPage(),
             "/introduction": (_) => IntroductionPage(),
             "/settings": (_) => SettingsPage(),
             "/settings/dashboard": (_) => DashboardSettingsPage(),
@@ -98,14 +97,18 @@ class App2Heaven extends StatelessWidget {
             "/experiences/info": (_) => ExperiencesInfoPage(),
             "/experiences/my_experiences": (_) => MyExperiencesPage(),
             "/experiences/communities": (_) => CommunitiesPage(),
-            "/experiences/communities/experiences": (ctx) => CommunityExperiencesPage(
+            "/experiences/communities/experiences": (ctx) =>
+                CommunityExperiencesPage(
                   communityId: ModalRoute.of(ctx)!.settings.arguments as String,
                 ),
-            "/experiences/communities/experiences/details": (ctx) => CommunityExperienceDetailsPage.fromArgs(
-                  args: ModalRoute.of(ctx)!.settings.arguments as CommunityExperienceDetailsPageArgs,
+            "/experiences/communities/experiences/details": (ctx) =>
+                CommunityExperienceDetailsPage.fromArgs(
+                  args: ModalRoute.of(ctx)!.settings.arguments
+                      as CommunityExperienceDetailsPageArgs,
                 ),
             "/experiences/edit": (ctx) => ExperienceEditPage(
-                  experience: ModalRoute.of(ctx)!.settings.arguments as Experience?,
+                  experience:
+                      ModalRoute.of(ctx)!.settings.arguments as Experience?,
                 ),
             "/experiences/details": (ctx) => ExperienceDetailsPage(
                   experienceId: ModalRoute.of(ctx)!.settings.arguments as int,
@@ -115,11 +118,15 @@ class App2Heaven extends StatelessWidget {
             "/confession/topics": (ctx) => ConfessionTopicsPage(
                   password: ModalRoute.of(ctx)!.settings.arguments as String,
                 ),
-            "/confession/topics/edit": (ctx) => ConfessionTopicEditPage.fromArgs(
-                  args: ModalRoute.of(ctx)!.settings.arguments as ConfessionTopicEditPageArgs?,
+            "/confession/topics/edit": (ctx) =>
+                ConfessionTopicEditPage.fromArgs(
+                  args: ModalRoute.of(ctx)!.settings.arguments
+                      as ConfessionTopicEditPageArgs?,
                 ),
-            "/confession/topics/details": (ctx) => ConfessionTopicDetailsPage.fromArgs(
-                  args: ModalRoute.of(ctx)!.settings.arguments as ConfessionTopicDetailsPageArgs,
+            "/confession/topics/details": (ctx) =>
+                ConfessionTopicDetailsPage.fromArgs(
+                  args: ModalRoute.of(ctx)!.settings.arguments
+                      as ConfessionTopicDetailsPageArgs,
                 ),
             "/confession/preparation": (_) => ConfessionPreparationPage(),
             "/confession/reminder": (_) => ConfessionPlannerPage(),
@@ -165,10 +172,12 @@ class App2Heaven extends StatelessWidget {
             "/prayer-requests/archived": (_) => ArchivedPrayerRequestsPage(),
             "/prayer-requests/of-month": (_) => PrayerRequestOfMonthPage(),
             "/prayer-requests/edit": (ctx) => PrayerRequestEditPage(
-                  prayerRequest: ModalRoute.of(ctx)!.settings.arguments as PrayerRequest?,
+                  prayerRequest:
+                      ModalRoute.of(ctx)!.settings.arguments as PrayerRequest?,
                 ),
             "/prayer-requests/details": (ctx) => PrayerRequestDetailsPage(
-                  prayerRequestId: ModalRoute.of(ctx)!.settings.arguments as int,
+                  prayerRequestId:
+                      ModalRoute.of(ctx)!.settings.arguments as int,
                 ),
             "/prayer-times": (_) => PrayerTimesPage(),
             "/prayer-times/info": (_) => PrayerTimesInfoPage(),
@@ -178,15 +187,18 @@ class App2Heaven extends StatelessWidget {
             "/prayer-times/stimuli/audio-stimulus": (_) => PrayerStimuliPage(
                   openAudioStimulus: true,
                 ),
-            "/prayer-times/stimuli/with-tag": (ctx) => PrayerStimuliWithTagPage.fromArgs(
-                  args: ModalRoute.of(ctx)!.settings.arguments as PrayerStimuliWithTagPageArgs,
+            "/prayer-times/stimuli/with-tag": (ctx) =>
+                PrayerStimuliWithTagPage.fromArgs(
+                  args: ModalRoute.of(ctx)!.settings.arguments
+                      as PrayerStimuliWithTagPageArgs,
                 ),
             "/prayer-times/stimuli/details": (ctx) => PrayerStimulusDetailsPage(
                   stimulusId: ModalRoute.of(ctx)!.settings.arguments as String?,
                 ),
             "/prayer-times/notes": (_) => PrayerNotesPage(),
             "/prayer-times/notes/edit": (ctx) => PrayerNoteEditPage(
-                  prayerNote: ModalRoute.of(ctx)!.settings.arguments as PrayerNote?,
+                  prayerNote:
+                      ModalRoute.of(ctx)!.settings.arguments as PrayerNote?,
                 ),
             "/prayer-times/notes/details": (ctx) => PrayerNoteDetailsPage(
                   prayerNoteId: ModalRoute.of(ctx)!.settings.arguments as int,
@@ -194,6 +206,7 @@ class App2Heaven extends StatelessWidget {
             "/day-preview": (_) => DayPreviewPage(),
             "/day-review": (_) => DayReviewPage(),
             "/backup": (_) => BackupRestorePage(),
+            "/imprint": (_) => ImprintPage(),
           },
           onGenerateRoute: (settings) {
             if (settings.name!.startsWith("/shared/")) {
@@ -204,7 +217,8 @@ class App2Heaven extends StatelessWidget {
               return MaterialPageRoute(
                 settings: RouteSettings(name: "/shared/*"),
                 builder: (context) => SharedContentLoader(
-                  uri: Uri.https("app2heaven.firebaseapp.com", settings.name!, args["deepQuery"]),
+                  uri: Uri.https("app2heaven.firebaseapp.com", settings.name!,
+                      args["deepQuery"]),
                   encryptionKey: key,
                 ),
               );
@@ -213,8 +227,7 @@ class App2Heaven extends StatelessWidget {
             return null;
           },
           navigatorObservers: [
-            FirebaseAnalyticsObserver(
-                analytics: analytics, onError: (e) => FirebaseCrashlytics.instance.recordError(e, null)),
+            FirebaseAnalyticsObserver(analytics: analytics),
           ],
         ),
       ),

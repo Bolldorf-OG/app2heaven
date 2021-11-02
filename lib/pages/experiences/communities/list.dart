@@ -61,7 +61,8 @@ class CommunitiesPage extends StatelessWidget {
                 );
               }
 
-              final documents = List<DocumentSnapshot>.from(snapshot.data!.docs);
+              final documents =
+                  List<DocumentSnapshot>.from(snapshot.data!.docs);
 
               return StreamBuilder<List<DocumentReference?>>(
                 stream: favoritesDao.getFavoritesStream(),
@@ -70,7 +71,9 @@ class CommunitiesPage extends StatelessWidget {
                     return Text("Error: ${snapshot.error}");
                   }
 
-                  final favorites = {for (var ref in snapshot.data ?? []) ref.path};
+                  final favorites = {
+                    for (var ref in snapshot.data ?? []) ref.path
+                  };
 
                   documents.sort((a, b) {
                     final favA = favorites.contains(a.reference.path);
@@ -82,7 +85,8 @@ class CommunitiesPage extends StatelessWidget {
                       return comp;
                     }
 
-                    return readLocalizedString(a, "name", locale)!.compareTo(readLocalizedString(b, "name", locale)!);
+                    return readLocalizedString(a, "name", locale)!
+                        .compareTo(readLocalizedString(b, "name", locale)!);
                   });
 
                   return ListView.separated(
@@ -98,13 +102,17 @@ class CommunitiesPage extends StatelessWidget {
                         ),
                         dense: true,
                         trailing: StreamBuilder<bool?>(
-                          stream: favoritesDao.isFavoriteStream(document.reference),
+                          stream:
+                              favoritesDao.isFavoriteStream(document.reference),
                           initialData: false,
                           builder: (context, snapshot) {
                             final favorite = snapshot.data ?? false;
                             return IconButton(
-                              icon: favorite ? Icon(Icons.star) : Icon(Icons.star_border),
-                              onPressed: () async => await favoritesDao.setFavorite(document.reference, !favorite),
+                              icon: favorite
+                                  ? Icon(Icons.star)
+                                  : Icon(Icons.star_border),
+                              onPressed: () async => await favoritesDao
+                                  .setFavorite(document.reference, !favorite),
                             );
                           },
                         ),
@@ -114,14 +122,17 @@ class CommunitiesPage extends StatelessWidget {
                             itemId: document.reference.path,
                           );
 
-                          final querySnapshot =
-                              await document.reference.collection("experiences").where("active", isEqualTo: true).get();
+                          final querySnapshot = await document.reference
+                              .collection("experiences")
+                              .where("active", isEqualTo: true)
+                              .get();
 
                           if (querySnapshot.size == 1) {
                             await Navigator.pushNamed(
                               context,
                               "/experiences/communities/experiences/details",
-                              arguments: CommunityExperienceDetailsPageArgs(document.id, querySnapshot.docs[0].id),
+                              arguments: CommunityExperienceDetailsPageArgs(
+                                  document.id, querySnapshot.docs[0].id),
                             );
                           } else {
                             await Navigator.pushNamed(
@@ -133,7 +144,8 @@ class CommunitiesPage extends StatelessWidget {
                         },
                       );
                     },
-                    separatorBuilder: (context, index) => Divider(color: Colors.grey),
+                    separatorBuilder: (context, index) =>
+                        Divider(color: Colors.grey),
                   );
                 },
               );

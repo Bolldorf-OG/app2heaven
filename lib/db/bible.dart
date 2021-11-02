@@ -25,7 +25,8 @@ class BibleBooks extends Table {
 class BibleVerses extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get book => integer().customConstraint('REFERENCES bible_books(id)')();
+  IntColumn get book =>
+      integer().customConstraint('REFERENCES bible_books(id)')();
 
   IntColumn get chapter => integer()();
 
@@ -60,37 +61,47 @@ class BibleDao extends DatabaseAccessor<AppDatabase> with _$BibleDaoMixin {
     final maxVerse = bibleVerses.verse.max();
     return (selectOnly(bibleVerses)
           ..addColumns([maxVerse])
-          ..where(bibleVerses.book.equals(bookId) & bibleVerses.chapter.equals(chapter)))
+          ..where(bibleVerses.book.equals(bookId) &
+              bibleVerses.chapter.equals(chapter)))
         .map((result) => result.read(maxVerse)!)
         .getSingle();
   }
 
   Future<BibleBook> getBookById(int bookId) {
-    return (select(bibleBooks)..where((tbl) => tbl.id.equals(bookId))).getSingle();
+    return (select(bibleBooks)..where((tbl) => tbl.id.equals(bookId)))
+        .getSingle();
   }
 
   Future<String> getChapterText(int bookId, int chapter) async {
     final verses = await (selectOnly(bibleVerses)
           ..addColumns([bibleVerses.content])
           ..where(
-            bibleVerses.book.equals(bookId) & bibleVerses.chapter.equals(chapter),
+            bibleVerses.book.equals(bookId) &
+                bibleVerses.chapter.equals(chapter),
           ))
         .map((result) => result.read(bibleVerses.content))
         .get();
-    return verses.asMap().entries.map((e) => "${e.key + 1} ${e.value}").join("\n");
+    return verses
+        .asMap()
+        .entries
+        .map((e) => "${e.key + 1} ${e.value}")
+        .join("\n");
   }
 
   Future<String> getVerseText(int bookId, int chapter, int verse) {
     return (selectOnly(bibleVerses)
           ..addColumns([bibleVerses.content])
           ..where(
-            bibleVerses.book.equals(bookId) & bibleVerses.chapter.equals(chapter) & bibleVerses.verse.equals(verse),
+            bibleVerses.book.equals(bookId) &
+                bibleVerses.chapter.equals(chapter) &
+                bibleVerses.verse.equals(verse),
           ))
         .map((result) => result.read(bibleVerses.content)!)
         .getSingle();
   }
 
-  Future<String> getVersesText(int bookId, int chapter, int verseFrom, int verseTo) async {
+  Future<String> getVersesText(
+      int bookId, int chapter, int verseFrom, int verseTo) async {
     final verses = await (selectOnly(bibleVerses)
           ..addColumns([bibleVerses.content])
           ..where(
@@ -101,7 +112,11 @@ class BibleDao extends DatabaseAccessor<AppDatabase> with _$BibleDaoMixin {
         .map((result) => result.read(bibleVerses.content))
         .get();
 
-    return verses.asMap().entries.map((e) => "${e.key + verseFrom} ${e.value}").join("\n");
+    return verses
+        .asMap()
+        .entries
+        .map((e) => "${e.key + verseFrom} ${e.value}")
+        .join("\n");
   }
 
   Future<BibleVerse> getRandomVerse() {

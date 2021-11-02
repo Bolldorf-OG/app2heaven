@@ -91,7 +91,8 @@ class PrayerTimerPage extends StatelessWidget {
                             return Text("Error: ${snapshot.error}");
                           }
                           return Text(
-                            (snapshot.data ?? Duration.zero).formatHoursMinutes(context),
+                            (snapshot.data ?? Duration.zero)
+                                .formatHoursMinutes(context),
                             style: a2hText,
                           );
                         }),

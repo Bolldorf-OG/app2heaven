@@ -39,7 +39,12 @@ class PrayerStimuliPage extends StatelessWidget {
             ],
             onTap: (value) async {
               final tabNames = ["by-tag", "audio-stimulus"];
-              await FirebaseAnalytics().setCurrentScreen(screenName: "/prayer-times/stimuli/${tabNames[value]}");
+              try {
+                await FirebaseAnalytics().setCurrentScreen(
+                    screenName: "/prayer-times/stimuli/${tabNames[value]}");
+              } catch (e) {
+                // ignored
+              }
             },
           ),
         ),

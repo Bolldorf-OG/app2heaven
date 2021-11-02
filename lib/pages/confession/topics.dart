@@ -64,7 +64,8 @@ class ConfessionTopicsPage extends StatelessWidget {
                 }
 
                 return Text(
-                  strings.last_confession(locale.fullDateFormat.format(snapshot.data!.date)),
+                  strings.last_confession(
+                      locale.fullDateFormat.format(snapshot.data!.date)),
                 );
               },
             ),
@@ -76,7 +77,8 @@ class ConfessionTopicsPage extends StatelessWidget {
                 }
 
                 return Text(
-                  strings.planned_confession(locale.fullDateFormat.format(value)),
+                  strings
+                      .planned_confession(locale.fullDateFormat.format(value)),
                 );
               },
             ),

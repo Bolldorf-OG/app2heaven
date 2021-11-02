@@ -19,7 +19,8 @@ import '../../widgets/navigation_drawer.dart';
 class DecisionDetailsPage extends StatelessWidget {
   final int decisionId;
 
-  const DecisionDetailsPage({Key? key, required this.decisionId}) : super(key: key);
+  const DecisionDetailsPage({Key? key, required this.decisionId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,8 @@ class DecisionDetailsPage extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
           return Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: NavigationBottomAppBar(),
@@ -61,20 +63,25 @@ class DecisionDetailsPage extends StatelessWidget {
         }
 
         void edit() async {
-          final newDecision = await Navigator.pushNamed(context, "/decisions/edit", arguments: decision);
+          final newDecision = await Navigator.pushNamed(
+              context, "/decisions/edit",
+              arguments: decision);
           if (newDecision != null) {
-            await dao.updateDecision(decision, newDecision as DecisionsCompanion);
+            await dao.updateDecision(
+                decision, newDecision as DecisionsCompanion);
           }
         }
 
         void unarchive() async {
           Navigator.pop(context);
-          await dao.updateDecision(decision, decision.copyWith(archived: false).toCompanion(false));
+          await dao.updateDecision(
+              decision, decision.copyWith(archived: false).toCompanion(false));
         }
 
         void archive() async {
           Navigator.pop(context);
-          await dao.updateDecision(decision, decision.copyWith(archived: true).toCompanion(false));
+          await dao.updateDecision(
+              decision, decision.copyWith(archived: true).toCompanion(false));
         }
 
         void delete() async {
@@ -94,7 +101,9 @@ class DecisionDetailsPage extends StatelessWidget {
               IconButton(
                 icon: Icon(decision.archived ? Icons.unarchive : Icons.archive),
                 onPressed: decision.archived ? unarchive : archive,
-                tooltip: decision.archived ? strings.show_in_current : strings.archive,
+                tooltip: decision.archived
+                    ? strings.show_in_current
+                    : strings.archive,
               ),
               IconButton(
                 icon: Icon(Icons.delete_forever),
